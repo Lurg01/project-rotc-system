@@ -1,0 +1,13 @@
+@extends('layouts.platoon_leader.app')
+
+@section('title', 'Platoon Leader | Students Grades')
+
+@section('content')
+
+    {{-- CONTAINER --}}
+    <div class="container">
+        {{ $name }}
+    </div>
+    {{-- End CONTAINER --}}
+
+@endsection
