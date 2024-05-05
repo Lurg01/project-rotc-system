@@ -95,7 +95,7 @@
                     const res = await axios.post(route('platoon_leader.attendance-monitoring.store', {
                         code: content,
                     }));
-
+                    console.log(res);
                     const student = res.data.student
 
                     let output = `
