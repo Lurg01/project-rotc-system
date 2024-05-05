@@ -27,26 +27,21 @@ class AttendanceService  {
 
         $attendance = Attendance::where('student_id', $student->id)->whereDate('created_at', now())->first();
 
-        if(is_null($attendance?->date_time_in))
-        {
-            $dt = new \DateTime();
-            $nw_dt = $dt->format('Y-m-d H:i:s');
-            // $new_attendance = new Attendance;
-            // $new_attendance->student_id = $student->id;
-            // check if the student is late
-
-            if($current_time > $set_time_in )
-            {
+        if (is_null($attendance)) {
+            // Create a new attendance record
+            $attendance = new Attendance();
+            $attendance->student_id = $student->id;
+            $attendance->date_time_in = now();
+            // Set other necessary properties
+            $attendance->save();
+        } else {
+            if (is_null($attendance->date_time_in)) {
                 $attendance->update([
                     'date_time_in' => now(),
-                    'is_late' => true,
+                    'is_late' => ($current_time > $set_time_in),
                 ]);
-                // $attendance->update([
-                //     'date_time_in' => now(),
-                //     'is_late' => true,
-                // ]);
-
-                // create a points deduction if the student is late.
+            }
+            if ($current_time > $set_time_in) {
                 Performance::create([
                     'student_id' => $attendance->student_id,
                     'type' => 'demerit',
@@ -54,48 +49,21 @@ class AttendanceService  {
                     'remark' => 'late',
                     'created_at' => now(),
                 ]);
+            } elseif (is_null($attendance->date_time_out)) {
+                $attendance->update(['date_time_out' => now()]);
+            } else {
+                return $this->error("Oops, $student->full_name has already completed his/her daily attendance.", 422);
             }
-            else
-            {
-                $attendance->update([
-                    'date_time_in' => now(),
-                    'is_late' => false,
-                ]);
-                // $attendance->date_time_in = $nw_dt;
-                // $attendance->is_late = false;
-                // $new_attendance->date_time_in = $nw_dt;
-                // $new_attendance->is_late = false;
-                // dd($new_attendance);
-            }
-
-            $message = "$student->full_name, Time in at $formatted_current_time.";
-
-            $this->log_attendance_activity($attendance, $message);
-
-            $attendance->save();
-
-            return $this->res([
-                'student' => new StudentResource($student),
-                'success' => $message
-            ]);
-         }
-         else if($attendance?->date_time_in && is_null($attendance?->date_time_out))
-         {
-            $attendance->update(['date_time_out' => now()]);
-
-            $message = "$student->full_name, Time out at $formatted_current_time";
-
-            $this->log_attendance_activity($attendance, $message);
-
-            return $this->res([
-                'student' => new StudentResource($student),
-                'success' => $message
-            ]);
-         }
-         else
-         {
-            return $this->error("Oops, $student->full_name has already completed his/her daily attendance.", 422);
-         }
+        }
+        // Log attendance activity
+        $message = $attendance->date_time_out ? "Time out at $formatted_current_time" : "Time in at $formatted_current_time";
+        $this->log_attendance_activity($attendance, "$student->full_name, $message");
+        
+        // Return response
+        return $this->res([
+            'student' => new StudentResource($student),
+            'success' => $message
+        ]);
     }
 
 
