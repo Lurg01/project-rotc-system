@@ -130,7 +130,6 @@
                     render(data) {
                         let cleardata = data.split(" ").join("");
                         const ar = cleardata.split("-");
-                        console.log(ar);
                         if (ar[1]==0 || ar[1]=="") {
                             // return "<input id='"+ar[0]+"-day_one'  type='checkbox' value=''>";
                             return "0";
@@ -505,7 +504,11 @@
     }
    
     submit_record();
-
+    
+    function update_records(data) { 
+        console.log(data);
+    }
+    
     </script>
  
 @endsection
