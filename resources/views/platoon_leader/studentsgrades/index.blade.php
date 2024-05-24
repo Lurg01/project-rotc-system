@@ -88,7 +88,8 @@
                     data: "acad",
                     render(data) {
                         acad = data;
-                        return '<input id="acad-'+stid+'" value="'+data+'" type="number">';
+                        return '<input id="acad-'+stid+'" value="" >';
+                        // return '<input id="acad-'+stid+'" value="'+data+'" type="number">';
                     },
                 },
                 {

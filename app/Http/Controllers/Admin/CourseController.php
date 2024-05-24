@@ -32,7 +32,7 @@ class CourseController extends Controller
             return DataTables::of(Course::with('department')->get())
                    ->addIndexColumn()
                    ->addColumn('actions', function($row) {
-
+                
                     $btn = "
                         <div class='dropdown'>
                             <a class='btn btn-sm btn-icon-only text-light' href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>

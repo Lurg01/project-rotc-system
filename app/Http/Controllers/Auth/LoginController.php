@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\Otp;
 
 class LoginController extends Controller
 {
@@ -19,10 +20,10 @@ class LoginController extends Controller
     }
 
     protected function authenticated(Request $request, $user)
-    {
-         // redirect to desired page by specific role allowed by GATE
+    {    
+      
          $credentials = $request->only('email', 'password');
-     
+
          if(Auth::attempt($credentials) && $user->is_activated) 
          {
             $request->session()->regenerate();
@@ -35,6 +36,7 @@ class LoginController extends Controller
             }
 
             if($user->hasRole('platoon_leader')) {
+         
                return redirect(route('platoon_leader.attendances.index'));
             }
             

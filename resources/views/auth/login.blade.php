@@ -6,6 +6,12 @@
     <!-- Page content -->
     <section class="vh-100">
         <div class="container py-5 h-100">
+            @if(session('message'))
+                <div class="alert alert-warning" role="alert">
+                    {{ __('Sorry, the email you have entered ')}} "{{session('message')}}" {{(' was already registered as user account. Please try another email.')}}
+                  
+                </div>
+            @endif
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col col-xl-12">
                     <div class="card" style="border-radius: 1rem;">

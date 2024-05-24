@@ -24,6 +24,7 @@ class AttendanceService  {
         $formatted_current_time =  date('h:i A', $current_time); // the formatted current time
 
         $set_time_in = strtotime(getSettings()->time_in); // the settings time in
+        $set_time_out = strtotime(getSettings()->time_out); // the settings time out
 
         $attendance = Attendance::where('student_id', $student->id)->whereDate('created_at', now())->first();
 
@@ -41,6 +42,11 @@ class AttendanceService  {
                     'is_late' => ($current_time > $set_time_in),
                 ]);
             }
+            if ($current_time > $set_time_out && is_null($attendance->date_time_out)) {
+                $attendance->update([
+                    'date_time_out' => now()
+                ]);
+            } 
             if ($current_time > $set_time_in) {
                 Performance::create([
                     'student_id' => $attendance->student_id,

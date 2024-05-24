@@ -21,6 +21,9 @@
                 <div>
                     <div class="card shadow">
                         <div class="card-body">
+                            <a class="float-right btn btn-sm btn-primary me-3"
+                            href="{{ route('platoon_leader.performances.create') }}">Add
+                            Record +</a><br><br>
                             <div class="tab-content" id="myTabContent">
                             <div class="card">
                                         <div class="card-header">

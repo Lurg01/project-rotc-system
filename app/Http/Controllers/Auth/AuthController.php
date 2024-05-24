@@ -25,6 +25,7 @@ class AuthController extends Controller
 
     public function attemptLogin(Request $request)
     {
+       
         // redirect to desired page by specific role allowed by GATE
         $credentials = $request->only('email', 'password');
         $email = $credentials["email"];

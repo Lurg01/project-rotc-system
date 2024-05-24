@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use Validator;
 use Illuminate\Http\Request;
 use Exception;
-use Log;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendEmail;
 use App\Models\Otp;
+use Illuminate\Console\View\Components\Alert;
 
 class AuthController extends Controller
 {
@@ -21,6 +22,7 @@ class AuthController extends Controller
     $otp = rand(1000,9999);
     Log::info("otp = ".$otp);
     $user = Otp::where('email','=',$request->email)->update(['otp' => $otp]);
+
 
     if($user){
         // send otp in the email
@@ -33,10 +35,10 @@ class AuthController extends Controller
     }
 }
 
-
     public function verifyOtp(Request $request){
     
         $user  = Otp::where([['email','=',$request->email],['otp','=',$request->otp]])->first();
+
         if($user){
             auth()->login($user, true);
             Otp::where('email','=',$request->email)->update(['otp' => null]);
@@ -49,7 +51,7 @@ class AuthController extends Controller
         }
     }
 
-    public function otp()
+    public function otp(Request $request)
     {   
         // dd(auth()->id());
         // session()->flush();
@@ -59,17 +61,21 @@ class AuthController extends Controller
             session()->flush();
             return redirect('/login');
         }
-
         $otp = rand(1000,9999);
         $email = session()->get('email');
         if(!$uid){
-            $create_otp = Otp::create(
-                [
+            try {
+                $create_otp = Otp::create([
                     'userid' => auth()->id(),
                     'otp' => $otp,
                     'email' => $email,
                     'status' => 0,
                 ]);
+            } catch (\Exception $e) {
+                $request->session()->flush();
+                return redirect('/login')->with('message', $email);
+            }
+            
         }else{
             Otp::where('userid', auth()->id())
             ->update([

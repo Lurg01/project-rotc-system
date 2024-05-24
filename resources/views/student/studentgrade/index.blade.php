@@ -10,8 +10,10 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-flush table-hover student_dt">
+                    <h3 style="color: #a2aebc; text-align:center">My Grade </h3>
+
+                    <div class="table-responsive" style="visibility: hidden">
+                        <table class="table table-flush table-hover student_dt" style="visibility: visible">
                             <thead class="thead-light">
                                 <tr>
                                     <th>Grade</th>

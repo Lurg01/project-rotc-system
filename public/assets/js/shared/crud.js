@@ -184,7 +184,6 @@ async function c_store(form, dt, route_name) {
 function c_edit(modal, form, modal_title, buttons, model, opt = "") {
     // if there is an optional parameter then execute the query
     // opt [route_name, element target (where to append the data)]
-
     if (opt) {
         axios.get(route(opt.rname)).then((res) => {
             // if the results & and the optional[target] element is an array
@@ -333,7 +332,9 @@ async function c_update(form, dt, route_name, event, opt = "") {
 }
 
 // crud destroy
-async function c_destroy(id, routename, dt, opt = "") {
+async function c_destroy(id, routename, dt, opt = "") {  
+  
+        
     const result = await confirm();
     if (result.isConfirmed) {
         try {
@@ -345,14 +346,19 @@ async function c_destroy(id, routename, dt, opt = "") {
                 $(dt).DataTable().draw(); // redraw DT
             }
         } catch (e) {
+     
             const responses = e.response.data.errors;
+            console.log("RESSSSSSSSSS > ", e.response.data.message); 
             if (responses) {
                 const errors = Object.values(responses);
                 errors.forEach((e) => {
                     toastDanger(e);
+                  
                 });
             } else {
                 error(e.response.data.message);
+  
+             
             }
         }
     }
