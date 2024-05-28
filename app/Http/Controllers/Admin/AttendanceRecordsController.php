@@ -117,7 +117,7 @@ class AttendanceRecordsController extends Controller
             return  DataTables::of($student_data)->addIndexColumn()->addColumn('full_day', function ($data) {
                 return $data->student_id . ' - ' . $data->day_one . ' - ' . $data->day_two . ' - ' . $data->day_three . ' - ' . $data->day_four . ' - ' . $data->day_five . ' - ' .
                     $data->day_six . ' - ' . $data->day_seven . ' - ' . $data->day_eight . ' - ' . $data->day_nine . ' - ' . $data->day_ten . ' - ' . $data->day_eleven . ' - ' .
-                    $data->day_twelve . ' - ' . $data->day_thirtheen . ' - ' . $data->day_fourtheen . ' - ' . $data->day_fiftheen . ' - ' . $data->total_points;
+                    $data->day_twelve . ' - ' . $data->day_thirtheen . ' - ' . $data->day_fourtheen . ' - ' . $data->day_fiftheen;
             })->make(true);
         }
         // $users = DB::table('students')->where('student_id',$id)->get();

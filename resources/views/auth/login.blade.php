@@ -9,7 +9,6 @@
             @if(session('message'))
                 <div class="alert alert-warning" role="alert">
                     {{ __('Sorry, the email you have entered ')}} "{{session('message')}}" {{(' was already registered as user account. Please try another email.')}}
-                  
                 </div>
             @endif
             <div class="row d-flex justify-content-center align-items-center h-100">

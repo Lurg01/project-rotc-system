@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('attendance_records', function (Blueprint $table) {
             $table->unsignedBigInteger('new_stud_id')->nullable();
-            // $table->foreign('new_stud_id')->references('id')->on('students');
+            $table->foreign('new_stud_id')->references('id')->on('students');
         });
     }
 
@@ -28,7 +28,7 @@ return new class extends Migration
     {
         Schema::table('attendance_records', function (Blueprint $table) {
             $table->unsignedBigInteger('new_stud_id')->nullable();
-            // $table->foreign('new_stud_id')->references('id')->on('students');
+            $table->foreign('new_stud_id')->references('id')->on('students');
         });
     }
 };
