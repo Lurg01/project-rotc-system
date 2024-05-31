@@ -11,7 +11,7 @@ class AttendanceRecords extends Model
     use
         BelongsToStudent,
         HasFactory;
-
+    protected $table = 'attendance_records';
     protected $fillable = [
         'student_id',
         '1st',

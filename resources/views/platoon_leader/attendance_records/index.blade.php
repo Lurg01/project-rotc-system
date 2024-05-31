@@ -126,199 +126,93 @@
             },
         },
         {
-            data: "full_day",
+            data: "attendance_records",
             render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                console.log(ar);
-                if (ar[1] == 0 || ar[1] == "") {
-                    // return "<input id='"+ar[0]+"-day_one'  type='checkbox' value=''>";
-                    return "0";
-                } else {
-                    return "<input id='" + ar[0] + "-day_one' checked type='checkbox' value=''>";
-                }
+                return data[0]['day_two'];
             },
         },
         {
-            data: "full_day",
+            data: "attendance_records",
             render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[2] == 0 || ar[2] == "") {
-                    // return "<input id='"+ar[0]+"-day_two' type='checkbox' value=''>";
-                    return "0";
-                } else {
-                    return "<input id='" + ar[0] + "-day_two' checked type='checkbox' value=''>";
-                }
+                return data[0]['day_two'];
             },
         },
         {
-            data: "full_day",
+            data: "attendance_records",
             render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[3] == 0 || ar[3] == "") {
-                    // return "<input id='"+ar[0]+"-day_three' type='checkbox' value=''>";
-                    return "0";
-                } else {
-                    return "<input id='" + ar[0] + "-day_three' checked type='checkbox' value=''>";
-                }
+                return data[0]['day_two'];
             },
         },
         {
-            data: "full_day",
+            data: "attendance_records",
             render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[4] == 0 || ar[4] == "") {
-                    // return "<input id='"+ar[0]+"-day_four' type='checkbox' value=''>";
-                    return "0";
-                } else {
-                    return "<input id='" + ar[0] + "-day_four' checked type='checkbox' value=''>";
-                }
+                return data[0]['day_two'];
             },
         },
         {
-            data: "full_day",
+            data: "attendance_records",
             render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[5] == 0 || ar[5] == "") {
-                    // return "<input id='"+ar[0]+"-day_five' type='checkbox' value=''>";
-                    return "0";
-                } else {
-                    return "<input id='" + ar[0] + "-day_five' checked type='checkbox' value=''>";
-                }
+                return data[0]['day_two'];
             },
         },
         {
-            data: "full_day",
+            data: "attendance_records",
             render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[6] == 0 || ar[6] == "") {
-                    // return "<input id='"+ar[0]+"-day_six' type='checkbox' value=''>";
-                    return "0";
-                } else {
-                    return "<input id='" + ar[0] + "-day_six' checked type='checkbox' value=''>";
-                }
+                return data[0]['day_two'];
             },
         },
         {
-            data: "full_day",
+            data: "attendance_records",
             render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[7] == 0 || ar[7] == "") {
-                    // return "<input id='"+ar[0]+"-day_seven' type='checkbox' value=''>";
-                    return "0";
-                } else {
-                    return "<input id='" + ar[0] + "-day_seven' type='checkbox' value='' checked>";
-                }
+                return data[0]['day_two'];
             },
         },
         {
-            data: "full_day",
+            data: "attendance_records",
             render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[8] == 0 || ar[8] == "") {
-                    // return "<input id='"+ar[0]+"-day_eight' type='checkbox' value=''>";
-                    return "0";
-                } else {
-                    return "<input id='" + ar[0] + "-day_eight' type='checkbox' value='' checked>";
-                }
+                return data[0]['day_two'];
             },
         },
         {
-            data: "full_day",
+            data: "attendance_records",
             render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[9] == 0 || ar[9] == "") {
-                    // return "<input id='"+ar[0]+"-day_nine' type='checkbox' value=''>";
-                    return "0";
-                } else {
-                    return "<input id='" + ar[0] + "-day_nine' type='checkbox' value='' checked>";
-                }
+                return data[0]['day_two'];
             },
         },
         {
-            data: "full_day",
+            data: "attendance_records",
             render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[10] == 0 || ar[10] == "") {
-                    // return "<input id='"+ar[0]+"-day_ten' type='checkbox' value=''>";
-                    return "0";
-                } else {
-                    return "<input id='" + ar[0] + "-day_ten' type='checkbox' value='' checked>";
-                }
+                return data[0]['day_two'];
             },
         },
         {
-            data: "full_day",
+            data: "attendance_records",
             render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[11] == 0 || ar[11] == "") {
-                    // return "<input id='"+ar[0]+"-day_eleven' type='checkbox' value=''>";
-                    return "0";
-                } else {
-                    return "<input id='" + ar[0] + "-day_eleven' type='checkbox' value='' checked>";
-                }
+                return data[0]['day_two'];
             },
         },
         {
-            data: "full_day",
+            data: "attendance_records",
             render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[12] == 0 || ar[12] == "") {
-                    // return "<input id='"+ar[0]+"-day_twelve' type='checkbox' value=''>";
-                    return "0";
-                } else {
-                    return "<input id='" + ar[0] + "-day_twelve' type='checkbox' value='' checked>";
-                }
+                return data[0]['day_two'];
             },
         },
         {
-            data: "full_day",
+            data: "attendance_records",
             render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[13] == 0 || ar[13] == "") {
-                    // return "<input id='"+ar[0]+"-day_thirtheen' type='checkbox' value=''>";
-                    return "0";
-                } else {
-                    return "<input id='" + ar[0] + "-day_thirtheen' type='checkbox' value='' checked>";
-                }
+                return data[0]['day_two'];
             },
         },
         {
-            data: "full_day",
+            data: "attendance_records",
             render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[14] == 0 || ar[14] == "") {
-                    // return "<input id='"+ar[0]+"-day_fourtheen' type='checkbox' value=''>";
-                    return "0";
-                } else {
-                    return "<input id='" + ar[0] + "-day_fourtheen' type='checkbox' value='' checked>";
-                }
+                return data[0]['day_two'];
             },
         },
         {
-            data: "full_day",
+            data: "attendance_records",
             render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[15] == 0 || ar[15] == "") {
-                    // return "<input id='"+ar[0]+"-day_fiftheen' type='checkbox' value=''>";
-                    return "0";
-                } else {
-                    return "<input id='" + ar[0] + "-day_fiftheen' type='checkbox' value='' checked>";
-                }
+                return data[0]['day_two'];
             },
         },
         {
