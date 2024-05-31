@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\Attendance;
 use App\Http\Resources\Student\StudentResource;
+use App\Models\AttendanceRecords;
+use App\Models\AttendanceRecordsModel;
 use App\Models\Message;
 use DateTime;
 use App\Models\Performance;
@@ -36,17 +38,6 @@ class AttendanceService  {
             // Set other necessary properties
             $attendance->save();
         } else {
-            if (is_null($attendance->date_time_in)) {
-                $attendance->update([
-                    'date_time_in' => now(),
-                    'is_late' => ($current_time > $set_time_in),
-                ]);
-            }
-            if ($current_time > $set_time_out && is_null($attendance->date_time_out)) {
-                $attendance->update([
-                    'date_time_out' => now()
-                ]);
-            } 
             if ($current_time > $set_time_in) {
                 Performance::create([
                     'student_id' => $attendance->student_id,
@@ -55,8 +46,38 @@ class AttendanceService  {
                     'remark' => 'late',
                     'created_at' => now(),
                 ]);
-            } elseif (is_null($attendance->date_time_out)) {
+            }
+            if (is_null($attendance->date_time_in)) {
+                $attendance->update([
+                    'date_time_in' => now(),
+                    'is_late' => ($current_time > $set_time_in),
+                ]);
+            } elseif ($current_time > $set_time_out && is_null($attendance->date_time_out)) {
                 $attendance->update(['date_time_out' => now()]);
+                $get_AttendanceRecords = AttendanceRecords::where('student_id', $student->id)->first();
+                  // Initialize variables for column name and value
+                $col_name_get = null;
+                $col_name_val = null;
+                if(!empty($get_AttendanceRecords)) {
+                    // update data
+                    $tmp_arr = ["day_one", "day_two", "day_three", "day_four", "day_five",
+                    "day_six", "day_seven", "day_eight", "day_nine", "day_ten",
+                    "day_eleven", "day_twelve", "day_thirtheen", "day_fourtheen",
+                    "day_fiftheen"];
+                    foreach($tmp_arr as $col_name) {
+                        if ($get_AttendanceRecords[$col_name] == 0) {
+                            $col_name_get = $col_name;
+                            $col_name_val = 1;
+                            break; // Exit loop after finding the first '0'
+                        }
+                    }
+                    if ($col_name_get !== null && $col_name_val !== null) {
+                        // Prepare data for update
+                        $update_data = [$col_name_get => $col_name_val];
+                        // Update the attendance record
+                        AttendanceRecordsModel::where('student_id', $student->id)->update($update_data);
+                    }
+                }
             } else {
                 return $this->error("Oops, $student->full_name has already completed his/her daily attendance.", 422);
             }
