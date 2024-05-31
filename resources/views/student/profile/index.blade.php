@@ -114,7 +114,6 @@
                                                 QrCode::eyeColor(0, 45, 206, 137, 0, 0, 0)->format('png')->size(280)->generate(auth()->user()->student->student_id),
                                             ) }} ">
                                     <br><br>
-                                    <h2>My QR Code</h2>
                                 </center>
                             </div>
 

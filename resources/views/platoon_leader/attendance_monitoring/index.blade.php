@@ -97,7 +97,6 @@
                     }));
                     console.log(res);
                     const student = res.data.student
-
                     let output = `
                        <center>
                             ${handleNullAvatar(student.avatar, '', 150)} <br> <br>
