@@ -46,7 +46,10 @@ class AttendanceMonitoringController extends Controller
     public function store(AttendanceRequest $request, AttendanceService $service)
     {
         $student = Student::with('user.avatar', 'platoon')->where('student_id', $request->code)->first(); // get the student by QR Code || LRN
-
+        // TO REMOVE
+        // $sample_code = "123456";
+        // $student = Student::with('user.avatar', 'platoon')->where('student_id', $sample_code)->first(); // get the student by QR Code || LRN
+        
         if(!$student)
         {
             return $this->error('The student is not found.', 422);

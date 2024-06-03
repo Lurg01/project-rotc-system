@@ -131,7 +131,6 @@
                     let cleardata = data.split(" ").join("");
                     const ar = cleardata.split("-");
                     if (ar[1] == 0 || ar[1] == "") {
-                        // return "<input id='"+ar[0]+"-day_one'  type='checkbox' value=''>";
                         return "0";
                     } else {
                         return "1";
@@ -144,7 +143,6 @@
                     let cleardata = data.split(" ").join("");
                     const ar = cleardata.split("-");
                     if (ar[2] == 0 || ar[2] == "") {
-                        // return "<input id='"+ar[0]+"-day_two' type='checkbox' value=''>";
                         return "0";
                     } else {
                         return "1";
@@ -157,7 +155,6 @@
                     let cleardata = data.split(" ").join("");
                     const ar = cleardata.split("-");
                     if (ar[3] == 0 || ar[3] == "") {
-                        // return "<input id='"+ar[0]+"-day_three' type='checkbox' value=''>";
                         return "0";
                     } else {
                         return "1";
@@ -170,7 +167,6 @@
                     let cleardata = data.split(" ").join("");
                     const ar = cleardata.split("-");
                     if (ar[4] == 0 || ar[4] == "") {
-                        // return "<input id='"+ar[0]+"-day_four' type='checkbox' value=''>";
                         return "0";
                     } else {
                         return "1";
@@ -183,7 +179,6 @@
                     let cleardata = data.split(" ").join("");
                     const ar = cleardata.split("-");
                     if (ar[5] == 0 || ar[5] == "") {
-                        // return "<input id='"+ar[0]+"-day_five' type='checkbox' value=''>";
                         return "0";
                     } else {
                         return "1";
@@ -196,7 +191,6 @@
                     let cleardata = data.split(" ").join("");
                     const ar = cleardata.split("-");
                     if (ar[6] == 0 || ar[6] == "") {
-                        // return "<input id='"+ar[0]+"-day_six' type='checkbox' value=''>";
                         return "0";
                     } else {
                         return "1";
@@ -209,7 +203,6 @@
                     let cleardata = data.split(" ").join("");
                     const ar = cleardata.split("-");
                     if (ar[7] == 0 || ar[7] == "") {
-                        // return "<input id='"+ar[0]+"-day_seven' type='checkbox' value=''>";
                         return "0";
                     } else {
                         return "1";
@@ -222,7 +215,6 @@
                     let cleardata = data.split(" ").join("");
                     const ar = cleardata.split("-");
                     if (ar[8] == 0 || ar[8] == "") {
-                        // return "<input id='"+ar[0]+"-day_eight' type='checkbox' value=''>";
                         return "0";
                     } else {
                         return "1";
@@ -235,7 +227,6 @@
                     let cleardata = data.split(" ").join("");
                     const ar = cleardata.split("-");
                     if (ar[9] == 0 || ar[9] == "") {
-                        // return "<input id='"+ar[0]+"-day_nine' type='checkbox' value=''>";
                         return "0";
                     } else {
                         return "1";
@@ -248,7 +239,6 @@
                     let cleardata = data.split(" ").join("");
                     const ar = cleardata.split("-");
                     if (ar[10] == 0 || ar[10] == "") {
-                        // return "<input id='"+ar[0]+"-day_ten' type='checkbox' value=''>";
                         return "0";
                     } else {
                         return "1";
@@ -261,7 +251,6 @@
                     let cleardata = data.split(" ").join("");
                     const ar = cleardata.split("-");
                     if (ar[11] == 0 || ar[11] == "") {
-                        // return "<input id='"+ar[0]+"-day_eleven' type='checkbox' value=''>";
                         return "0";
                     } else {
                         return "1";
@@ -274,7 +263,6 @@
                     let cleardata = data.split(" ").join("");
                     const ar = cleardata.split("-");
                     if (ar[12] == 0 || ar[12] == "") {
-                        // return "<input id='"+ar[0]+"-day_twelve' type='checkbox' value=''>";
                         return "0";
                     } else {
                         return "1";
@@ -287,7 +275,6 @@
                     let cleardata = data.split(" ").join("");
                     const ar = cleardata.split("-");
                     if (ar[13] == 0 || ar[13] == "") {
-                        // return "<input id='"+ar[0]+"-day_thirtheen' type='checkbox' value=''>";
                         return "0";
                     } else {
                         return "1";
@@ -300,10 +287,8 @@
                     let cleardata = data.split(" ").join("");
                     const ar = cleardata.split("-");
                     if (ar[14] == 0 || ar[14] == "") {
-                        // return "<input id='"+ar[0]+"-day_fourtheen' type='checkbox' value=''>";
                         return "0";
                     } else {
-                        // return "<input id='"+ar[0]+"-day_fourtheen' type='checkbox' value='' checked>";
                         return "1";
                     }
                 },
@@ -314,121 +299,44 @@
                     let cleardata = data.split(" ").join("");
                     const ar = cleardata.split("-");
                     if (ar[15] == 0 || ar[15] == "") {
-                        // return "<input id='"+ar[0]+"-day_fiftheen' type='checkbox' value=''>";
                         return "0";
                     } else {
                         return "1";
                     }
                 },
             },
+
             {
-                data: "full_day",
+                data: "total_points",
                 render(data) {
-                    let cleardata = data.split(" ").join("");
-                    const ar = cleardata.split("-");
-                    for (let i = 0; i < ar.length; i++) {                  
-                        if (ar[i] == 0 || ar[i] == "") {
-                            return "0";
-                        } else {
-                            switch (ar[i]) {
-                                case ar[15]:    return ar.length - 2;   break;
-                                case ar[14]:    return ar.length - 3;   break;
-                                case ar[13]:    return ar.length - 4;   break;
-                                case ar[12]:    return ar.length - 5;   break;
-                                case ar[11]:    return ar.length - 6;   break;
-                                case ar[10]:    return ar.length - 7;   break;
-                                case ar[9]:     return ar.length - 8;   break;
-                                case ar[8]:     return ar.length - 9;   break;
-                                case ar[7]:     return ar.length - 10;  break;
-                                case ar[6]:     return ar.length - 11;  break;
-                                case ar[5]:     return ar.length - 12;  break;
-                                case ar[4]:     return ar.length - 13;  break;
-                                case ar[3]:     return ar.length - 14;  break;
-                                case ar[2]:     return ar.length - 15;  break;
-                                case ar[1]:     return ar.length - 16;  break;
-                                default:    break;
-
-                            }
-                        }
-                    }
-
-                },
-            },
-            {
-                data: "full_day",
-                render(data) {
-                    let cleardata = data.split(" ").join("");
-                    const ar = cleardata.split("-");
-                    for (let i = 0; i < ar.length; i++) {                  
-                        if (ar[i] == 0 || ar[i] == "") {
-                            return "0";
-                        } else {
-                            switch (ar[i]) {
-                                case ar[15]:     return ar.length - 2 + ".0" ;  break;
-                                case ar[14]:    return ar.length - 3 + ".0" ;   break;
-                                case ar[13]:    return ar.length - 4 + ".0" ;   break;  
-                                case ar[12]:    return ar.length - 5 + ".0" ;   break;
-                                case ar[11]:    return ar.length - 6 + ".0" ;   break;
-                                case ar[10]:    return ar.length - 7 + ".0" ;   break;
-                                case ar[9]:     return ar.length - 8 + ".0" ;   break;
-                                case ar[8]:     return ar.length - 9 + ".0" ;   break;
-                                case ar[7]:     return ar.length - 10 + ".0" ;  break;
-                                case ar[6]:     return ar.length - 11 + ".0" ;  break;
-                                case ar[5]:     return ar.length - 12 + ".0" ;  break;
-                                case ar[4]:     return ar.length - 13 + ".0" ;  break;
-                                case ar[3]:     return ar.length - 14 + ".0" ;  break;
-                                case ar[2]:     return ar.length - 15 + ".0" ;  break;
-                                case ar[1]:     return ar.length - 16 + ".0" ;  break;
-                                default:    break;
-
-                            }
-                        }
+                    if (data=="" || data==null) {
+                        return "0";
+                    }else{
+                        return data;
                     }
                 },
             },
             {
-                data: "full_day",
+                data: "average",
                 render(data) {
-                    let cleardata = data.split(" ").join("");
-                    const ar = cleardata.split("-");
-               
-                    for (let i = 0; i < ar.length; i++) {                  
-                        if (ar[i] == 0 || ar[i] == "") {
-                            return "0";
-                        } else {
-                            switch (ar[i]) {
-                                case ar[15]:  return calculatePercentage(15, 50) + "%";  break;
-                                case ar[14]:  return calculatePercentage(14, 50) + "%";  break;
-                                case ar[13]:  return calculatePercentage(13, 50)  + "%"; break;
-                                case ar[12]:  return calculatePercentage(12, 50)  + "%"; break;
-                                case ar[11]:  return calculatePercentage(11, 50)  + "%"; break;
-                                case ar[10]:  return calculatePercentage(10, 50)  + "%"; break;
-                                case ar[9]:   return calculatePercentage(9, 50)  + "%";  break;
-                                case ar[8]:   return calculatePercentage(8, 50)  + "%";  break;
-                                case ar[7]:   return calculatePercentage(7, 50)  + "%";  break;
-                                case ar[6]:   return calculatePercentage(6, 50)  + "%";  break;
-                                case ar[5]:   return calculatePercentage(5, 50)  + "%";  break;
-                                case ar[4]:   return calculatePercentage(4, 50)  + "%";  break;
-                                case ar[3]:   return calculatePercentage(3, 50)  + "%";  break;
-                                case ar[2]:   return calculatePercentage(2, 50)  + "%";  break;
-                                case ar[1]:   return calculatePercentage(1, 50)  + "%";  break;
-                                default:  break;
-
-                            }
-                        }
+                    if (data=="" || data==null) {
+                        return "0.0";
+                    }else{
+                        return data+".0";
                     }
-                    
-                    
-                    // }
+                },
+            },
+            {
+                data: "percentage_record",
+                render(data) {
+                    if (data=="" || data==null) {
+                        return "0%";
+                    }else{
+                        return data+"%";
+                    }
                 },
             },
         ];
-        function calculatePercentage(part, total) {
-            // Calculate the percentage
-            const percentage = (part / total) * 100;
-            return percentage;
-        }
-
 
         var table = $('.student_dt').DataTable({
             processing: true,

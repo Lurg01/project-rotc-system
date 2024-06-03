@@ -128,120 +128,180 @@
         {
             data: "attendance_records",
             render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "total_points",
-            render(data) {
-                if (data) {
-                    return data;
+                if (data=="" || data==null) {
+                    return "0";
                 } else {
-                    return 0;
+                    return data[0]['day_one'];
                 }
             },
         },
         {
-            data: "average",
+            data: "attendance_records",
             render(data) {
-                if (data) {
-                    return data;
+                if (data=="" || data==null) {
+                    return "0";
                 } else {
-                    return 0;
+                    return data[0]['day_three'];
                 }
             },
         },
         {
-            data: "percentage_record",
+            data: "attendance_records",
+            render(data) {
+                if (data=="" || data==null) {
+                    return "0";
+                } else {
+                    return data[0]['day_four'];
+                }
+            },
+        },
+        {
+            data: "attendance_records",
+            render(data) {
+                if (data=="" || data==null) {
+                    return "0";
+                } else {
+                    return data[0]['day_five'];
+                }
+            },
+        },
+        {
+            data: "attendance_records",
+            render(data) {
+                if (data=="" || data==null) {
+                    return "0";
+                } else {
+                    return data[0]['day_six'];
+                }
+            },
+        },
+        {
+            data: "attendance_records",
+            render(data) {
+                if (data=="" || data==null) {
+                    return "0";
+                } else {
+                    return data[0]['day_seven'];
+                }
+            },
+        },
+        {
+            data: "attendance_records",
+            render(data) {
+                if (data=="" || data==null) {
+                    return "0";
+                } else {
+                    return data[0]['day_eight'];
+                }
+            },
+        },
+        {
+            data: "attendance_records",
+            render(data) {
+                if (data=="" || data==null) {
+                    return "0";
+                } else {
+                    return data[0]['day_nine'];
+                }
+            },
+        },
+        {
+            data: "attendance_records",
+            render(data) {
+                if (data=="" || data==null) {
+                    return "0";
+                } else {
+                    return data[0]['day_two'];
+                }
+            },
+        },
+        {
+            data: "attendance_records",
+            render(data) {
+                if (data=="" || data==null) {
+                    return "0";
+                } else {
+                    return data[0]['day_ten'];
+                }
+            },
+        },
+        {
+            data: "attendance_records",
+            render(data) {
+                if (data=="" || data==null) {
+                    return "0";
+                } else {
+                    return data[0]['day_eleven'];
+                }
+            },
+        },
+        {
+            data: "attendance_records",
+            render(data) {
+                if (data=="" || data==null) {
+                    return "0";
+                } else {
+                    return data[0]['day_twelve'];
+                }
+            },
+        },
+        {
+            data: "attendance_records",
+            render(data) {
+                if (data=="" || data==null) {
+                    return "0";
+                } else {
+                    return data[0]['day_thirtheen'];
+                }
+            },
+        },
+        {
+            data: "attendance_records",
+            render(data) {
+                if (data=="" || data==null) {
+                    return "0";
+                } else {
+                    return data[0]['day_fourtheen'];
+                }
+            },
+        },
+        {
+            data: "attendance_records",
+            render(data) {
+                if (data=="" || data==null) {
+                    return "0";
+                } else {
+                    return data[0]['day_fiftheen'];
+                }
+            },
+        },
+        {
+            data: "attendance_records",
+            render(data) {
+                if (data=="" || data==null) {
+                    return "0";
+                } else {
+                    return data[0]['total_points'];
+                }
+            },
+        },
+        {
+            data: "attendance_records",
+            render(data) {
+                if (data=="" || data==null) {
+                    return "0.0";
+                } else {
+                    return data[0]['average'] + ".0";
+                }
+            },
+        },
+        {
+            data: "attendance_records",
             render(data) {
                 if (data == "" || data == null) {
                     return "0%";
                 } else {
-                    return data + "%";
+                    return data[0]['percentage_record'] + "%";
                 }
             },
         },
