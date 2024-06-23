@@ -15,7 +15,7 @@ class Student extends Model
 
     protected $fillable = [
         'course_id',
-        'platoon_id',
+        'platoon_id',   
         'student_id',
         'first_name',
         'middle_name',
@@ -51,7 +51,7 @@ class Student extends Model
 
     public function attendance_records(): HasMany
     {
-        return $this->hasMany(AttendanceRecords::class);
+        return $this->hasMany(AttendanceRecordsModel::class);
     }
 
     public function presents(): HasMany
@@ -73,6 +73,12 @@ class Student extends Model
     {
         return $this->hasOne(semesteryear::class);
     }
+
+    // public function semesteryears(): BelongsTo
+    // {
+    //     return $this->belongsTo(semesteryear::class);
+    // }
+
 
     public function acadgrade(): HasOne
     {

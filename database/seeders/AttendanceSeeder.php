@@ -53,8 +53,8 @@ class AttendanceSeeder extends Seeder
 
         Attendance::insert($attendances);
 
-        // Attendance::all()->each(fn(
-        //     $attendance) => $service->log_activity(model:$attendance, event:'added', model_name: 'Attendance', model_property_name: $attendance->name)
-        // );
+        Attendance::all()->each(fn(
+            $attendance) => $service->log_activity(model:$attendance, event:'added', model_name: 'Attendance', model_property_name: $attendance->name)
+        );
     }
 }
