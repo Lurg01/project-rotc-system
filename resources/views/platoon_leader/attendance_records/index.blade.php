@@ -128,180 +128,120 @@
         {
             data: "attendance_records",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0";
-                } else {
-                    return data[0]['day_one'];
-                }
+                return data[0]['day_two'];
             },
         },
         {
             data: "attendance_records",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0";
-                } else {
-                    return data[0]['day_three'];
-                }
+                return data[0]['day_two'];
             },
         },
         {
             data: "attendance_records",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0";
-                } else {
-                    return data[0]['day_four'];
-                }
+                return data[0]['day_two'];
             },
         },
         {
             data: "attendance_records",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0";
-                } else {
-                    return data[0]['day_five'];
-                }
+                return data[0]['day_two'];
             },
         },
         {
             data: "attendance_records",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0";
-                } else {
-                    return data[0]['day_six'];
-                }
+                return data[0]['day_two'];
             },
         },
         {
             data: "attendance_records",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0";
-                } else {
-                    return data[0]['day_seven'];
-                }
+                return data[0]['day_two'];
             },
         },
         {
             data: "attendance_records",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0";
-                } else {
-                    return data[0]['day_eight'];
-                }
+                return data[0]['day_two'];
             },
         },
         {
             data: "attendance_records",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0";
-                } else {
-                    return data[0]['day_nine'];
-                }
+                return data[0]['day_two'];
             },
         },
         {
             data: "attendance_records",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0";
-                } else {
-                    return data[0]['day_two'];
-                }
+                return data[0]['day_two'];
             },
         },
         {
             data: "attendance_records",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0";
-                } else {
-                    return data[0]['day_ten'];
-                }
+                return data[0]['day_two'];
             },
         },
         {
             data: "attendance_records",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0";
-                } else {
-                    return data[0]['day_eleven'];
-                }
+                return data[0]['day_two'];
             },
         },
         {
             data: "attendance_records",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0";
-                } else {
-                    return data[0]['day_twelve'];
-                }
+                return data[0]['day_two'];
             },
         },
         {
             data: "attendance_records",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0";
-                } else {
-                    return data[0]['day_thirtheen'];
-                }
+                return data[0]['day_two'];
             },
         },
         {
             data: "attendance_records",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0";
-                } else {
-                    return data[0]['day_fourtheen'];
-                }
+                return data[0]['day_two'];
             },
         },
         {
             data: "attendance_records",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0";
-                } else {
-                    return data[0]['day_fiftheen'];
-                }
+                return data[0]['day_two'];
             },
         },
         {
-            data: "attendance_records",
+            data: "total_points",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0";
+                if (data) {
+                    return data;
                 } else {
-                    return data[0]['total_points'];
+                    return 0;
                 }
             },
         },
         {
-            data: "attendance_records",
+            data: "average",
             render(data) {
-                if (data=="" || data==null) {
-                    return "0.0";
+                if (data) {
+                    return data;
                 } else {
-                    return data[0]['average'] + ".0";
+                    return 0;
                 }
             },
         },
         {
-            data: "attendance_records",
+            data: "percentage_record",
             render(data) {
                 if (data == "" || data == null) {
                     return "0%";
                 } else {
-                    return data[0]['percentage_record'] + "%";
+                    return data + "%";
                 }
             },
         },

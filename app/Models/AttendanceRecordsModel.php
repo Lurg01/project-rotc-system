@@ -13,7 +13,6 @@ class AttendanceRecordsModel extends Model
         HasFactory;
     protected $table = 'attendance_records';
     protected $fillable = [
-        'student',
         'student_id',
         "day_one", "day_two", "day_three", "day_four", "day_five",
         "day_six", "day_seven", "day_eight", "day_nine", "day_ten",

@@ -69,7 +69,8 @@ class UserSeeder extends Seeder
              ],
              [
                 'id' => 5,
-                'student_id' => 4,
+                'student_id' => 4
+                ,
                 'name' => null,
                 'email' => 'johndoe@gmail.com', 
                 'password' => Hash::make('test1234'),

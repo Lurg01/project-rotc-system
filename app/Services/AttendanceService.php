@@ -58,13 +58,12 @@ class AttendanceService  {
                   // Initialize variables for column name and value
                 $col_name_get = null;
                 $col_name_val = null;
-                $tmp_arr = ["day_one", "day_two", "day_three", "day_four", "day_five",
-                "day_six", "day_seven", "day_eight", "day_nine", "day_ten",
-                "day_eleven", "day_twelve", "day_thirtheen", "day_fourtheen",
-                "day_fiftheen"];
-                $total_points = 1;
                 if(!empty($get_AttendanceRecords)) {
                     // update data
+                    $tmp_arr = ["day_one", "day_two", "day_three", "day_four", "day_five",
+                    "day_six", "day_seven", "day_eight", "day_nine", "day_ten",
+                    "day_eleven", "day_twelve", "day_thirtheen", "day_fourtheen",
+                    "day_fiftheen"];
                     foreach($tmp_arr as $col_name) {
                         if ($get_AttendanceRecords[$col_name] == 0) {
                             $col_name_get = $col_name;
@@ -72,35 +71,13 @@ class AttendanceService  {
                             break; // Exit loop after finding the first '0'
                         }
                     }
-                    // Get Value for each Day
                     if ($col_name_get !== null && $col_name_val !== null) {
                         // Prepare data for update
                         $update_data = [$col_name_get => $col_name_val];
                         // Update the attendance record
-                        $success_update = AttendanceRecordsModel::where('student_id', $student->id)->update($update_data);
-
-                        // If Successfull
-                        if ($success_update) {
-                            foreach($tmp_arr as $col_name) {
-                                if ($get_AttendanceRecords[$col_name] == 1) {
-                                    $total_points += 1;
-                                }
-                            }
-                            // Get Total Points of 15 Days
-                            if ($get_AttendanceRecords['total_points'] >= 0) {
-                                $average = $total_points;
-                                $percentage = ( $average / 50 ) * 100;
-
-                                $update_data = ['total_points' => $total_points, 'average' => $average, 'percentage_record' => $percentage];
-                                // Update the attendance record
-                                AttendanceRecordsModel::where('student_id', $student->id)->update($update_data);
-                            }
-                        }
+                        AttendanceRecordsModel::where('student_id', $student->id)->update($update_data);
                     }
-             
                 }
-
-
             } else {
                 return $this->error("Oops, $student->full_name has already completed his/her daily attendance.", 422);
             }
@@ -115,8 +92,6 @@ class AttendanceService  {
             'success' => $message
         ]);
     }
-
-
 
 
     /**
