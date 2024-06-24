@@ -18,16 +18,7 @@ use App\Models\Platoon;
 use App\Models\semesteryear;
 use App\Http\Resources\AttendanceRecords\AttendanceRecordsResource;
 
-
-use App\Models\Department;
-
-use App\Services\UserService;
-
-
-use App\Http\Requests\Student\StudentRequest;
-use App\Http\Resources\Student\StudentResource;
-use App\Http\Resources\Attendance\AttendanceResource;
-
+use App\Http\Requests\AttendanceRecords\AttendanceRecordsRequest;
 
 
 

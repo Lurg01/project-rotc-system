@@ -75,7 +75,7 @@ class AttendanceService  {
                     // Get Value for each Day
                     if ($col_name_get !== null && $col_name_val !== null) {
                         // Prepare data for update
-                        $update_data = ["day_one" => 100];
+                        $update_data = [$col_name_get => $col_name_val];
                         // Update the attendance record
                         $success_update = AttendanceRecordsModel::where('student_id', $student->id)->update($update_data);
 
@@ -97,8 +97,6 @@ class AttendanceService  {
                             }
                         }
                     }
-
-                    
              
                 }
 
@@ -107,13 +105,6 @@ class AttendanceService  {
                 return $this->error("Oops, $student->full_name has already completed his/her daily attendance.", 422);
             }
         }
-
-        $update_data = ["day_one" => 100];
-        // Update the attendance record
-        $success_update = AttendanceRecordsModel::where('student_id', 1)->update($update_data);
-
-
-
         // Log attendance activity
         $message = $attendance->date_time_out ? "Time out at $formatted_current_time" : "Time in at $formatted_current_time";
         $this->log_attendance_activity($attendance, "$student->full_name, $message");

@@ -16,6 +16,15 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class StudentController extends Controller
 {
+
+    /**
+     * Update the user with the given ID in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param mixed $students
+     * @return \Illuminate\Http\Response
+     */
+
     public function index(Request $request)
     {
         $sdata = Otp::where('userid', auth()->id())->first();

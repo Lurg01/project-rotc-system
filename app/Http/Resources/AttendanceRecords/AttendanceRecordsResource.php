@@ -15,7 +15,7 @@ class AttendanceRecordsResource extends JsonResource
     public function toArray($request)
     {
         return [
-            
+
             'student' => $this->students->full_name,
             'student_id' => $this->students->student_id,
             'day_one' => $this->day_one,

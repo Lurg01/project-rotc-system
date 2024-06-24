@@ -47,7 +47,7 @@ class AttendanceMonitoringController extends Controller
     {
         // $student = Student::with('user.avatar', 'platoon')->where('student_id', $request->code)->first(); // get the student by QR Code || LRN
         // TO REMOVE
-        $sample_code = "553874";
+        $sample_code = "583899";
         $student = Student::with('user.avatar', 'platoon')->where('student_id', $sample_code)->first(); // get the student by QR Code || LRN
         
         if(!$student)
