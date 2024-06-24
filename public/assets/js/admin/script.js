@@ -269,7 +269,7 @@ $(() => {
     }
 
     // Attendance Records
-    if (window.location.href === route("admin.attendance-records.index")) {
+    if (window.location.href === route("admin.attendance-records.records")) {
         const list_columns = [
   
             {
@@ -469,7 +469,7 @@ $(() => {
             // { data: "actions", orderable: false, searchable: false },
         ];
 
-        c_index($(".attendance_dt"), route('admin.attendance-records.index'), list_columns, 1
+        c_index($(".attendance_dt"), route('admin.attendance-records.records'), list_columns, 1
         );
     }
 

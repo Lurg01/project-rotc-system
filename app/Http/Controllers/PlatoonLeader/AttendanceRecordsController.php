@@ -19,7 +19,7 @@ use App\Models\AttendanceRecords;
 
 class AttendanceRecordsController extends Controller
 {
-    public function index(Request $request)
+    public function __invoke(Request $request)
     {
 
         $sdata = Otp::where('userid', auth()->id())->first();
