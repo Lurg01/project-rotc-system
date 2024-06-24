@@ -3,22 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Otp;
-use App\Models\Attendance;
 use App\Models\Course;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
-use App\Models\Role;
 use App\Models\Student;
-use App\Models\AttendanceRecords;   
 use App\Models\AttendanceRecordsModel; 
 use App\Models\Platoon;
 use App\Models\semesteryear;
 use App\Http\Resources\AttendanceRecords\AttendanceRecordsResource;
-
-use App\Http\Requests\AttendanceRecords\AttendanceRecordsRequest;
 
 
 
@@ -41,8 +35,6 @@ class AttendanceRecordsController extends Controller
                 return redirect('/otp');
             }
         }
-
-        
 
         if (request()->ajax()) {
 

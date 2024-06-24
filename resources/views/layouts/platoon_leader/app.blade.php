@@ -16,7 +16,7 @@
             <!-- Brand -->
             <div class="sidenav-header d-flex align-items-center">
                 <img class="mt-3 custom-avatar-md ml-4" src="{{ handleNullAvatar(auth()->user()->avatar_profile) }}"
-                    width="115" alt="avatar" title="{{ auth()->user()->student->full_name }}">
+                    width="115" alt="avatar" title="{{ auth()->user()->full_name }}">
                 <div class="d-block d-lg-none">
                     <div class="sidenav-toggler" data-action="sidenav-unpin" data-target="#sidenav-main">
                         <div class="sidenav-toggler-inner">
@@ -31,7 +31,7 @@
                 <!-- Collapse -->
                 <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                     <h5 class="font-weight-normal p-0 text-muted mt-2 mt-md-0 mb-1">
-                        {{ auth()->user()->student->full_name }}
+                        {{ auth()->user()->full_name }}
                     </h5>
                     <!-- Nav items -->
                     <ul class="navbar-nav">
@@ -141,7 +141,7 @@
             <div class="container-fluid">
                 <h3 class="text-white d-none d-md-block font-weight-normal">
                     {{ config('app.name') }} | <span class="text-uppercase">Platoon -
-                        {{ auth()->user()->student->platoon->name }}</span>
+                        {{ auth()->user()->name }}</span>
                 </h3>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Navbar links -->

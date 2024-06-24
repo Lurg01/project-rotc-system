@@ -27,7 +27,8 @@
         <div class="scrollbar-inner">
             <!-- Brand -->
             <div class="sidenav-header d-flex align-items-center">
-                <img class="mt-3 custom-avatar-md ml-4" src="{{ handleNullAvatar(auth()->user()->avatar_profile) }}" width="115" alt="avatar" title="{{ auth()->user()->name }}">
+                <img class="mt-3 custom-avatar-md ml-4" src="{{ handleNullAvatar(auth()->user()->avatar_profile) }}"
+                    width="115" alt="avatar" title="{{ auth()->user()->name }}">
                 <div class="d-block d-lg-none">
                     <div class="sidenav-toggler" data-action="sidenav-unpin" data-target="#sidenav-main">
                         <div class="sidenav-toggler-inner">
@@ -47,7 +48,8 @@
                     <!-- Nav items -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link @if (Route::is('admin.dashboard.index')) active @endif" href="{{ route('admin.dashboard.index') }}">
+                            <a class="nav-link @if (Route::is('admin.dashboard.index')) active @endif"
+                                href="{{ route('admin.dashboard.index') }}">
                                 <i class="ni ni-tv-2"></i>
                                 <span class="nav-link-text">Dashboard</span>
                             </a>
@@ -58,7 +60,9 @@
                             <a class="nav-link @if (Route::is('admin.departments.*') ||
                                     Route::is('admin.courses.*') ||
                                     Route::is('admin.platoons.*') ||
-                                    Route::is('admin.students.*')) active @endif" href="#to_student_management" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-tables">
+                                    Route::is('admin.students.*')) active @endif"
+                                href="#to_student_management" data-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="navbar-tables">
                                 <i class="fas fa-clipboard-list"></i>
                                 <span class="nav-link-text">
                                     Student Management
@@ -67,27 +71,32 @@
                             <div class="collapse @if (Route::is('admin.departments.*') ||
                                     Route::is('admin.courses.*') ||
                                     Route::is('admin.platoons.*') ||
-                                    Route::is('admin.students.*')) show @endif" id="to_student_management">
+                                    Route::is('admin.students.*')) show @endif"
+                                id="to_student_management">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="{{ route('admin.departments.index') }}" class="nav-link @if (Route::is('admin.departments.*')) text-primary @endif">
+                                        <a href="{{ route('admin.departments.index') }}"
+                                            class="nav-link @if (Route::is('admin.departments.*')) text-primary @endif">
                                             Department
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('admin.courses.index') }}" class="nav-link  @if (Route::is('admin.courses.*')) text-primary @endif">
+                                        <a href="{{ route('admin.courses.index') }}"
+                                            class="nav-link  @if (Route::is('admin.courses.*')) text-primary @endif">
                                             Course
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="{{ route('admin.platoons.index') }}" class="nav-link  @if (Route::is('admin.platoons.*')) text-primary @endif">
+                                        <a href="{{ route('admin.platoons.index') }}"
+                                            class="nav-link  @if (Route::is('admin.platoons.*')) text-primary @endif">
                                             Platoon
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="{{ route('admin.students.index') }}" class="nav-link  @if (Route::is('admin.students.*')) text-primary @endif">
+                                        <a href="{{ route('admin.students.index') }}"
+                                            class="nav-link  @if (Route::is('admin.students.*')) text-primary @endif">
                                             Student
                                         </a>
                                     </li>
@@ -98,47 +107,53 @@
 
                         <li class="nav-item">
                             <a class="nav-link @if (Route::is('admin.attendance-records.*')) active @endif" href="{{ route('admin.attendance-records.index') }}">
+                         
                                 <i class="fas fa-clipboard"></i>
                                 <span class="nav-link-text">Attendance Record</span>
                             </a>
                         </li>
 
-                        <!-- <li class="nav-item">
+                         <li class="nav-item">
                             <a class="nav-link @if (Route::is('admin.performances.*')) active @endif"
                                 href="{{ route('admin.performances.index') }}">
                                 <i class="fas fa-clipboard-list"></i>
                                 <span class="nav-link-text">Performance Record</span>
                             </a>
-                        </li> -->
+                        </li> 
 
                         <li class="nav-item">
-                            <a class="nav-link @if (Route::is('admin.users.index')) active @endif" href="{{ route('admin.users.index') }}">
+                            <a class="nav-link @if (Route::is('admin.users.index')) active @endif"
+                                href="{{ route('admin.users.index') }}">
                                 <i class="fas fa-user-cog"></i>
                                 <span class="nav-link-text">Authentication Management</span>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link @if (Route::is('admin.merits-demerits.index')) active @endif" href="{{ route('admin.merits-demerits.index') }}">
+                            <a class="nav-link @if (Route::is('admin.merits-demerits.index')) active @endif"
+                                href="{{ route('admin.merits-demerits.index') }}">
                                 <i class="fas fa-user-cog"></i>
                                 <span class="nav-link-text">Aptitude</span>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link @if (Route::is('admin.studentgrade.*')) active @endif" href="{{ route('admin.studentgrade.index') }}">
+                            <a class="nav-link @if (Route::is('admin.studentgrade.*')) active @endif"
+                                href="{{ route('admin.studentgrade.index') }}">
                                 <i class="fas fa-user-cog"></i>
                                 <span class="nav-link-text">Student Grades</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @if (Route::is('admin.finalstudentgrade.*')) active @endif" href="{{ route('admin.finalstudentgrade.index') }}">
+                            <a class="nav-link @if (Route::is('admin.finalstudentgrade.*')) active @endif"
+                                href="{{ route('admin.finalstudentgrade.index') }}">
                                 <i class="fas fa-user-cog"></i>
                                 <span class="nav-link-text">Final Student Grades</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @if (Route::is('admin.activity_logs.index')) active @endif" href="{{ route('admin.activity_logs.index') }}">
+                            <a class="nav-link @if (Route::is('admin.activity_logs.index')) active @endif"
+                                href="{{ route('admin.activity_logs.index') }}">
                                 <i class="fas fa-history"></i>
                                 <span class="nav-link-text">Activity Logs</span>
                             </a>
@@ -154,7 +169,8 @@
                     <!-- Navigation -->
                     <ul class="navbar-nav mb-md-3">
                         <li class="nav-item">
-                            <a class="nav-link @if (Route::is('profile.index')) active @endif" href="{{ route('profile.index') }}">
+                            <a class="nav-link @if (Route::is('profile.index')) active @endif"
+                                href="{{ route('profile.index') }}">
                                 <i class="ni ni-single-02"></i>
                                 <span class="nav-link-text">Profile</span>
                             </a>
@@ -185,7 +201,8 @@
                     <ul class="navbar-nav align-items-center  ml-md-auto ">
                         <li class="nav-item">
                             <!-- Sidenav toggler -->
-                            <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
+                            <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin"
+                                data-target="#sidenav-main">
                                 <div class="sidenav-toggler-inner">
                                     <i class="sidenav-toggler-line"></i>
                                     <i class="sidenav-toggler-line"></i>
@@ -235,41 +252,44 @@
     </div>
     </li> --}}
 
-    </ul>
-    <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
-        <li class="nav-item dropdown">
-            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <div class="media align-items-center">
-                    <span class="avatar avatar-sm rounded-circle">
-                        <img src="{{ handleNullAvatar(auth()->user()->avatar_profile) }}" class="avatar rounded-circle" alt="Image placeholder">
-                    </span>
-                </div>
-            </a>
-            <div class="dropdown-menu  dropdown-menu-right ">
-                <div class="dropdown-header noti-title">
-                    <h6 class="text-overflow m-0">Settings</h6>
-                </div>
-                <a href="{{ route('profile.index') }}" class="dropdown-item">
-                    <i class="ni ni-single-02"></i>
-                    <span>Profile</span>
-                </a>
+                    </ul>
+                    <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <div class="media align-items-center">
+                                    <span class="avatar avatar-sm rounded-circle">
+                                        <img src="{{ handleNullAvatar(auth()->user()->avatar_profile) }}"
+                                            class="avatar rounded-circle" alt="Image placeholder">
+                                    </span>
+                                </div>
+                            </a>
+                            <div class="dropdown-menu  dropdown-menu-right ">
+                                <div class="dropdown-header noti-title">
+                                    <h6 class="text-overflow m-0">Settings</h6>
+                                </div>
+                                <a href="{{ route('profile.index') }}" class="dropdown-item">
+                                    <i class="ni ni-single-02"></i>
+                                    <span>Profile</span>
+                                </a>
 
-                <div class="dropdown-divider"></div>
-                <a href="javascript:void(0)" class="dropdown-item" onclick="confirm('Do you want to Logout?', '', 'Yes').then(res => res.isConfirmed ? $('#logout').submit() : false)">
-                    <i class="fas fa-power-off"></i>
-                    <span>Logout</span>
-                </a>
-                <form action="{{ route('auth.logout') }}" method="post" id="logout">@csrf
-                </form>
+                                <div class="dropdown-divider"></div>
+                                <a href="javascript:void(0)" class="dropdown-item"
+                                    onclick="confirm('Do you want to Logout?', '', 'Yes').then(res => res.isConfirmed ? $('#logout').submit() : false)">
+                                    <i class="fas fa-power-off"></i>
+                                    <span>Logout</span>
+                                </a>
+                                <form action="{{ route('auth.logout') }}" method="post" id="logout">@csrf
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </li>
-    </ul>
-    </div>
-    </div>
-    </nav>
-    <!-- Header -->
+        </nav>
+        <!-- Header -->
 
-    @yield('content')
+        @yield('content')
 
     </div>
     {{-- End Main Content --}}
