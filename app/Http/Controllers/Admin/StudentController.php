@@ -267,12 +267,8 @@ class StudentController extends Controller
 
     public function destroy(Student $student)
     {
-        $message = "Working";
-        try {
-            $student->delete();
-            return $this->res(['success' => 'Student Deleted Successfully']);
-        } catch (\Exception $e) {
-            return $this->res(['success' => 'To remove this Student, you must first delete the record from Acad and Attendance record refer to this student data.']);
-        }
+        $student->delete();
+
+        return $this->res(['success' => 'Student Deleted Successfully']);
     }
 }

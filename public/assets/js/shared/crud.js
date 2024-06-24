@@ -348,13 +348,17 @@ async function c_destroy(id, routename, dt, opt = "") {
         } catch (e) {
      
             const responses = e.response.data.errors;
+            console.log("RESSSSSSSSSS > ", e.response.data.message); 
             if (responses) {
                 const errors = Object.values(responses);
                 errors.forEach((e) => {
                     toastDanger(e);
+                  
                 });
             } else {
                 error(e.response.data.message);
+  
+             
             }
         }
     }

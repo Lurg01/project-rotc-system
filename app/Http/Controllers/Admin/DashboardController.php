@@ -49,7 +49,7 @@ class DashboardController extends Controller
             'chart_total_student_by_platoon' => $this->get_total_student_by_platoon(),
             'chart_total_student_by_course' => $this->get_total_student_by_course(),
             'chart_total_student_by_department' => $this->get_total_student_by_department(),
-        ]); 
+        ]);
     }
 
     private function get_total_student_by_platoon()
