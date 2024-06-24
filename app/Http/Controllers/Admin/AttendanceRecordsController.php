@@ -9,15 +9,18 @@ use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Models\Student;
-use App\Models\AttendanceRecordsModel; 
-use App\Models\Platoon;
-use App\Models\semesteryear;
-use App\Http\Resources\AttendanceRecords\AttendanceRecordsResource;
-
+use App\Models\AttendanceRecords;
 
 
 class AttendanceRecordsController extends Controller
 {
+   /**
+         * Update the user with the given ID in storage.
+         *
+         * @param  \Illuminate\Http\Request $request
+         * @param mixed $student_attendance
+         * @return \Illuminate\Http\Response
+         */
 
     public function index(Request $request)
     {
@@ -37,38 +40,20 @@ class AttendanceRecordsController extends Controller
         }
 
         if (request()->ajax()) {
-
-            $student_attendance = AttendanceRecordsResource::collection(AttendanceRecordsModel::query()
-            ->get());
-
-            return DataTables::of($student_attendance)->addIndexColumn()->make(true);
-
-        
-          
-        }
-
-        $q = semesteryear::distinct('year')->pluck('year', 'id');
-        $sem = semesteryear::distinct('semester')->pluck('semester', 'id');
-        $arr = [];
-        $arr_sem = [];
-        foreach ($q as $key) {
-            if (!in_array($key, $arr)) {
-                array_push($arr, $key);
+            if ($request->query('course') == "") {
+                $student_data = DB::table('students')->leftJoin('courses', 'students.course_id', '=', 'courses.id')->get();
+                return  DataTables::of($student_data)->addIndexColumn()->make(true);
+            } else {
+                $student_data = DB::table('students')->leftJoin('courses', 'students.course_id', '=', 'courses.id')->where('courses.id', '=', $request->query('course'))->get();
+                return  DataTables::of($student_data)->addIndexColumn()->make(true);
             }
         }
-        foreach ($sem as $key) {
-            if (!in_array($key, $arr_sem)) {
-                array_push($arr_sem, $key);
-            }
-        }
-        // return view('admin.attendance_records.index');
-        return view('admin.attendance_records.index' , [
-            'platoons' => Platoon::pluck('name', 'id'),
-            'years' => $arr,
-            'semesters' => $arr_sem,
-        ]);
 
+        $data = DB::table('attendance_records')->get();
+        $course = DB::table('courses')->get();
+        $student_data = DB::table('students')->leftJoin('courses', 'students.course_id', '=', 'courses.id')->get();
 
+        return view('admin.attendance_records.index', ['course' => $course, 'datas' => $data, 'student_data' => $student_data]);
     }
 
     public function create(Request $data)
@@ -142,8 +127,5 @@ class AttendanceRecordsController extends Controller
         }
         // $users = DB::table('students')->where('student_id',$id)->get();
         // return response()->json($users);
-
-
-      
     }
 }

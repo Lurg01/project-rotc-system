@@ -16,10 +16,10 @@ class PerformanceResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'student_id' => $this->students->student_id,
-            'student' => $this->students->full_name,
-            'course' => $this->students->course->name,
-            'platoon' => $this->students->platoon->name,
+            'student_id' => $this->student->student_id,
+            'student' => $this->student->full_name,
+            'course' => $this->student->course->name,
+            'platoon' => $this->student->platoon->name,
             'type' => $this->type,
             'points' => $this->type == 'merit' ?  " + $this->points " : " - $this->points",
             'remark' => $this->remark,

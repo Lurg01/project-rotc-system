@@ -30,7 +30,6 @@ class DatabaseSeeder extends Seeder
 
             /** Start Attendance & Performance Management */
                 AttendanceSeeder::class,
-                AttendanceRecordsSeeder::class,
                 PerformanceSeeder::class,
             /** End Attendance Management */
 

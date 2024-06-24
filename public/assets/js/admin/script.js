@@ -265,212 +265,8 @@ $(() => {
 
             { data: "actions", orderable: false, searchable: false },
         ];
-        c_index($(".student_dt"), route("admin.students.index"), columns, 1);
-    }
-
-    // Attendance Records
-    if (window.location.href === route("admin.attendance-records.index")) {
-        const list_columns = [
-  
-            {
-                data: "student_id",
-                render(data) {
-                    return data;
-                },
-            },
-            {
-                data: "student",
-                render(data) {
-                    return data ;
-                },
-            },
-            {
-                data: "day_one",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0";
-                    }else{
-                        return "1";
-                    }
-                },
-            },
-            {
-                data: "day_two",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0";
-                    }else{
-                        return "1";
-                    }
-                },
-            },
-            {
-                data: "day_three",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0";
-                    }else{
-                        return "1";
-                    }
-                },
-            },
-            {
-                data: "day_four",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0";
-                    }else{
-                        return "1";
-                    }
-                },
-            },
-            {
-                data: "day_five",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0";
-                    }else{
-                        return "1";
-                    }
-                },
-            },
-            {
-                data: "day_six",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0";
-                    }else{
-                        return "1";
-                    }
-                },
-            },
-            {
-                data: "day_seven",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0";
-                    }else{
-                        return "1";
-                    }
-                },
-            },
-            {
-                data: "day_eight",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0";
-                    }else{
-                        return "1";
-                    }
-                },
-            },
-            {
-                data: "day_nine",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0";
-                    }else{
-                        return "1";
-                    }
-                },
-            },
-            {
-                data: "day_ten",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0";
-                    }else{
-                        return "1";
-                    }
-                },
-            },
-            {
-                data: "day_eleven",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0";
-                    }else{
-                        return "1";
-                    }
-                },
-            },
-            {
-                data: "day_twelve",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0";
-                    }else{
-                        return "1";
-                    }
-                },
-            },
-            {
-                data: "day_thirtheen",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0";
-                    }else{
-                        return "1";
-                    }
-                },
-            },
-            {
-                data: "day_fourtheen",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0";
-                    }else{
-                        return "1";
-                    }
-                },
-            },
-            {
-                data: "day_fiftheen",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0";
-                    }else{
-                        return "1";
-                    }
-                },
-            },
-    
-            {
-                data: "total_points",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0";
-                    }else{
-                        return data;
-                    }
-                },
-            },
-            {
-                data: "average",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0.0";
-                    }else{
-                        return data+".0";
-                    }
-                },
-            },
-            {
-                data: "percentage_record",
-                render(data) {
-                    if (data=="" || data==null) {
-                        return "0%";
-                    }else{
-                        return data+"%";
-                    }
-                },
-            },
-
-            // { data: "actions", orderable: false, searchable: false },
-        ];
-
-        c_index($(".attendance_dt"), route('admin.attendance-records.index'), list_columns, 1
-        );
+        c_index($(".student_dt"), route("admin.students.index"), columns,
+            1);
     }
 
     /** Attendance Report */
@@ -549,246 +345,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     }, 1000);
 });
-function filterAttendanceRecordsByPlatoon(platoon) {
-
-    const list_columns = [
-        {
-            data: "student_id",
-            render(data) {
-                return data;
-            },
-        },
-        {
-            data: "student",
-            render(data) {
-                return data;
-            },
-        },
-        {
-            data: "full_day",
-            render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[1] == 0 || ar[1] == "") {
-                    return "0";
-                } else {
-                    return "1";
-                }
-            },
-        },
-        {
-            data: "full_day",
-            render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[2] == 0 || ar[2] == "") {
-                    return "0";
-                } else {
-                    return "1";
-                }
-            },
-        },
-        {
-            data: "full_day",
-            render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[3] == 0 || ar[3] == "") {
-                    return "0";
-                } else {
-                    return "1";
-                }
-            },
-        },
-        {
-            data: "full_day",
-            render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[4] == 0 || ar[4] == "") {
-                    return "0";
-                } else {
-                    return "1";
-                }
-            },
-        },
-        {
-            data: "full_day",
-            render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[5] == 0 || ar[5] == "") {
-                    return "0";
-                } else {
-                    return "1";
-                }
-            },
-        },
-        {
-            data: "full_day",
-            render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[6] == 0 || ar[6] == "") {
-                    return "0";
-                } else {
-                    return "1";
-                }
-            },
-        },
-        {
-            data: "full_day",
-            render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[7] == 0 || ar[7] == "") {
-                    return "0";
-                } else {
-                    return "1";
-                }
-            },
-        },
-        {
-            data: "full_day",
-            render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[8] == 0 || ar[8] == "") {
-                    return "0";
-                } else {
-                    return "1";
-                }
-            },
-        },
-        {
-            data: "full_day",
-            render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[9] == 0 || ar[9] == "") {
-                    return "0";
-                } else {
-                    return "1";
-                }
-            },
-        },
-        {
-            data: "full_day",
-            render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[10] == 0 || ar[10] == "") {
-                    return "0";
-                } else {
-                    return "1";
-                }
-            },
-        },
-        {
-            data: "full_day",
-            render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[11] == 0 || ar[11] == "") {
-                    return "0";
-                } else {
-                    return "1";
-                }
-            },
-        },
-        {
-            data: "full_day",
-            render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[12] == 0 || ar[12] == "") {
-                    return "0";
-                } else {
-                    return "1";
-                }
-            },
-        },
-        {
-            data: "full_day",
-            render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[13] == 0 || ar[13] == "") {
-                    return "0";
-                } else {
-                    return "1";
-                }
-            },
-        },
-        {
-            data: "full_day",
-            render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[14] == 0 || ar[14] == "") {
-                    return "0";
-                } else {
-                    return "1";
-                }
-            },
-        },
-        {
-            data: "full_day",
-            render(data) {
-                let cleardata = data.split(" ").join("");
-                const ar = cleardata.split("-");
-                if (ar[15] == 0 || ar[15] == "") {
-                    return "0";
-                } else {
-                    return "1";
-                }
-            },
-        },
-
-        {
-            data: "total_points",
-            render(data) {
-                if (data=="" || data==null) {
-                    return "0";
-                }else{
-                    return data;
-                }
-            },
-        },
-        {
-            data: "average",
-            render(data) {
-                if (data=="" || data==null) {
-                    return "0.0";
-                }else{
-                    return data+".0";
-                }
-            },
-        },
-        {
-            data: "percentage_record",
-            render(data) {
-                if (data=="" || data==null) {
-                    return "0%";
-                }else{
-                    return data+"%";
-                }
-            },
-        },
-        { data: "actions", orderable: false, searchable: false },
-    ];
-    var jq_sem = $("#filter_sem").val();
-    var jq_year = $("#filter_year").val();
-
-    c_index(
-        $(".attendance_dt"),
-        route("admin.records"),
-        list_columns,
-        1,
-        true
-    );
-}
-
 
 function filterStudentByPlatoon(platoon) {
     const columns = [
@@ -844,13 +400,14 @@ function filterStudentByPlatoon(platoon) {
         {
             data: "semester",
             render(data) {
-                if (data) {
-                    if (data == "1") {
-                        data = "1st Sem";
-                    }
-                    else if (data == "2") {
-                        data = "2nd Sem";
-                    }
+                if (data == null) {
+                    data = "1st Sem";
+                }
+                else if (data == "1") {
+                    data = "1st Sem";
+                }
+                else if (data == "2") {
+                    data = "2nd Sem";
                 }
                 return data;
             },
@@ -936,13 +493,14 @@ function filterStudentByYear(year) {
         {
             data: "semester",
             render(data) {
-                if (data) {
-                    if (data == "1") {
-                        data = "1st Sem";
-                    }
-                    else if (data == "2") {
-                        data = "2nd Sem";
-                    }
+                if (data == null) {
+                    data = "1st Sem";
+                }
+                else if (data == "1") {
+                    data = "1st Sem";
+                }
+                else if (data == "2") {
+                    data = "2nd Sem";
                 }
                 return data;
             },
@@ -1029,13 +587,14 @@ function filterStudentBySemester(semester) {
         {
             data: "semester",
             render(data) {
-                if (data) {
-                    if (data == "1") {
-                        data = "1st Sem";
-                    }
-                    else if (data == "2") {
-                        data = "2nd Sem";
-                    }
+                if (data == null) {
+                    data = "1st Sem";
+                }
+                else if (data == "1") {
+                    data = "1st Sem";
+                }
+                else if (data == "2") {
+                    data = "2nd Sem";
                 }
                 return data;
             },

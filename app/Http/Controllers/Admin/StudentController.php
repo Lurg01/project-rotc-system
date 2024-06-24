@@ -21,13 +21,6 @@ use App\Models\semesteryear;
 
 class StudentController extends Controller
 {
-    /**
-         * Update the user with the given ID in storage.
-         *
-         * @param  \Illuminate\Http\Request $request
-         * @param mixed $students
-         * @return \Illuminate\Http\Response
-         */
     public function index(Request $request)
     {
         $sdata = Otp::where('userid', auth()->id())->first();
@@ -45,102 +38,138 @@ class StudentController extends Controller
         }
 
         if (request()->ajax()) {
-            if ($request->platoon) {
-                if ($request->platoon) { 
-                    $students = StudentResource::collection(
-                        Student::query()
-                            ->when($request->filled('platoon'), fn ($query) => $query->where('platoon_id', $request->platoon))       
-                            ->with('course', 'platoon', 'user.avatar', 'semesteryears')
-                            ->get());
-                } 
-                if ($request->platoon && $request->semester) { 
-                    $students = $this->platoonAndSemester($request);
-                }
-                if ($request->platoon && $request->year) {
-                    $students = $this->platoonAndyear($request);
-                    }
-                if ($request->platoon && $request->semester && $request->year) { 
-                    $students = $this->filterByAll($request);
-                }
 
-            }
-        
-            else if ($request->semester) {
-                if ($request->semester) { 
-                    $students = StudentResource::collection(
-                        Student::query()
-                            ->when($request->filled('platoon'))
-                            ->with('course', 'platoon', 'user.avatar', 'semesteryears')
-                            ->whereHas('semesteryears', function ($query) use ($request) {
-                                $query->where([
-                                    ['semester', '=', $request->semester],
-                                ]); })
-                            ->get());
-                }
-                if ($request->semester && $request->platoon ) { 
-                    $students = $this->platoonAndSemester($request);
-                }
-                if ($request->semester && $request->year) { 
-                    $students = $this->semesterAndyear($request);
-                }
-                if ($request->platoon && $request->semester && $request->year) { 
-                    $students = $this->filterByAll($request);
-                }
-            }
-            elseif ($request->year) {
-                if ($request->year) { 
-                    $students = StudentResource::collection(
-                        Student::query()
-                        ->when($request->filled('platoon'))
-                        ->with('course', 'platoon', 'user.avatar', 'semesteryears')
-                        ->whereHas('semesteryears', function ($query) use ($request) {
-                            $query->where([
-                                ['year', '=', $request->year],
-                            ]); })
-                        ->get());
-                            
-                }
-                if ($request->year && $request->semester) { 
-                    $students = $this->semesterAndyear($request);
-                }
-                if ($request->year && $request->platoon) { 
-                    $students = $this->platoonAndyear($request);
-                }
-                if ($request->platoon && $request->semester && $request->year) { 
-                    $students = $this->filterByAll($request);
-                }
-            }
-            else {
-                $students = StudentResource::collection(Student::query()
+            $students = StudentResource::collection(
+                Student::query()
+                    ->when($request->filled('platoon'), fn ($query) => $query->where('platoon_id', $request->platoon))
                     ->with('course', 'platoon', 'user.avatar', 'semesteryears')
-                    ->get());
+                    ->whereHas('semesteryears', function ($query) {
+                        $query->where([
+                            ['semester', '=', "1"],
+                        ]);
+                    })
+                    ->get()
+            );
+
+            if ($request->platoon == "0") {
+                $students = StudentResource::collection(Student::with('course', 'platoon', 'user.avatar', 'semesteryears')
+                    ->whereHas('semesteryears', function ($query) {
+                        $query->where('semester', '=', "1");
+                    })->get());
+            }
+            $sem = "";
+            $year = "";
+            if ($request->year) {
+                $year = $request->year;
+            }
+            if ($request->semester == "2") {
+                $sem = "2";
+            } else if ($request->semester == "1") {
+                $sem = "1";
+            }
+
+            if ($request->platoon == "0") {
+                if ($sem != "") {
+                    $students = StudentResource::collection(
+                        Student::with('course', 'platoon', 'user.avatar', 'semesteryears')
+                            ->whereHas('semesteryears', function ($query) use ($sem) {
+                                $query->where([
+                                    ['semester', '=', $sem],
+                                ]);
+                            })
+                            ->get()
+                    );
+                } else if ($year != "") {
+                    $students = StudentResource::collection(
+                        Student::with('course', 'platoon', 'user.avatar', 'semesteryears')
+                            ->whereHas('semesteryears', function ($query) use ($year) {
+                                $query->where([
+                                    ['year', '=', $year],
+                                ]);
+                            })
+                            ->get()
+                    );
+                } else if ($year != "" && $sem != "") {
+                    $students = StudentResource::collection(
+                        Student::with('course', 'platoon', 'user.avatar', 'semesteryears')
+                            ->whereHas('semesteryears', function ($query) use ($year, $sem) {
+                                $query->where([
+                                    ['semester', '=', $sem],
+                                    ['year', '=', $year],
+                                ]);
+                            })
+                            ->get()
+                    );
+                }
+            } else {
+                if ($sem != "") {
+                    $a = Student::with('course', 'platoon', 'user.avatar', 'semesteryears')
+                        ->get();
+
+                    $students = StudentResource::collection(
+                        Student::query()
+                            ->when($request->filled('platoon'), fn ($query) => $query->where('platoon_id', $request->platoon))
+                            ->with('course', 'platoon', 'user.avatar', 'semesteryears')
+                            ->whereHas('semesteryears', function ($query) use ($sem) {
+                                $query->where([
+                                    ['semester', '=', $sem],
+                                ]);
+                            })
+                            ->get()
+                    );
+                } else if ($year != "") {
+                    $students = StudentResource::collection(
+                        Student::query()
+                            ->when($request->filled('platoon'), fn ($query) => $query->where('platoon_id', $request->platoon))
+                            ->with('course', 'platoon', 'user.avatar', 'semesteryears')
+                            ->whereHas('semesteryears', function ($query) use ($year) {
+                                $query->where([
+                                    ['year', '=', $year],
+                                ]);
+                            })
+                            ->get()
+                    );
+                } else if ($year != "" && $sem != "") {
+                    $students = StudentResource::collection(
+                        Student::query()
+                            ->when($request->filled('platoon'), fn ($query) => $query->where('platoon_id', $request->platoon))
+                            ->with('course', 'platoon', 'user.avatar', 'semesteryears')
+                            ->whereHas('semesteryears', function ($query) use ($year, $sem) {
+                                $query->where([
+                                    ['semester', '=', $sem],
+                                    ['year', '=', $year],
+                                ]);
+                            })
+                            ->get()
+                    );
+                }
             }
 
             return DataTables::of($students) // get all teacher from the current active academic year
-            ->addIndexColumn()
-            ->addColumn('actions', function ($row) {
-                $new_row = collect($row);
-                $route_show = route('admin.students.show', $new_row['id']);
-                $route_edit = route('admin.students.edit', $new_row['id']);
-                // <a class='dropdown-item' href='$route_show'>View</a>
-                $btn = "
-                    <div class='dropdown'>
-                        <a class='btn btn-sm btn-icon-only text-light' href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                        <i class='fas fa-ellipsis-v'></i>
-                        </a>
-                        <div class='dropdown-menu dropdown-menu-right dropdown-menu-arrow'>
-    
-                            <a class='dropdown-item' href='$route_show'>View</a>
-                            <a class='dropdown-item' href='$route_edit'>Edit</a>
-    
-                            <a class='dropdown-item' href='javascript:void(0)' onclick='c_destroy($new_row[id],`admin.students.destroy`,`.student_dt`)'>Delete</a>
-                        </div>
-                    </div> ";
-                return $btn;
-            })
-            ->rawColumns(['actions'])
-            ->make(true);
-        } 
+                ->addIndexColumn()
+                ->addColumn('actions', function ($row) {
+                    $new_row = collect($row);
+                    $route_show = route('admin.students.show', $new_row['id']);
+                    $route_edit = route('admin.students.edit', $new_row['id']);
+                    // <a class='dropdown-item' href='$route_show'>View</a>
+                    $btn = "
+                        <div class='dropdown'>
+                            <a class='btn btn-sm btn-icon-only text-light' href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                            <i class='fas fa-ellipsis-v'></i>
+                            </a>
+                            <div class='dropdown-menu dropdown-menu-right dropdown-menu-arrow'>
+
+                                <a class='dropdown-item' href='$route_show'>View</a>
+                                <a class='dropdown-item' href='$route_edit'>Edit</a>
+
+                                <a class='dropdown-item' href='javascript:void(0)' onclick='c_destroy($new_row[id],`admin.students.destroy`,`.student_dt`)'>Delete</a>
+                            </div>
+                        </div> ";
+                    return $btn;
+                })
+                ->rawColumns(['actions'])
+                ->make(true);
+        }
 
         $q = semesteryear::distinct('year')->pluck('year', 'id');
         $sem = semesteryear::distinct('semester')->pluck('semester', 'id');
@@ -161,62 +190,6 @@ class StudentController extends Controller
             'years' => $arr,
             'semesters' => $arr_sem,
         ]);
-    }
-
-    private function filterByAll($request) {
-        $students = StudentResource::collection(
-            Student::query()
-                ->when($request->filled('platoon'), fn ($query) => $query->where('platoon_id', $request->platoon))  
-                ->with('course', 'platoon', 'user.avatar', 'semesteryears')
-                ->whereHas('semesteryears', function ($query) use ($request) {
-                    $query->where([
-                        ['semester', '=', $request->semester],
-                        ['year', '=', $request->year],
-                    ]);
-                })
-                ->get());
-        
-        return $students;
-    }
-
-    private function platoonAndSemester($request) {
-        $students = StudentResource::collection(
-            Student::query()
-                ->when($request->filled('platoon'), fn ($query) => $query->where('platoon_id', $request->platoon))  
-                ->with('course', 'platoon', 'user.avatar', 'semesteryears')
-                ->whereHas('semesteryears', function ($query) use ($request) {
-                    $query->where([
-                        ['semester', '=', $request->semester],
-                    ]);
-            })->get());
-        return $students;
-    }
-
-    private function platoonAndyear($request) {
-        $students = StudentResource::collection(
-            Student::query()
-                ->when($request->filled('platoon'), fn ($query) => $query->where('platoon_id', $request->platoon))  
-                ->with('course', 'platoon', 'user.avatar', 'semesteryears')
-                ->whereHas('semesteryears', function ($query) use ($request) {
-                    $query->where([
-                        ['year', '=', $request->year],
-                    ]);
-                })->get());
-        return $students;
-    }
-
-    private function semesterAndyear($request) {
-        $students = StudentResource::collection(
-            Student::query()
-                ->when($request->filled('platoon'))
-                ->with('course', 'platoon', 'user.avatar', 'semesteryears')
-                ->whereHas('semesteryears', function ($query) use ($request) {
-                    $query->where([
-                        ['semester','=', $request->semester],
-                        ['year', '=', $request->year],
-                    ]);
-                })->get());
-        return $students;
     }
 
     public function create()
@@ -302,7 +275,4 @@ class StudentController extends Controller
             return $this->res(['success' => 'To remove this Student, you must first delete the record from Acad and Attendance record refer to this student data.']);
         }
     }
-
-
-   
 }

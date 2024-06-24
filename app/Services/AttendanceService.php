@@ -54,7 +54,7 @@ class AttendanceService  {
                 ]);
             } elseif ($current_time > $set_time_out && is_null($attendance->date_time_out)) {
                 $attendance->update(['date_time_out' => now()]);
-                $get_AttendanceRecords = AttendanceRecordsModel::where('student_id', $student->id)->first();
+                $get_AttendanceRecords = AttendanceRecords::where('student_id', $student->id)->first();
                   // Initialize variables for column name and value
                 $col_name_get = null;
                 $col_name_val = null;

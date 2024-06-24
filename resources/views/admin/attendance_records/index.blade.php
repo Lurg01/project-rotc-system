@@ -1,5 +1,5 @@
 @extends('layouts.admin.app')
-<meta name="csrf-token" content="{{ csrf_token() }}" />
+
 @section('title', 'Admin | Attendance Records V2')
 
 @section('content')
@@ -10,13 +10,12 @@
     </style>
     {{-- CONTAINER --}}
     <div class="container-fluid py-4">
-        @include('layouts.includes.alert')
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div id="atn_record_alert" class="alert alert-success hide" role="alert">
                     {{ __('Successfully Added to Attendance Record') }}
                 </div>
-                    {{-- <div>
+                <!-- <div>
                         <div class="card">
                             <div class="card-header">
                                 Add Attendance Record
@@ -57,47 +56,18 @@
                             </button>
                             </div>
                         </div>
-                    </div> --}}
+                    </div> -->
                 <br>
-                <form>
-                    <div class="form-group">
-                        <select id="filter_platoon" class="form-control form-control-sm"
-                            onchange="filterAttendanceRecordsByPlatoon(this)">
-                            <option value="0">--- All Platoon---
-                            </option>
-                            @foreach ($platoons as $id => $platoon)
-                                <option value="{{ $id }}">{{ $platoon }}</option>
-                            @endforeach
-                        </select>
-                        <br />
-                        <select id="filter_sem" class="form-control form-control-sm mb-4"
-                            onchange="filterAttendanceRecordsBySemester(this)">
-                            <option value="0">--- All Semester ---
-                            </option>
-                            @foreach ($semesters as $id => $semester)
-                                @if ($semester == 1)
-                                    <option value="{{ $semester }}">{{ $semester }}st Semester</option>
-                                @else
-                                    <option value="{{ $semester }}">{{ $semester }}nd Semester</option>
-                                @endif
-                            @endforeach
-                        </select>
-                        <select id="filter_year" class="form-control form-control-sm" onchange="filterAttendanceRecordsByYear(this)">
-                            <option value="0">--- All Years---
-                            </option>
-                            @foreach ($years as $id => $year)
-                                <option value="{{ $year }}">{{ $year }} - {{ $year + 1 }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </form>
+                <div>
+
+                </div>
                 <div class="card">
                     <div class="card-header">
-                        List Attendance Record  
+                        List Attendance Record
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-flush table-hover attendance_dt">
+                            <table class="table table-hover attendance_dt">
                                 <thead>
                                     <tr>
                                         <th>Student ID</th>
@@ -139,390 +109,387 @@
 
 @section('script')
     <script>
-        // let obj = [{
-        //     student_id: ""
-        // }];
+        let obj = [{
+            student_id: ""
+        }];
 
-        // const list_columns = [
-        //     {
-        //         data: "student_id",
-        //         render(data) {
-        //             return data;
-        //         },
-        //     },
-        //     {
-        //         data: "student",
-        //         render(data) {
-        //             return data;
-        //         },
-        //     },
-        //     {
-        //         data: "full_day",
-        //         render(data) {
-        //             let cleardata = data.split(" ").join("");
-        //             const ar = cleardata.split("-");
-        //             if (ar[1] == 0 || ar[1] == "") {
-        //                 return "0";
-        //             } else {
-        //                 return "1";
-        //             }
-        //         },
-        //     },
-        //     {
-        //         data: "full_day",
-        //         render(data) {
-        //             let cleardata = data.split(" ").join("");
-        //             const ar = cleardata.split("-");
-        //             if (ar[2] == 0 || ar[2] == "") {
-        //                 return "0";
-        //             } else {
-        //                 return "1";
-        //             }
-        //         },
-        //     },
-        //     {
-        //         data: "full_day",
-        //         render(data) {
-        //             let cleardata = data.split(" ").join("");
-        //             const ar = cleardata.split("-");
-        //             if (ar[3] == 0 || ar[3] == "") {
-        //                 return "0";
-        //             } else {
-        //                 return "1";
-        //             }
-        //         },
-        //     },
-        //     {
-        //         data: "full_day",
-        //         render(data) {
-        //             let cleardata = data.split(" ").join("");
-        //             const ar = cleardata.split("-");
-        //             if (ar[4] == 0 || ar[4] == "") {
-        //                 return "0";
-        //             } else {
-        //                 return "1";
-        //             }
-        //         },
-        //     },
-        //     {
-        //         data: "full_day",
-        //         render(data) {
-        //             let cleardata = data.split(" ").join("");
-        //             const ar = cleardata.split("-");
-        //             if (ar[5] == 0 || ar[5] == "") {
-        //                 return "0";
-        //             } else {
-        //                 return "1";
-        //             }
-        //         },
-        //     },
-        //     {
-        //         data: "full_day",
-        //         render(data) {
-        //             let cleardata = data.split(" ").join("");
-        //             const ar = cleardata.split("-");
-        //             if (ar[6] == 0 || ar[6] == "") {
-        //                 return "0";
-        //             } else {
-        //                 return "1";
-        //             }
-        //         },
-        //     },
-        //     {
-        //         data: "full_day",
-        //         render(data) {
-        //             let cleardata = data.split(" ").join("");
-        //             const ar = cleardata.split("-");
-        //             if (ar[7] == 0 || ar[7] == "") {
-        //                 return "0";
-        //             } else {
-        //                 return "1";
-        //             }
-        //         },
-        //     },
-        //     {
-        //         data: "full_day",
-        //         render(data) {
-        //             let cleardata = data.split(" ").join("");
-        //             const ar = cleardata.split("-");
-        //             if (ar[8] == 0 || ar[8] == "") {
-        //                 return "0";
-        //             } else {
-        //                 return "1";
-        //             }
-        //         },
-        //     },
-        //     {
-        //         data: "full_day",
-        //         render(data) {
-        //             let cleardata = data.split(" ").join("");
-        //             const ar = cleardata.split("-");
-        //             if (ar[9] == 0 || ar[9] == "") {
-        //                 return "0";
-        //             } else {
-        //                 return "1";
-        //             }
-        //         },
-        //     },
-        //     {
-        //         data: "full_day",
-        //         render(data) {
-        //             let cleardata = data.split(" ").join("");
-        //             const ar = cleardata.split("-");
-        //             if (ar[10] == 0 || ar[10] == "") {
-        //                 return "0";
-        //             } else {
-        //                 return "1";
-        //             }
-        //         },
-        //     },
-        //     {
-        //         data: "full_day",
-        //         render(data) {
-        //             let cleardata = data.split(" ").join("");
-        //             const ar = cleardata.split("-");
-        //             if (ar[11] == 0 || ar[11] == "") {
-        //                 return "0";
-        //             } else {
-        //                 return "1";
-        //             }
-        //         },
-        //     },
-        //     {
-        //         data: "full_day",
-        //         render(data) {
-        //             let cleardata = data.split(" ").join("");
-        //             const ar = cleardata.split("-");
-        //             if (ar[12] == 0 || ar[12] == "") {
-        //                 return "0";
-        //             } else {
-        //                 return "1";
-        //             }
-        //         },
-        //     },
-        //     {
-        //         data: "full_day",
-        //         render(data) {
-        //             let cleardata = data.split(" ").join("");
-        //             const ar = cleardata.split("-");
-        //             if (ar[13] == 0 || ar[13] == "") {
-        //                 return "0";
-        //             } else {
-        //                 return "1";
-        //             }
-        //         },
-        //     },
-        //     {
-        //         data: "full_day",
-        //         render(data) {
-        //             let cleardata = data.split(" ").join("");
-        //             const ar = cleardata.split("-");
-        //             if (ar[14] == 0 || ar[14] == "") {
-        //                 return "0";
-        //             } else {
-        //                 return "1";
-        //             }
-        //         },
-        //     },
-        //     {
-        //         data: "full_day",
-        //         render(data) {
-        //             let cleardata = data.split(" ").join("");
-        //             const ar = cleardata.split("-");
-        //             if (ar[15] == 0 || ar[15] == "") {
-        //                 return "0";
-        //             } else {
-        //                 return "1";
-        //             }
-        //         },
-        //     },
+        const list_columns = [{
+                data: "student_id",
+                render(data) {
+                    return data;
+                },
+            },
+            {
+                data: "student",
+                render(data) {
+                    return data;
+                },
+            },
+            {
+                data: "full_day",
+                render(data) {
+                    let cleardata = data.split(" ").join("");
+                    const ar = cleardata.split("-");
+                    if (ar[1] == 0 || ar[1] == "") {
+                        return "0";
+                    } else {
+                        return "1";
+                    }
+                },
+            },
+            {
+                data: "full_day",
+                render(data) {
+                    let cleardata = data.split(" ").join("");
+                    const ar = cleardata.split("-");
+                    if (ar[2] == 0 || ar[2] == "") {
+                        return "0";
+                    } else {
+                        return "1";
+                    }
+                },
+            },
+            {
+                data: "full_day",
+                render(data) {
+                    let cleardata = data.split(" ").join("");
+                    const ar = cleardata.split("-");
+                    if (ar[3] == 0 || ar[3] == "") {
+                        return "0";
+                    } else {
+                        return "1";
+                    }
+                },
+            },
+            {
+                data: "full_day",
+                render(data) {
+                    let cleardata = data.split(" ").join("");
+                    const ar = cleardata.split("-");
+                    if (ar[4] == 0 || ar[4] == "") {
+                        return "0";
+                    } else {
+                        return "1";
+                    }
+                },
+            },
+            {
+                data: "full_day",
+                render(data) {
+                    let cleardata = data.split(" ").join("");
+                    const ar = cleardata.split("-");
+                    if (ar[5] == 0 || ar[5] == "") {
+                        return "0";
+                    } else {
+                        return "1";
+                    }
+                },
+            },
+            {
+                data: "full_day",
+                render(data) {
+                    let cleardata = data.split(" ").join("");
+                    const ar = cleardata.split("-");
+                    if (ar[6] == 0 || ar[6] == "") {
+                        return "0";
+                    } else {
+                        return "1";
+                    }
+                },
+            },
+            {
+                data: "full_day",
+                render(data) {
+                    let cleardata = data.split(" ").join("");
+                    const ar = cleardata.split("-");
+                    if (ar[7] == 0 || ar[7] == "") {
+                        return "0";
+                    } else {
+                        return "1";
+                    }
+                },
+            },
+            {
+                data: "full_day",
+                render(data) {
+                    let cleardata = data.split(" ").join("");
+                    const ar = cleardata.split("-");
+                    if (ar[8] == 0 || ar[8] == "") {
+                        return "0";
+                    } else {
+                        return "1";
+                    }
+                },
+            },
+            {
+                data: "full_day",
+                render(data) {
+                    let cleardata = data.split(" ").join("");
+                    const ar = cleardata.split("-");
+                    if (ar[9] == 0 || ar[9] == "") {
+                        return "0";
+                    } else {
+                        return "1";
+                    }
+                },
+            },
+            {
+                data: "full_day",
+                render(data) {
+                    let cleardata = data.split(" ").join("");
+                    const ar = cleardata.split("-");
+                    if (ar[10] == 0 || ar[10] == "") {
+                        return "0";
+                    } else {
+                        return "1";
+                    }
+                },
+            },
+            {
+                data: "full_day",
+                render(data) {
+                    let cleardata = data.split(" ").join("");
+                    const ar = cleardata.split("-");
+                    if (ar[11] == 0 || ar[11] == "") {
+                        return "0";
+                    } else {
+                        return "1";
+                    }
+                },
+            },
+            {
+                data: "full_day",
+                render(data) {
+                    let cleardata = data.split(" ").join("");
+                    const ar = cleardata.split("-");
+                    if (ar[12] == 0 || ar[12] == "") {
+                        return "0";
+                    } else {
+                        return "1";
+                    }
+                },
+            },
+            {
+                data: "full_day",
+                render(data) {
+                    let cleardata = data.split(" ").join("");
+                    const ar = cleardata.split("-");
+                    if (ar[13] == 0 || ar[13] == "") {
+                        return "0";
+                    } else {
+                        return "1";
+                    }
+                },
+            },
+            {
+                data: "full_day",
+                render(data) {
+                    let cleardata = data.split(" ").join("");
+                    const ar = cleardata.split("-");
+                    if (ar[14] == 0 || ar[14] == "") {
+                        return "0";
+                    } else {
+                        return "1";
+                    }
+                },
+            },
+            {
+                data: "full_day",
+                render(data) {
+                    let cleardata = data.split(" ").join("");
+                    const ar = cleardata.split("-");
+                    if (ar[15] == 0 || ar[15] == "") {
+                        return "0";
+                    } else {
+                        return "1";
+                    }
+                },
+            },
 
-        //     {
-        //         data: "total_points",
-        //         render(data) {
-        //             if (data=="" || data==null) {
-        //                 return "0";
-        //             }else{
-        //                 return data;
-        //             }
-        //         },
-        //     },
-        //     {
-        //         data: "average",
-        //         render(data) {
-        //             if (data=="" || data==null) {
-        //                 return "0.0";
-        //             }else{
-        //                 return data+".0";
-        //             }
-        //         },
-        //     },
-        //     {
-        //         data: "percentage_record",
-        //         render(data) {
-        //             if (data=="" || data==null) {
-        //                 return "0%";
-        //             }else{
-        //                 return data+"%";
-        //             }
-        //         },
-        //     },
-        // ];
+            {
+                data: "total_points",
+                render(data) {
+                    if (data=="" || data==null) {
+                        return "0";
+                    }else{
+                        return data;
+                    }
+                },
+            },
+            {
+                data: "average",
+                render(data) {
+                    if (data=="" || data==null) {
+                        return "0.0";
+                    }else{
+                        return data+".0";
+                    }
+                },
+            },
+            {
+                data: "percentage_record",
+                render(data) {
+                    if (data=="" || data==null) {
+                        return "0%";
+                    }else{
+                        return data+"%";
+                    }
+                },
+            },
+        ];
 
-            // var table = $('.student_dt').DataTable({
-            //     processing: true,
-            //     serverSide: true,
-            //     ajax: "{{ route('platoon_leader.records') }}",
-            //     columns: [{
-            //             data: "student_id",
-            //             render(data) {
-            //                 return "<input type='checkbox' onchange=add_record(this," + data + ")>";
-            //             },
-            //         },
-            //         {
-            //             data: "student_id",
-            //             render(data) {
-            //                 return data;
-            //             },
-            //         },
-            //         {
-            //             data: "first_name",
-            //             render(data) {
-            //                 return data;
-            //             },
-            //         },
-            //         {
-            //             data: "middle_name",
-            //             render(data) {
-            //                 return data;
-            //             },
-            //         },
-            //         {
-            //             data: "last_name",
-            //             render(data) {
-            //                 return data;
-            //             },
-            //         },
-            //         {
-            //             data: "name",
-            //             render(data) {
-            //                 return data;
-            //             },
-            //         },
-            //     ]
-            // });
-        
-        // c_index(
-        //     $(".attendance_dt"),
-        //     "{{route('admin.attendance-records.index')}}",
-        //     list_columns,
-        //     1,
-        //     true
-        // );
+        var table = $('.student_dt').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('platoon_leader.records') }}",
+            columns: [{
+                    data: "student_id",
+                    render(data) {
+                        return "<input type='checkbox' onchange=add_record(this," + data + ")>";
+                    },
+                },
+                {
+                    data: "student_id",
+                    render(data) {
+                        return data;
+                    },
+                },
+                {
+                    data: "first_name",
+                    render(data) {
+                        return data;
+                    },
+                },
+                {
+                    data: "middle_name",
+                    render(data) {
+                        return data;
+                    },
+                },
+                {
+                    data: "last_name",
+                    render(data) {
+                        return data;
+                    },
+                },
+                {
+                    data: "name",
+                    render(data) {
+                        return data;
+                    },
+                },
+            ]
+        });
 
-        // function filterAttendanceRecordsByPlatoon() {
-        //     const record_columns = [{
-        //             data: "id",
-        //             render(data) {
-        //                 return "<input type='checkbox'>";
-        //             },
-        //         },
-        //         {
-        //             data: "student_id",
-        //             render(data) {
-        //                 return data;
-        //             },
-        //         },
-        //         {
-        //             data: "first_name",
-        //             render(data) {
-        //                 return data;
-        //             },
-        //         },
-        //         {
-        //             data: "middle_name",
-        //             render(data) {
-        //                 return data;
-        //             },
-        //         },
-        //         {
-        //             data: "last_name",
-        //             render(data) {
-        //                 return data;
-        //             },
-        //         },
-        //         {
-        //             data: "name",
-        //             render(data) {
-        //                 return data;
-        //             },
-        //         },
-        //     ];
-        //     // CHANGE > UNCOMMENT 
-        //     c_index(
-        //         $(".student_dt"),
-        //         route("admin.attendance-records.records", {
-        //             course:$('#course').val(),
-        //         }),
-        //         record_columns,
-        //         1,
-        //         true
-        //     );
-        //     //<
-        // }
+        c_index(
+            $(".attendance_dt"),
+            "{{ route('admin.records') }}",
+            list_columns,
+            1,
+            true
+        );
 
-        // function add_record(checkbox, stud_id) {
-        //     if (checkbox.checked == true) {
-        //         if (obj.hasOwnProperty(stud_id)) {} else {
-        //             obj.push({
-        //                 student_id: stud_id
-        //             });
-        //         }
-        //     } else {
-        //         obj.pop({
-        //             student_id: stud_id
-        //         });
-        //     }
-        //     // console.log(obj);
-        // }
+        function filterAttendanceRecords() {
+            const record_columns = [{
+                    data: "id",
+                    render(data) {
+                        return "<input type='checkbox'>";
+                    },
+                },
+                {
+                    data: "student_id",
+                    render(data) {
+                        return data;
+                    },
+                },
+                {
+                    data: "first_name",
+                    render(data) {
+                        return data;
+                    },
+                },
+                {
+                    data: "middle_name",
+                    render(data) {
+                        return data;
+                    },
+                },
+                {
+                    data: "last_name",
+                    render(data) {
+                        return data;
+                    },
+                },
+                {
+                    data: "name",
+                    render(data) {
+                        return data;
+                    },
+                },
+            ];
+            // c_index(
+            //     $(".student_dt"),
+            //     route("admin.attendance-records.records", {
+            //         course:$('#course').val(),
+            //     }),
+            //     record_columns,
+            //     1,
+            //     true
+            // );
+        }
 
-        // function submit_record() {
-        //     // var formData = {
-        //     //     data: obj
-        //     // };
-        //     var type = "GET";
-        //     var ajaxurl = '/admin/attendance-records/create';
+        function add_record(checkbox, stud_id) {
+            if (checkbox.checked == true) {
+                if (obj.hasOwnProperty(stud_id)) {} else {
+                    obj.push({
+                        student_id: stud_id
+                    });
+                }
+            } else {
+                obj.pop({
+                    student_id: stud_id
+                });
+            }
+            // console.log(obj);
+        }
 
-        //     $.ajax({
-        //         type: type,
-        //         url: ajaxurl,
-        //         // data: formData,
-        //         success: function(data) {
-        //             if (data == "true") {
-        //                 c_index(
-        //                     $(".attendance_dt"),
-        //                     route("admin.records"),
-        //                     list_columns,
-        //                     1,
-        //                     true
-        //                 );
-        //             } else {
-        //                 console.log(data);
-        //             }
-        //         },
-        //         error: function(data) {
-        //             console.log(data);
-        //         }
-        //     });
+        function submit_record() {
+            // var formData = {
+            //     data: obj
+            // };
+            var type = "GET";
+            var ajaxurl = '/admin/attendance-records/create';
+
+            $.ajax({
+                type: type,
+                url: ajaxurl,
+                // data: formData,
+                success: function(data) {
+                    if (data == "true") {
+                        c_index(
+                            $(".attendance_dt"),
+                            route("admin.records"),
+                            list_columns,
+                            1,
+                            true
+                        );
+                    } else {
+                        console.log(data);
+                    }
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
 
 
-        // }
+        }
 
-        // submit_record();
+        submit_record();
 
-        // function update_records(data) {
-        //     console.log(data);
-        // }
+        function update_records(data) {
+            console.log(data);
+        }
     </script>
 
 @endsection
