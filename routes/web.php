@@ -93,8 +93,8 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin', 'as' => 'a
     Route::resource('patients', PatientController::class);
     //Route::get('role', RoleController::class)->name('role.index');
     Route::get('activity_logs', ActivityLogController::class)->name('activity_logs.index');
-    Route::get('attendances', AttendanceController::class)->name('attendances.index');
-    Route::resource('performances', PerformanceController::class);
+    Route::get('attendances', AdminAttendanceController::class)->name('attendances.index');
+    Route::resource('performances', AdminPerformanceController::class);
     Route::resource('settings', SettingsController::class);
 
     Route::resource('attendance-records', AdminAttendanceRecordsController::class);
