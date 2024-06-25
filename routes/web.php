@@ -98,7 +98,6 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin', 'as' => 'a
     Route::resource('settings', SettingsController::class);
 
     Route::resource('attendance-records', AdminAttendanceRecordsController::class);
-    Route::resource('attendance-records', AttendanceRecordsController::class);
     // Route::get('records',[AdminAttendanceRecordsController::class, 'index'])->name('records');
     Route::get('records', [AdminAttendanceRecordsController::class, 'records'])->name('records');
     Route::get('merits-demerits/get', [AdminMeritanddemeritController::class, 'get']);
