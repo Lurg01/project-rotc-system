@@ -44,6 +44,7 @@ use App\Http\Controllers\Auth\{
 use App\Http\Controllers\Main\{
     PagesController
 };
+use App\Http\Controllers\FilterController;
 
 // Platoon Leader Restful Controller
 use App\Http\Controllers\PlatoonLeader\{
@@ -56,14 +57,17 @@ use App\Http\Controllers\PlatoonLeader\{
     MeritanddemeritController,
     AttendanceRecordsController,
     UpdateAttendanceRecordsController,
-    StudentController as PlatoonLeaderStudentController
+    StudentController as PlatoonLeaderStudentController,
+
 };
+
 
 // Student Restful Controller
 use App\Http\Controllers\Student\{
     AttendanceController,
     PerformanceController as StudentPerformanceController
 };
+use DeepCopy\Filter\Filter;
 
 Route::get('/', function () {
     return to_route('auth.login');
@@ -77,7 +81,7 @@ Route::get('/', function () {
 //     });
 
 // });
-
+// routes/web.php
 
 // Admin
 Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -165,6 +169,11 @@ Route::get('/otp',  [ApiAuthController::class, 'otp'])->name('api.otp');
 Route::post('/otp',  [ApiAuthController::class, 'attemptOtp'])->name('api.attemptOtp');
 Route::get('request_otp', [ApiAuthController::class, 'requestOtp']);
 Route::resource('semesteryear', SemesteryearController::class);
+
+
+
+Route::post('/filter', [FilterController::class, 'store'])->name('filter.store');
+
 // Route::get('linkstorage', function () {
 //     Artisan::call('storage:link');
 // });

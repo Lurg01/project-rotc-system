@@ -28,7 +28,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover attendance_dt">
+                            <table class="table table-hover student_dt">
                                 <caption>Attendance Records <i class="fas fa-clipboard-list ml-1"></i> </caption>
                                 <thead>
                                     <tr>
@@ -96,7 +96,7 @@
                 },
             ];
             c_index(
-                $(".attendance_dt"),
+                $(".student_dt"),
                 route("platoon_leader.attendances.index", {
                     date_started_at,
                     date_ended_at,

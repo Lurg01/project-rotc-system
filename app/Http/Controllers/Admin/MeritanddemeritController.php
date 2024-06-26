@@ -12,6 +12,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Attendance\AttendanceResource;
 use App\Models\Student;
 
+use App\Models\Course;
+use Illuminate\Support\Facades\DB;
+use App\Models\AttendanceRecords;
+use App\Models\Platoon;
+use App\Models\semesteryear;
+use App\Models\AttendanceRecordsModel; 
+use App\Http\Resources\AttendanceRecords\AttendanceRecordsResource;
+
+
 class MeritanddemeritController extends Controller
 {
     public function index(Request $request)
@@ -62,11 +71,35 @@ class MeritanddemeritController extends Controller
             return DataTables::of($attendances)->addIndexColumn()->make(true);
         }
 
-        return view('admin.meritandemerit.index');
+
+        $q = semesteryear::distinct('year')->pluck('year', 'id');
+        $sem = semesteryear::distinct('semester')->pluck('semester', 'id');
+        $arr = [];
+        $arr_sem = [];
+        foreach ($q as $key) {
+            if (!in_array($key, $arr)) {
+                array_push($arr, $key);
+            }
+        }
+        foreach ($sem as $key) {
+            if (!in_array($key, $arr_sem)) {
+                array_push($arr_sem, $key);
+            }
+        }
+
+        return view('admin.meritandemerit.index' , [
+            'platoons' => Platoon::pluck('name', 'id'),
+            'years' => $arr,
+            'semesters' => $arr_sem,
+        ]);
+        
     }
+
+
 
     public function get()
     {
+    
         $data = Student::with("performances")->get();
         $stud = [];
         $arr = [];
@@ -96,5 +129,8 @@ class MeritanddemeritController extends Controller
         }
 
         return DataTables::of($arr)->addIndexColumn()->make(true);
+
+        
     }
+
 }

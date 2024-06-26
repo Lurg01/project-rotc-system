@@ -112,14 +112,14 @@
                                 <span class="nav-link-text">Attendance Record</span>
                             </a>
                         </li>
-
+{{-- 
                          <li class="nav-item">
                             <a class="nav-link @if (Route::is('admin.performances.*')) active @endif"
                                 href="{{ route('admin.performances.index') }}">
                                 <i class="fas fa-clipboard-list"></i>
                                 <span class="nav-link-text">Performance Record</span>
                             </a>
-                        </li> 
+                        </li>  --}}
 
                         <li class="nav-item">
                             <a class="nav-link @if (Route::is('admin.users.index')) active @endif"

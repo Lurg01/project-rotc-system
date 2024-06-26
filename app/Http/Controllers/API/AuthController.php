@@ -14,6 +14,11 @@ use App\Mail\sendEmail;
 use App\Models\Otp;
 use Illuminate\Console\View\Components\Alert;
 
+use App\Models\AttendanceRecords;
+use App\Models\semesteryear;
+use App\Models\AttendanceRecordsModel; 
+use App\Http\Resources\AttendanceRecords\AttendanceRecordsResource;
+
 class AuthController extends Controller
 {
 
@@ -87,7 +92,27 @@ class AuthController extends Controller
         $subj = 'ROTC Students Performance Record Management and Monitoring System -OTP';
         $body = $otp;
         Mail::to($email)->send(new sendEmail($subj,$body));
-        return view('auth.otp')->with('success', 'The OTP has been sent to your email.');;
+
+
+        $q = semesteryear::distinct('year')->pluck('year', 'id');
+        $sem = semesteryear::distinct('semester')->pluck('semester', 'id');
+        $arr = [];
+        $arr_sem = [];
+        foreach ($q as $key) {
+            if (!in_array($key, $arr)) {
+                array_push($arr, $key);
+            }
+        }
+        foreach ($sem as $key) {
+            if (!in_array($key, $arr_sem)) {
+                array_push($arr_sem, $key);
+            }
+        }
+
+        return view('auth.otp', [
+            'years' => $arr,
+            'semesters' => $arr_sem,
+        ])->with('success', 'The OTP has been sent to your email.');;
     }
 
     // public function register()

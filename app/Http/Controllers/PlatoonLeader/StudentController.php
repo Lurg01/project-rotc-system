@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\Course;
 use App\Models\Student;
 use App\Models\Attendance;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
@@ -42,24 +43,30 @@ class StudentController extends Controller
         }
         if(request()->ajax())
         {
-            $students = StudentResource::collection(Student::query()
+            if ($request->course) {
+
+                $students = StudentResource::collection(Student::query()
                 ->when($request->course, fn($query) => $query->where('course_id', $request->course))
                 ->with('course', 'platoon', 'user.avatar')
                 ->whereBelongsTo(auth()->user()->student->platoon)
                 ->whereRelation('user', 'role_id', Role::STUDENT)
-                ->get()
-            );
+                ->get());
+            } else {
+                $data = DB::table('filter')->select('semester')->get();
+                foreach ($data as $row) {
+                    $value = $row->semester; // Replace with your actual column name
+                    $students = StudentResource::collection(Student::query()
+                        ->whereHas(('semesteryears'), fn ($query) => $query->where('semester', $value))
+                        ->with('course', 'platoon', 'user.avatar', 'semesteryears')
+                        ->get());
+                }
+            }
 
             return DataTables::of($students) // get all teacher from the current active academic year
                    ->addIndexColumn()
                    ->addColumn('actions', function($row) {
-
                     $new_row = collect($row);
-
                     $route_show = route('platoon_leader.students.show', $new_row['id']);
-
-                    // <a class='dropdown-item' href='$route_show'>View</a>
-
                     $btn = "
                         <div class='dropdown'>
                             <a class='btn btn-sm btn-icon-only text-light' href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>

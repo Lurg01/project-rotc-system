@@ -8,6 +8,36 @@
 <div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-md-12">
+            <form>
+                <div class="form-group">
+                    <select id="filter_platoon" class="form-control form-control-sm" onchange="filterStudentByPlatoon(this)">
+                        <option value="0">--- All Platoon---
+                        </option>
+                        @foreach ($platoons as $id => $platoon)
+                        <option value="{{ $id }}">{{ $platoon }}</option>
+                        @endforeach
+                    </select>
+                    <br />
+                    <select id="filter_sem" class="form-control form-control-sm mb-4" onchange="filterStudentBySemester(this)">
+                        <option value="0">--- All Semester ---
+                        </option>
+                        @foreach ($semesters as $id => $semester)
+                        @if($semester == 1)
+                        <option value="{{ $semester }}">{{ $semester }}st Semester</option>
+                        @else
+                        <option value="{{ $semester }}">{{ $semester }}nd Semester</option>
+                        @endif
+                        @endforeach
+                    </select>
+                    <select id="filter_year" class="form-control form-control-sm" onchange="filterStudentByYear(this)">
+                        <option value="0">--- All Years---
+                        </option>
+                        @foreach ($years as $id => $year)
+                        <option value="{{ $year }}">{{ $year }} - {{ $year+1 }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </form>
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">

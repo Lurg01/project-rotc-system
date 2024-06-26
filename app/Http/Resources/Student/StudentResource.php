@@ -28,6 +28,7 @@ class StudentResource extends JsonResource
             'email' => $this->user?->email,
             'course' => $this->course->name,
             'department' => $this->course->department->name,
+            'semester'=> $this->semesteryears->semester,
             'platoon' => $this->platoon->name,
             'created_at' => $this->created_at->toDateString(),
         ];

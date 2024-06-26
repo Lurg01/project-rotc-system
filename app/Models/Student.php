@@ -51,7 +51,7 @@ class Student extends Model
 
     public function attendance_records(): HasMany
     {
-        return $this->hasMany(AttendanceRecords::class);
+        return $this->hasMany(AttendanceRecordsModel::class);
     }
 
     public function presents(): HasMany
