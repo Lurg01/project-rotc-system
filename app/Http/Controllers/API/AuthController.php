@@ -87,35 +87,31 @@ class AuthController extends Controller
                 'otp' => $otp
                 ]);
         }
-
         $uid = Otp::where('id', auth()->id())->first();
         $subj = 'ROTC Students Performance Record Management and Monitoring System -OTP';
         $body = $otp;
         Mail::to($email)->send(new sendEmail($subj,$body));
+        $q = semesteryear::distinct('year')->pluck('year', 'id');
+        $sem = semesteryear::distinct('semester')->pluck('semester', 'id');
+        $arr = [];
+        $arr_sem = [];
+        foreach ($q as $key) {
+            if (!in_array($key, $arr)) {
+                array_push($arr, $key);
+            }
+        }
+        foreach ($sem as $key) {
+            if (!in_array($key, $arr_sem)) {
+                array_push($arr_sem, $key);
+            }
+        }
+        return view('auth.otp', [
+            'years' => $arr,
+            'semesters' => $arr_sem,
+        ])->with('success', 'The OTP has been sent to your email.');
 
 
-        // $q = semesteryear::distinct('year')->pluck('year', 'id');
-        // $sem = semesteryear::distinct('semester')->pluck('semester', 'id');
-        // $arr = [];
-        // $arr_sem = [];
-        // foreach ($q as $key) {
-        //     if (!in_array($key, $arr)) {
-        //         array_push($arr, $key);
-        //     }
-        // }
-        // foreach ($sem as $key) {
-        //     if (!in_array($key, $arr_sem)) {
-        //         array_push($arr_sem, $key);
-        //     }
-        // }
-        // return view('auth.otp', [
-        //     // 'platoons' => Platoon::pluck('name', 'id'),
-        //     'years' => $arr,
-        //     'semesters' => $arr_sem,
-        // ]);
-
-
-        return view('auth.otp')->with('success', 'The OTP has been sent to your email.');;
+        // return view('auth.otp')->with('success', 'The OTP has been sent to your email.');
     }
 
     // public function register()

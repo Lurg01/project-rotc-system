@@ -41,7 +41,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-flush table-hover student_dt">
+                        <table class="table table-flush table-hover final_grade_dt">
                             <thead class="thead-light">
                                 <tr>
                                     <th>#</th>
@@ -166,7 +166,7 @@
         },
     ];
     c_index(
-        $(".student_dt"),
+        $(".final_grade_dt"),
         `{{URL::to(
         'admin/finalstudentgrade/get')}}`,
         list_columns,

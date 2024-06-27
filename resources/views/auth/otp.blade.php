@@ -118,11 +118,11 @@
         // });
 
 
-        // $(document).ready(function() {
-        //     $('#myModal').modal({
-        //         backdrop: 'static',
-        //         keyboard: false
-        //     });
-        // });
+        $(document).ready(function() {
+            $('#myModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        });
     </script>
 @endsection

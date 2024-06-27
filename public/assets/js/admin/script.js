@@ -477,7 +477,7 @@ $(() => {
     }
 
     // Grade 
-    if (window.location.href == route("admin")) {
+    if (window.location.href == route("admin.studentgrade.show")) {
         let stid = 0;
         let acad = 0;
         let attendance = 0;
@@ -1080,7 +1080,6 @@ function filterStudentByPlatoon(platoon) {
 
 
 }
-
 
 function filterStudentBySemester(semester) {
     const columns = [
