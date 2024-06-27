@@ -473,7 +473,7 @@ $(() => {
             // { data: "actions", orderable: false, searchable: false },
         ];
 
-        c_index($(".student_dt"), route('admin.attendance-records.index'), list_columns, 1, true );
+        c_index($(".attendance_dt"), route('admin.attendance-records.index'), list_columns, 1, true );
     }
 
     /** Attendance Report */
@@ -631,6 +631,255 @@ function filterStudentByPlatoon(platoon) {
         { data: "actions", orderable: false, searchable: false },
     ];
 
+    const list_columns = [
+    {
+        data: "id",
+        render(data, type, row, meta) {
+            return row.DT_RowIndex;
+        },
+    },
+    {
+        data: "student_id",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "student",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "day_one",
+        render(data) {
+            if (data == 0 || data==null) {
+                return data;
+            }else{
+                return data;
+            }
+        },
+    },
+    {
+        data: "day_two",
+        render(data) {
+            if (data == 0 || data==null) {
+                return data;
+            }else{
+                return data;
+            }
+        },
+    },
+    {
+        data: "day_three",
+        render(data) {
+            if (data == 0 || data==null) {
+                return data;
+            }else{
+                return data;
+            }
+        },
+    },
+    {
+        data: "day_four",
+        render(data) {
+            if (data == 0 || data==null) {
+                return data;
+            }else{
+                return data;
+            }
+        },
+    },
+    {
+        data: "day_five",
+        render(data) {
+            if (data == 0 || data==null) {
+                return data;
+            }else{
+                return data;
+            }
+        },
+    },
+    {
+        data: "day_six",
+        render(data) {
+            if (data == 0 || data==null) {
+                return data;
+            }else{
+                return data;
+            }
+        },
+    },
+    {
+        data: "day_seven",
+        render(data) {
+            if (data == 0 || data==null) {
+                return data;
+            }else{
+                return data;
+            }
+        },
+    },
+    {
+        data: "day_eight",
+        render(data) {
+            if (data == 0 || data==null) {
+                return data;
+            }else{
+                return data;
+            }
+        },
+    },
+    {
+        data: "day_nine",
+        render(data) {
+            if (data == 0 || data==null) {
+                return data;
+            }else{
+                return data;
+            }
+        },
+    },
+    {
+        data: "day_ten",
+        render(data) {
+            if (data == 0 || data==null) {
+                return data;
+            }else{
+                return data;
+            }
+        },
+    },
+    {
+        data: "day_eleven",
+        render(data) {
+            if (data == 0 || data==null) {
+                return data;
+            }else{
+                return data;
+            }
+        },
+    },
+    {
+        data: "day_twelve",
+        render(data) {
+            if (data == 0 || data==null) {
+                return data;
+            }else{
+                return data;
+            }
+        },
+    },
+    {
+        data: "day_thirtheen",
+        render(data) {
+            if (data == 0 || data==null) {
+                return data;
+            }else{
+                return data;
+            }
+        },
+    },
+    {
+        data: "day_fourtheen",
+        render(data) {
+            if (data == 0 || data==null) {
+                return data;
+            }else{
+                return data;
+            }
+        },
+    },
+    {
+        data: "day_fiftheen",
+        render(data) {
+            if (data == 0 || data==null) {
+                return data;
+            }else{
+                return data;
+            }
+        },
+    },
+
+    {
+        data: "total_points",
+        render(data) {
+            if (data =="" || data==null) {
+                return data;
+            }else{
+                return data;
+            }
+        },
+    },
+    {
+        data: "average",
+        render(data) {
+            if (data=="" || data==null) {
+                return data + ".0";
+            }else{
+                return data + ".0";
+            }
+        },
+    },
+    {
+        data: "percentage_record",
+        render(data) {
+            if (data=="" || data==null) {
+                return data + "%";
+            }else{
+                return data + "%";
+            }
+        },
+    },
+
+    // { data: "actions", orderable: false, searchable: false },
+    ];
+
+    const aptitude_columns = [{
+        data: "student_id",
+        render(data) {
+            numc = data;
+            return data;
+        },
+    },
+    {
+        data: "student",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "merits",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "demerits",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "total_points",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "percentage",
+        render(data) {
+            return data + "%";
+        },
+    },
+    // {
+    //     data: "student_id",
+    //     render(data) {
+    //         return "<button class='btn btn-sm btn-primary' onclick=update_records("+data+")>UPDATE </button>";
+    //     },
+    // },
+    ];
+
     var jq_sem = $("#filter_sem").val();
     var jq_year = $("#filter_year").val();
 
@@ -645,6 +894,29 @@ function filterStudentByPlatoon(platoon) {
         1,
         true
     );
+    c_index(
+        $(".attendance_dt"),
+        route("admin.attendance-records.index", {
+            platoon: platoon.value,
+            semester: jq_sem,
+            year: jq_year,
+        }),
+        list_columns,
+        1,
+        true
+    );
+
+    // c_index(
+    //     $(".aptitude_dt"),
+    //     route("admin.merits-demerits.filter", { 
+    //         platoon: platoon.value,
+    //         semester: jq_sem,
+    //         year: jq_year,
+    //     }),
+    //     aptitude_columns,
+    //     1,
+    //     true
+    // );
 
 }
 
@@ -726,14 +998,219 @@ function filterStudentBySemester(semester) {
 
         { data: "actions", orderable: false, searchable: false },
     ];
+
+    const list_columns = [
+        {
+            data: "id",
+            render(data, type, row, meta) {
+                return row.DT_RowIndex;
+            },
+        },
+        {
+            data: "student_id",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "student",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "day_one",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_two",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_three",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_four",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_five",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_six",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_seven",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_eight",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_nine",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_ten",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_eleven",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_twelve",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_thirtheen",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_fourtheen",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_fiftheen",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
     
-    var jq_sem = $("#filter_platoon").val();
+        {
+            data: "total_points",
+            render(data) {
+                if (data =="" || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "average",
+            render(data) {
+                if (data=="" || data==null) {
+                    return data + ".0";
+                }else{
+                    return data + ".0";
+                }
+            },
+        },
+        {
+            data: "percentage_record",
+            render(data) {
+                if (data=="" || data==null) {
+                    return data + "%";
+                }else{
+                    return data + "%";
+                }
+            },
+        },
+    
+        // { data: "actions", orderable: false, searchable: false },
+        ];
+
+    
+    var jq_platoon = $("#filter_platoon").val();
     var jq_year = $("#filter_year").val();
 
     c_index(
         $(".student_dt"),
         route("admin.students.index", {
-            platoon: jq_sem,
+            platoon: jq_platoon,
             semester: semester.value,
             year: jq_year,
         }),
@@ -741,6 +1218,19 @@ function filterStudentBySemester(semester) {
         1,
         true
     );
+
+    c_index(
+        $(".attendance_dt"),
+        route("admin.attendance-records.index", {
+            platoon: jq_platoon,
+            semester: semester.value,
+            year: jq_year,
+        }),
+        list_columns,
+        1,
+        true
+    );
+
 
 }
 
@@ -822,8 +1312,213 @@ function filterStudentByYear(year) {
         { data: "actions", orderable: false, searchable: false },
     ];
 
+    const list_columns = [
+        {
+            data: "id",
+            render(data, type, row, meta) {
+                return row.DT_RowIndex;
+            },
+        },
+        {
+            data: "student_id",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "student",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "day_one",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_two",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_three",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_four",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_five",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_six",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_seven",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_eight",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_nine",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_ten",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_eleven",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_twelve",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_thirtheen",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_fourtheen",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "day_fiftheen",
+            render(data) {
+                if (data == 0 || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+    
+        {
+            data: "total_points",
+            render(data) {
+                if (data =="" || data==null) {
+                    return data;
+                }else{
+                    return data;
+                }
+            },
+        },
+        {
+            data: "average",
+            render(data) {
+                if (data=="" || data==null) {
+                    return data + ".0";
+                }else{
+                    return data + ".0";
+                }
+            },
+        },
+        {
+            data: "percentage_record",
+            render(data) {
+                if (data=="" || data==null) {
+                    return data + "%";
+                }else{
+                    return data + "%";
+                }
+            },
+        },
+    
+        // { data: "actions", orderable: false, searchable: false },
+        ];
+
     var jq_platoon = $("#filter_platoon").val();
     var jq_sem = $("#filter_sem").val();
+
     c_index(
         $(".student_dt"),
         route("admin.students.index", {
@@ -832,6 +1527,18 @@ function filterStudentByYear(year) {
             year: year.value,
         }),
         columns,
+        1,
+        true
+    );
+
+    c_index(
+        $(".attendance_dt"),
+        route("admin.attendance-records.index", {
+            platoon: jq_platoon,
+            semester: jq_sem,
+            year: year.value,
+        }),
+        list_columns,
         1,
         true
     );

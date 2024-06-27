@@ -17,7 +17,7 @@
                 </div>
                 <div class="modal-body py-3">
 
-                    <form id="filterForm" action="{{ route('filter.store') }}" method="POST">
+                    {{-- <form id="filterForm" action="{{ route('filter.store') }}" method="POST">
                         @csrf
                         <div class="form-group mb-3">
                             <div class="input-group input-group-outline mb-3">
@@ -45,7 +45,7 @@
                                     onclick="save()">Done</button>
                             </div>
                         </div>
-                    </form>
+                    </form> --}}
 
                 </div>
             </div>
@@ -114,17 +114,17 @@
         // });
 
 
-        $(document).ready(function() {
-            $('#myModal').modal('hide');
+        // $(document).ready(function() {
+        //     $('#myModal').modal('hide');
 
-        });
+        // });
 
 
-        $(document).ready(function() {
-            $('#myModal').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
-        });
+        // $(document).ready(function() {
+        //     $('#myModal').modal({
+        //         backdrop: 'static',
+        //         keyboard: false
+        //     });
+        // });
     </script>
 @endsection

@@ -98,11 +98,6 @@ class AttendanceRecordsController extends Controller
 
             return DataTables::of($student_attendance)->addIndexColumn()->make(true);
         }
-
-        // $data = DB::table('attendance_records')->get();
-        // $course = DB::table('courses')->get();
-        // $student_data = DB::table('students')->leftJoin('courses', 'students.course_id', '=', 'courses.id')->get();
-
     
         $q = semesteryear::distinct('year')->pluck('year', 'id');
         $sem = semesteryear::distinct('semester')->pluck('semester', 'id');
@@ -128,11 +123,14 @@ class AttendanceRecordsController extends Controller
     }
 
     private function filterByAll($request) {
+
         $student_attendance = AttendanceRecordsModel::query()
-                    ->whereHas(('students.platoon'), fn ($query) => $query->where('platoon_id', $request->platoon))
-                    ->with('students')
-                    ->get();
+            ->whereHas(('students.semesteryears'), fn ($query) => $query
+            ->where([['platoon_id', '=',  $request->platoon],['semester', '=',  $request->semester], ['year', '=',  $request->year]]))
+            ->with('students')
+            ->get();
         return $student_attendance;
+
     }
 
     private function platoonAndSemester($request) {

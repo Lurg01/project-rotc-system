@@ -133,4 +133,56 @@ class MeritanddemeritController extends Controller
         
     }
 
+    public function filter(Request $request)
+    {
+
+        $sdata = Otp::where('userid', auth()->id())->first();
+        $request_data = $sdata["status"] ?? null;
+        if ($request_data == null) {
+            return redirect('/otp');
+        } else {
+            if ($sdata["status"] == 0) {
+                return redirect('/otp');
+            }
+            // New Session Login still required OTP
+            if (session()->get('is_otp') == null) {
+                return redirect('/otp');
+            }
+        }
+    
+        if (request()->ajax()) {
+            
+            $data = Student::with("performances")->get();
+            $stud = [];
+            $arr = [];
+            foreach ($data as $key => $value) {
+                $arr[$key]["student"] = $value->first_name . " " . $value->last_name;
+                $arr[$key]["student_id"] = $value->id;
+                $stud[$key]["student_id"] = $value->id;
+                $data_merit = Performance::where([
+                    ["student_id", "=", $value->id],
+                    ["type", "=", "merit"]
+                ])->sum('points');
+                $data_demerit = Performance::where([
+                    ["student_id", "=", $value->id],
+                    ["type", "=", "demerit"]
+                ])->sum('points');
+                $cal = $data_merit - $data_demerit;
+                $cal = max($cal, 0);
+                $arr[$key]["total_points"] = 100 - $data_demerit;
+                $cal = $cal / 15;
+                $average = $cal * 100;
+                $merit = 100 - $data_demerit;
+                $percentage = $merit * 0.3;
+                $arr[$key]["average"] = $average;
+                $arr[$key]["percentage"] = $percentage;
+                $arr[$key]["merits"] = 100 - $data_demerit;
+                $arr[$key]["demerits"] = $data_demerit;
+            }
+
+            return DataTables::of($arr)->addIndexColumn()->make(true);
+
+        }
+    }
+
 }

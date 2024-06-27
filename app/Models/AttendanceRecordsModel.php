@@ -27,6 +27,7 @@ class AttendanceRecordsModel extends Model
     // ];
 
     protected $fillable = [
+        'id',
         'student',
         'student_id',
         'day_one',

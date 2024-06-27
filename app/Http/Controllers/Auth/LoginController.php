@@ -43,6 +43,7 @@ class LoginController extends Controller
             if($user->hasRole('student')) {
                return redirect(route('student.attendances.index'));
             }
+ 
           
          } 
          else 

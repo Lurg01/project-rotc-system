@@ -94,9 +94,10 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover student_dt">
+                            <table class="table table-hover attendance_dt">
                                 <thead>
                                     <tr>
+                                        <th>ID</th>
                                         <th>Student ID</th>
                                         <th>Student</th>
                                         <th>1st</th>

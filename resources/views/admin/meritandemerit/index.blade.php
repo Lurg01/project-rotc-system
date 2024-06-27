@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-hover student_dt">
+                                        <table class="table table-hover aptitude_dt">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
@@ -139,12 +139,14 @@
         // },
     ];
     c_index(
-        $(".student_dt"),
+        $(".aptitude_dt"),
         '{{URL::to("admin/merits-demerits/get")}}',
         list_columns,
         1,
         true
     );
+
+    
 
     // var table = $('.attendance_dt').DataTable({
     //         ajax: {
