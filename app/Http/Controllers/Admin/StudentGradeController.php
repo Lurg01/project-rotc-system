@@ -44,10 +44,6 @@ class StudentGradeController extends Controller
             }
         }
 
-        if(request()->ajax()) {
-
-        }
-        
         $q = semesteryear::distinct('year')->pluck('year', 'id');
         $sem = semesteryear::distinct('semester')->pluck('semester', 'id');
         $arr = [];

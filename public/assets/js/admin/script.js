@@ -473,7 +473,82 @@ $(() => {
             // { data: "actions", orderable: false, searchable: false },
         ];
 
-        c_index($(".attendance_dt"), route('admin.attendance-records.index'), list_columns, 1, true );
+        c_index($(".attendance_dt"), route('admin.attendance-records.index'), list_columns, 1 );
+    }
+
+    // Grade 
+    if (window.location.href == route("admin")) {
+        let stid = 0;
+        let acad = 0;
+        let attendance = 0;
+        let aptitude = 0;
+    
+        const grade_columns = [{
+                data: "id",
+                render(data) {
+                    return data;
+                },
+            },
+            {
+                data: "student_id",
+                render(data) {
+                    stid = data;
+                    return data;
+                },
+            },
+            {
+                data: "first_name",
+                render(data) {
+                    return data;
+                },
+            },
+            {
+                data: "middle_name",
+                render(data) {
+                    return data;
+                },
+            },
+            {
+                data: "last_name",
+                render(data) {
+                    return data;
+                },
+            },
+            {
+                data: "attendance",
+                render(data) {
+                    attendance = data;
+                    return "<p id='attendance-" + stid + "'>" + data + "</p>";
+                },
+            },
+            {
+                data: "aptitude",
+                render(data) {
+                    aptitude = data;
+                    return "<p id='aptitude-" + stid + "'>" + data + "</p>";
+                },
+            },
+            {
+                data: "acadgrade.acad",
+                render(data) {
+                    acad = data;
+                    return data;
+                },
+            },
+            {
+                data: "grade",
+                render(data) {
+                    let a = parseInt(attendance) + parseInt(aptitude) + parseInt(acad);
+                    if (a !== a) {
+                        a = 0;
+                    }
+                    return a;
+                },
+            },
+        ];
+
+        c_index($(".grade_dt"), route("admin.studentgrade.show"), columns, 1);
+      
     }
 
     /** Attendance Report */
@@ -880,6 +955,78 @@ function filterStudentByPlatoon(platoon) {
     // },
     ];
 
+    let stid = 0;
+    let acad = 0;
+    let attendance = 0;
+    let aptitude = 0;
+
+    const grade_columns = [{
+            data: "id",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "student_id",
+            render(data) {
+                stid = data;
+                return data;
+            },
+        },
+        {
+            data: "first_name",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "middle_name",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "last_name",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "attendance",
+            render(data) {
+                attendance = data;
+                return "<p id='attendance-" + stid + "'>" + data + "</p>";
+            },
+        },
+        {
+            data: "aptitude",
+            render(data) {
+                aptitude = data;
+                return "<p id='aptitude-" + stid + "'>" + data + "</p>";
+            },
+        },
+        {
+            data: "acadgrade.acad",
+            render(data) {
+                acad = data;
+                return data;
+            },
+        },
+        {
+            data: "grade",
+            render(data) {
+                let a = parseInt(attendance) + parseInt(aptitude) + parseInt(acad);
+                if (a !== a) {
+                    a = 0;
+                }
+                return a;
+            },
+        },
+    ];
+  
+
+
+
     var jq_sem = $("#filter_sem").val();
     var jq_year = $("#filter_year").val();
 
@@ -917,6 +1064,20 @@ function filterStudentByPlatoon(platoon) {
     //     1,
     //     true
     // );
+
+    c_index(
+        $(".grade_dt"),
+        // `{{URL::to("admin/studentgrade/show")}}`,
+        route("admin.studentgrade.show", {
+            platoon: platoon.value,
+            semester: jq_sem,
+            year: jq_year,
+        }),
+        grade_columns,
+        1,
+        true
+    );
+
 
 }
 

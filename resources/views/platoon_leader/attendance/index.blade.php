@@ -29,7 +29,7 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-hover student_dt">
-                                <caption>Attendance Records Working>>><i class="fas fa-clipboard-list ml-1"></i> </caption>
+                                <caption>Attendance Records<i class="fas fa-clipboard-list ml-1"></i> </caption>
                                 <thead>
                                     <tr>
                                         <th>#</th>

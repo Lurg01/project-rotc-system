@@ -41,7 +41,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-flush table-hover student_dt">
+                        <table class="table table-flush table-hover grade_dt">
                             <thead class="thead-light">
                                 <tr>
                                     <th>#</th>
@@ -144,7 +144,7 @@
         },
     ];
     c_index(
-        $(".student_dt"),
+        $(".grade_dt"),
         `{{URL::to("admin/studentgrade/show")}}`,
         list_columns,
         1,
