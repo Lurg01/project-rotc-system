@@ -72,7 +72,7 @@
 {{-- End CONTAINER --}}
 
 @endsection
-@section('script')
+{{-- @section('script')
 <script>
     let stid = 0;
     let acad = 0;
@@ -174,4 +174,4 @@
         true
     );
 </script>
-@endsection
+@endsection --}}

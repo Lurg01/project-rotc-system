@@ -130,8 +130,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link @if (Route::is('admin.merits-demerits.index')) active @endif"
-                                href="{{ route('admin.merits-demerits.index') }}">
+                            <a class="nav-link @if (Route::is('admin.aptitude.index')) active @endif"
+                                href="{{ route('admin.aptitude.index') }}">
                                 <i class="fas fa-user-cog"></i>
                                 <span class="nav-link-text">Aptitude</span>
                             </a>

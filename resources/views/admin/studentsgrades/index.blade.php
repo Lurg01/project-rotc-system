@@ -73,82 +73,82 @@
 {{-- End CONTAINER --}}
 
 @endsection
-@section('script')
-<script>
-    let stid = 0;
-    let acad = 0;
-    let attendance = 0;
-    let aptitude = 0;
+{{-- @section('script')
+    <script>
+        let stid = 0;
+        let acad = 0;
+        let attendance = 0;
+        let aptitude = 0;
 
-    const list_columns = [{
-            data: "id",
-            render(data) {
-                return data;
+        const list_columns = [{
+                data: "id",
+                render(data) {
+                    return data;
+                },
             },
-        },
-        {
-            data: "student_id",
-            render(data) {
-                stid = data;
-                return data;
+            {
+                data: "student_id",
+                render(data) {
+                    stid = data;
+                    return data;
+                },
             },
-        },
-        {
-            data: "first_name",
-            render(data) {
-                return data;
+            {
+                data: "first_name",
+                render(data) {
+                    return data;
+                },
             },
-        },
-        {
-            data: "middle_name",
-            render(data) {
-                return data;
+            {
+                data: "middle_name",
+                render(data) {
+                    return data;
+                },
             },
-        },
-        {
-            data: "last_name",
-            render(data) {
-                return data;
+            {
+                data: "last_name",
+                render(data) {
+                    return data;
+                },
             },
-        },
-        {
-            data: "attendance",
-            render(data) {
-                attendance = data;
-                return "<p id='attendance-" + stid + "'>" + data + "</p>";
+            {
+                data: "attendance",
+                render(data) {
+                    attendance = data;
+                    return "<p id='attendance-" + stid + "'>" + data + "</p>";
+                },
             },
-        },
-        {
-            data: "aptitude",
-            render(data) {
-                aptitude = data;
-                return "<p id='aptitude-" + stid + "'>" + data + "</p>";
+            {
+                data: "aptitude",
+                render(data) {
+                    aptitude = data;
+                    return "<p id='aptitude-" + stid + "'>" + data + "</p>";
+                },
             },
-        },
-        {
-            data: "acadgrade.acad",
-            render(data) {
-                acad = data;
-                return data;
+            {
+                data: "acadgrade.acad",
+                render(data) {
+                    acad = data;
+                    return data;
+                },
             },
-        },
-        {
-            data: "grade",
-            render(data) {
-                let a = parseInt(attendance) + parseInt(aptitude) + parseInt(acad);
-                if (a !== a) {
-                    a = 0;
-                }
-                return a;
+            {
+                data: "grade",
+                render(data) {
+                    let a = parseInt(attendance) + parseInt(aptitude) + parseInt(acad);
+                    if (a !== a) {
+                        a = 0;
+                    }
+                    return a;
+                },
             },
-        },
-    ];
-    c_index(
-        $(".grade_dt"),
-        `{{URL::to("admin/studentgrade/show")}}`,
-        list_columns,
-        1,
-        true
-    );
-</script>
-@endsection
+        ];
+        c_index(
+            $(".grade_dt"),
+            `{{URL::to("admin/studentgrade/show")}}`,
+            list_columns,
+            1,
+            true
+        );
+    </script>
+@endsection --}}

@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Models\Student;
-use App\Models\AttendanceRecords;
 use App\Models\Platoon;
 use App\Models\semesteryear;
 use App\Models\AttendanceRecordsModel; 

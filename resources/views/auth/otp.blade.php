@@ -2,9 +2,8 @@
 
 @section('title', 'ROTC Students Performance Record Management and Monitoring System | Login')
 @section('content')
-    {{-- <div class="modal fade" id="a_semester" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="a_semester_title" aria-hidden="true"> --}}
 
-    <div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    {{-- <div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
         aria-labelledby="a_semester_title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -48,14 +47,14 @@
                 </div>
             </div>
         </div>
-    </div>
-
+    </div> --}}
+            
 
     <!-- Page content -->
 
     <section class="vh-100">
         <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="row d-flex justify-content-center align-items-center h-1    00">
                 <div class="col col-xl-12">
                     <div class="card" style="border-radius: 1rem;">
                         <div class="row g-0">
@@ -111,18 +110,17 @@
         //     }
         // });
 
-
         // $(document).ready(function() {
         //     $('#myModal').modal('hide');
 
         // });
 
+        // $(document).ready(function() {
+        //     $('#myModal').modal({
+        //         backdrop: 'static',
+        //         keyboard: false
+        //     });
+        // });
 
-        $(document).ready(function() {
-            $('#myModal').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
-        });
     </script>
 @endsection

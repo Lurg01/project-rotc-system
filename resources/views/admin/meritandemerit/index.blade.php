@@ -88,64 +88,64 @@
 
 @section('script')
 <script>
-    let day_d = 1;
-    let obj = [{
-        student_id: ""
-    }];
-    let numc = 0;
-    let sy = 0;
-    const list_columns = [{
-            data: "student_id",
-            render(data) {
-                numc = data;
-                return data;
-            },
-        },
-        {
-            data: "student",
-            render(data) {
-                return data;
-            },
-        },
-        {
-            data: "merits",
-            render(data) {
-                return data;
-            },
-        },
-        {
-            data: "demerits",
-            render(data) {
-                return data;
-            },
-        },
-        {
-            data: "total_points",
-            render(data) {
-                return data;
-            },
-        },
-        {
-            data: "percentage",
-            render(data) {
-                return data + "%";
-            },
-        },
-        // {
-        //     data: "student_id",
-        //     render(data) {
-        //         return "<button class='btn btn-sm btn-primary' onclick=update_records("+data+")>UPDATE </button>";
-        //     },
-        // },
-    ];
-    c_index(
-        $(".aptitude_dt"),
-        '{{URL::to("admin/merits-demerits/get")}}',
-        list_columns,
-        1,
-        true
-    );
+    // let day_d = 1;
+    // let obj = [{
+    //     student_id: ""
+    // }];
+    // let numc = 0;
+    // let sy = 0;
+    // const list_columns = [{
+    //         data: "student_id",
+    //         render(data) {
+    //             numc = data;
+    //             return data;
+    //         },
+    //     },
+    //     {
+    //         data: "student",
+    //         render(data) {
+    //             return data;
+    //         },
+    //     },
+    //     {
+    //         data: "merits",
+    //         render(data) {
+    //             return data;
+    //         },
+    //     },
+    //     {
+    //         data: "demerits",
+    //         render(data) {
+    //             return data;
+    //         },
+    //     },
+    //     {
+    //         data: "total_points",
+    //         render(data) {
+    //             return data;
+    //         },
+    //     },
+    //     {
+    //         data: "percentage",
+    //         render(data) {
+    //             return data + "%";
+    //         },
+    //     },
+    //     // {
+    //     //     data: "student_id",
+    //     //     render(data) {
+    //     //         return "<button class='btn btn-sm btn-primary' onclick=update_records("+data+")>UPDATE </button>";
+    //     //     },
+    //     // },
+    // ];
 
+    // c_index(
+    //     $(".aptitude_dt"),
+    //     '{{URL::to("admin/merits-demerits/get")}}',
+    //     list_columns,
+    //     1,
+    //     true
+    // );
     
 
     // var table = $('.attendance_dt').DataTable({

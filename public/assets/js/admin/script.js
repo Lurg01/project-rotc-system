@@ -263,8 +263,7 @@ $(() => {
 
             { data: "actions", orderable: false, searchable: false },
         ];
-        c_index($(".student_dt"), route("admin.students.index"), columns,
-            1);
+        c_index($(".student_dt"), route("admin.students.index"), columns, 1);
     }
 
     // Attendance Records
@@ -476,8 +475,66 @@ $(() => {
         c_index($(".attendance_dt"), route('admin.attendance-records.index'), list_columns, 1 );
     }
 
-    // Grade 
-    if (window.location.href == route("admin.studentgrade.show")) {
+    // Aptitude
+    if (window.location.href === route("admin.aptitude.index")) {  
+
+          let day_d = 1;
+        let obj = [{
+            student_id: ""
+        }];
+        let numc = 0;
+        let sy = 0;
+        const aptitude_columns = [{
+            data: "student_id",
+            render(data) {
+                numc = data;
+                return data;
+            },
+        },
+        {
+            data: "student",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "merits",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "demerits",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "total_points",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "percentage",
+            render(data) {
+                return data + "%";
+            },
+        },
+        // {
+        //     data: "student_id",
+        //     render(data) {
+        //         return "<button class='btn btn-sm btn-primary' onclick=update_records("+data+")>UPDATE </button>";
+        //     },
+        // },
+        ];
+
+        c_index($(".aptitude_dt"), route("admin.aptitude.index"), aptitude_columns, 1);
+
+    }
+
+    // Student Grade 
+    if (window.location.href == route("admin.studentgrade.index")) {
         let stid = 0;
         let acad = 0;
         let attendance = 0;
@@ -546,9 +603,115 @@ $(() => {
                 },
             },
         ];
+        c_index(
+            $(".grade_dt"),
+            route("admin.studentgrade.index"),
+            grade_columns,
+            1
+        );
+    }
 
-        c_index($(".grade_dt"), route("admin.studentgrade.show"), columns, 1);
-      
+    // Final Student Grade
+    if (window.location.href == route("admin.finalstudentgrade.index")) {
+  
+        let stid = 0;
+        let acad = 0;
+        let attendance = 0;
+        let aptitude = 0;
+
+        const final_grade_columns = [{
+                data: "id",
+                render(data) {
+                    return data;
+                },
+            },
+            {
+                data: "student_id",
+                render(data) {
+                    stid = data;
+                    return data;
+                },
+            },
+            {
+                data: "first_name",
+                render(data) {
+                    return data;
+                },
+            },
+            {
+                data: "middle_name",
+                render(data) {
+                    return data;
+                },
+            },
+            {
+                data: "last_name",
+                render(data) {
+                    return data;
+                },
+            },
+            {
+                data: "acadgrade.grade",
+                render(data) {
+                    if (data) {
+                        return "<p id='grade-" + stid + "'>" + data + "</p>";
+                    } else {
+                        return "<p id='grade-" + stid + "'>" + 0 + "</p>";
+                    }
+                },
+            },
+            {
+                data: "acadgrade.grade",
+                render(data) {
+                    let a = 5.0;
+                    if (data >= 98) {
+                        a = 1.0;
+                    } else if (data >= 95 && data <= 97) {
+                        a = 1.25;
+                    } else if (data >= 92 && data <= 94) {
+                        a = 1.5;
+                    } else if (data >= 89 && data <= 91) {
+                        a = 1.75;
+                    } else if (data >= 86 && data <= 88) {
+                        a = 2.0;
+                    } else if (data >= 83 && data <= 85) {
+                        a = 2.25;
+                    } else if (data >= 80 && data <= 82) {
+                        a = 2.5;
+                    } else if (data >= 77 && data <= 79) {
+                        a = 2.75;
+                    } else if (data >= 75 && data <= 76) {
+                        a = 3;
+                    } else if (data <= 74) {
+                        a = 5;
+                    }
+                    return "<p id='eq-" + stid + "'>" + a + "</p>";
+                },
+            },
+            {
+                data: "Remarks",
+                render(data) {
+                    let a = "";
+                    if (data == "0") {
+                        a += '<label>PASSED</label>';
+                    } else if (data == "1") {
+                        a += '<label>FAILED</label>';
+                    } else if (data == "3") {
+                        a += '<label>DROPPED</label>';
+                    } else {
+                        a += '<label>INCOMPLETE</label>';
+                    }
+                    return a;
+                },
+            },
+        ];
+        c_index(
+            $(".final_grade_dt"),
+            route("admin.finalstudentgrade.index"),
+            final_grade_columns,
+            1
+        );
+
     }
 
     /** Attendance Report */
@@ -629,6 +792,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 function filterStudentByPlatoon(platoon) {
+    var jq_sem = $("#filter_sem").val();
+    var jq_year = $("#filter_year").val();
+
     const columns = [
         {
             data: "id",
@@ -705,7 +871,6 @@ function filterStudentByPlatoon(platoon) {
 
         { data: "actions", orderable: false, searchable: false },
     ];
-
     const list_columns = [
     {
         data: "id",
@@ -909,7 +1074,6 @@ function filterStudentByPlatoon(platoon) {
 
     // { data: "actions", orderable: false, searchable: false },
     ];
-
     const aptitude_columns = [{
         data: "student_id",
         render(data) {
@@ -1023,12 +1187,98 @@ function filterStudentByPlatoon(platoon) {
             },
         },
     ];
-  
 
+    // let stid = 0;
+    // let acad = 0;
+    // let attendance = 0;
+    // let aptitude = 0;
 
-
-    var jq_sem = $("#filter_sem").val();
-    var jq_year = $("#filter_year").val();
+    const final_grade_columns = [{
+            data: "id",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "student_id",
+            render(data) {
+                stid = data;
+                return data;
+            },
+        },
+        {
+            data: "first_name",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "middle_name",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "last_name",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "acadgrade.grade",
+            render(data) {
+                if (data) {
+                    return "<p id='grade-" + stid + "'>" + data + "</p>";
+                } else {
+                    return "<p id='grade-" + stid + "'>" + 0 + "</p>";
+                }
+            },
+        },
+        {
+            data: "acadgrade.grade",
+            render(data) {
+                let a = 5.0;
+                if (data >= 98) {
+                    a = 1.0;
+                } else if (data >= 95 && data <= 97) {
+                    a = 1.25;
+                } else if (data >= 92 && data <= 94) {
+                    a = 1.5;
+                } else if (data >= 89 && data <= 91) {
+                    a = 1.75;
+                } else if (data >= 86 && data <= 88) {
+                    a = 2.0;
+                } else if (data >= 83 && data <= 85) {
+                    a = 2.25;
+                } else if (data >= 80 && data <= 82) {
+                    a = 2.5;
+                } else if (data >= 77 && data <= 79) {
+                    a = 2.75;
+                } else if (data >= 75 && data <= 76) {
+                    a = 3;
+                } else if (data <= 74) {
+                    a = 5;
+                }
+                return "<p id='eq-" + stid + "'>" + a + "</p>";
+            },
+        },
+        {
+            data: "Remarks",
+            render(data) {
+                let a = "";
+                if (data == "0") {
+                    a += '<label>PASSED</label>';
+                } else if (data == "1") {
+                    a += '<label>FAILED</label>';
+                } else if (data == "3") {
+                    a += '<label>DROPPED</label>';
+                } else {
+                    a += '<label>INCOMPLETE</label>';
+                }
+                return a;
+            },
+        },
+    ];
 
     c_index(
         $(".student_dt"),
@@ -1052,23 +1302,20 @@ function filterStudentByPlatoon(platoon) {
         1,
         true
     );
-
-    // c_index(
-    //     $(".aptitude_dt"),
-    //     route("admin.merits-demerits.filter", { 
-    //         platoon: platoon.value,
-    //         semester: jq_sem,
-    //         year: jq_year,
-    //     }),
-    //     aptitude_columns,
-    //     1,
-    //     true
-    // );
-
+    c_index(
+        $(".aptitude_dt"),
+        route("admin.aptitude.index", { 
+            platoon: platoon.value,
+            semester: jq_sem,
+            year: jq_year,
+        }),
+        aptitude_columns,
+        1,
+        true
+    );
     c_index(
         $(".grade_dt"),
-        // `{{URL::to("admin/studentgrade/show")}}`,
-        route("admin.studentgrade.show", {
+        route("admin.studentgrade.index", { 
             platoon: platoon.value,
             semester: jq_sem,
             year: jq_year,
@@ -1077,11 +1324,24 @@ function filterStudentByPlatoon(platoon) {
         1,
         true
     );
-
+    c_index(
+        $(".final_grade_dt"),
+        route("admin.finalstudentgrade.index", { 
+            platoon: platoon.value,
+            semester: jq_sem,
+            year: jq_year,
+        }),
+        final_grade_columns,
+        1,
+        true
+    );
 
 }
 
 function filterStudentBySemester(semester) {
+    var jq_platoon = $("#filter_platoon").val();
+    var jq_year = $("#filter_year").val();
+
     const columns = [
         {
             data: "id",
@@ -1158,7 +1418,6 @@ function filterStudentBySemester(semester) {
 
         { data: "actions", orderable: false, searchable: false },
     ];
-
     const list_columns = [
         {
             data: "id",
@@ -1361,11 +1620,206 @@ function filterStudentBySemester(semester) {
         },
     
         // { data: "actions", orderable: false, searchable: false },
-        ];
+    ];
+    const aptitude_columns = [{
+        data: "student_id",
+        render(data) {
+            numc = data;
+            return data;
+        },
+    },
+    {
+        data: "student",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "merits",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "demerits",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "total_points",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "percentage",
+        render(data) {
+            return data + "%";
+        },
+    },
+    // {
+    //     data: "student_id",
+    //     render(data) {
+    //         return "<button class='btn btn-sm btn-primary' onclick=update_records("+data+")>UPDATE </button>";
+    //     },
+    // },
+    ];
 
-    
-    var jq_platoon = $("#filter_platoon").val();
-    var jq_year = $("#filter_year").val();
+    let stid = 0;
+    let acad = 0;
+    let attendance = 0;
+    let aptitude = 0;
+
+    const grade_columns = [{
+            data: "id",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "student_id",
+            render(data) {
+                stid = data;
+                return data;
+            },
+        },
+        {
+            data: "first_name",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "middle_name",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "last_name",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "attendance",
+            render(data) {
+                attendance = data;
+                return "<p id='attendance-" + stid + "'>" + data + "</p>";
+            },
+        },
+        {
+            data: "aptitude",
+            render(data) {
+                aptitude = data;
+                return "<p id='aptitude-" + stid + "'>" + data + "</p>";
+            },
+        },
+        {
+            data: "acadgrade.acad",
+            render(data) {
+                acad = data;
+                return data;
+            },
+        },
+        {
+            data: "grade",
+            render(data) {
+                let a = parseInt(attendance) + parseInt(aptitude) + parseInt(acad);
+                if (a !== a) {
+                    a = 0;
+                }
+                return a;
+            },
+        },
+    ];
+    const final_grade_columns = [{
+        data: "id",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "student_id",
+        render(data) {
+            stid = data;
+            return data;
+        },
+    },
+    {
+        data: "first_name",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "middle_name",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "last_name",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "acadgrade.grade",
+        render(data) {
+            if (data) {
+                return "<p id='grade-" + stid + "'>" + data + "</p>";
+            } else {
+                return "<p id='grade-" + stid + "'>" + 0 + "</p>";
+            }
+        },
+    },
+    {
+        data: "acadgrade.grade",
+        render(data) {
+            let a = 5.0;
+            if (data >= 98) {
+                a = 1.0;
+            } else if (data >= 95 && data <= 97) {
+                a = 1.25;
+            } else if (data >= 92 && data <= 94) {
+                a = 1.5;
+            } else if (data >= 89 && data <= 91) {
+                a = 1.75;
+            } else if (data >= 86 && data <= 88) {
+                a = 2.0;
+            } else if (data >= 83 && data <= 85) {
+                a = 2.25;
+            } else if (data >= 80 && data <= 82) {
+                a = 2.5;
+            } else if (data >= 77 && data <= 79) {
+                a = 2.75;
+            } else if (data >= 75 && data <= 76) {
+                a = 3;
+            } else if (data <= 74) {
+                a = 5;
+            }
+            return "<p id='eq-" + stid + "'>" + a + "</p>";
+        },
+    },
+    {
+        data: "Remarks",
+        render(data) {
+            let a = "";
+            if (data == "0") {
+                a += '<label>PASSED</label>';
+            } else if (data == "1") {
+                a += '<label>FAILED</label>';
+            } else if (data == "3") {
+                a += '<label>DROPPED</label>';
+            } else {
+                a += '<label>INCOMPLETE</label>';
+            }
+            return a;
+        },
+    },
+    ];
 
     c_index(
         $(".student_dt"),
@@ -1378,7 +1832,6 @@ function filterStudentBySemester(semester) {
         1,
         true
     );
-
     c_index(
         $(".attendance_dt"),
         route("admin.attendance-records.index", {
@@ -1390,11 +1843,46 @@ function filterStudentBySemester(semester) {
         1,
         true
     );
-
+    c_index(
+        $(".aptitude_dt"),
+        route("admin.aptitude.index", { 
+            platoon: jq_platoon,
+            semester: semester.value,
+            year: jq_year,
+        }),
+        aptitude_columns,
+        1,
+        true
+    );
+    c_index(
+        $(".grade_dt"),
+        route("admin.studentgrade.index", { 
+            platoon: jq_platoon,
+            semester: semester.value,
+            year: jq_year,
+        }),
+        grade_columns,
+        1,
+        true
+    );
+    c_index(
+        $(".final_grade_dt"),
+        route("admin.finalstudentgrade.index", { 
+            platoon: jq_platoon,
+            semester: semester.value,
+            year: jq_year,
+        }),
+        final_grade_columns,
+        1,
+        true
+    );
 
 }
 
 function filterStudentByYear(year) {
+    var jq_platoon = $("#filter_platoon").val();
+    var jq_sem = $("#filter_sem").val();
+
     const columns = [
         {
             data: "id",
@@ -1471,7 +1959,6 @@ function filterStudentByYear(year) {
 
         { data: "actions", orderable: false, searchable: false },
     ];
-
     const list_columns = [
         {
             data: "id",
@@ -1674,10 +2161,205 @@ function filterStudentByYear(year) {
         },
     
         // { data: "actions", orderable: false, searchable: false },
-        ];
+    ];
+    const aptitude_columns = [{
+        data: "student_id",
+        render(data) {
+            numc = data;
+            return data;
+        },
+    },
+    {
+        data: "student",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "merits",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "demerits",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "total_points",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "percentage",
+        render(data) {
+            return data + "%";
+        },
+    },
+    // {
+    //     data: "student_id",
+    //     render(data) {
+    //         return "<button class='btn btn-sm btn-primary' onclick=update_records("+data+")>UPDATE </button>";
+    //     },
+    // },
+    ];
+    let stid = 0;
+    let acad = 0;
+    let attendance = 0;
+    let aptitude = 0;
 
-    var jq_platoon = $("#filter_platoon").val();
-    var jq_sem = $("#filter_sem").val();
+    const grade_columns = [{
+            data: "id",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "student_id",
+            render(data) {
+                stid = data;
+                return data;
+            },
+        },
+        {
+            data: "first_name",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "middle_name",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "last_name",
+            render(data) {
+                return data;
+            },
+        },
+        {
+            data: "attendance",
+            render(data) {
+                attendance = data;
+                return "<p id='attendance-" + stid + "'>" + data + "</p>";
+            },
+        },
+        {
+            data: "aptitude",
+            render(data) {
+                aptitude = data;
+                return "<p id='aptitude-" + stid + "'>" + data + "</p>";
+            },
+        },
+        {
+            data: "acadgrade.acad",
+            render(data) {
+                acad = data;
+                return data;
+            },
+        },
+        {
+            data: "grade",
+            render(data) {
+                let a = parseInt(attendance) + parseInt(aptitude) + parseInt(acad);
+                if (a !== a) {
+                    a = 0;
+                }
+                return a;
+            },
+        },
+    ];
+    const final_grade_columns = [{
+        data: "id",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "student_id",
+        render(data) {
+            stid = data;
+            return data;
+        },
+    },
+    {
+        data: "first_name",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "middle_name",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "last_name",
+        render(data) {
+            return data;
+        },
+    },
+    {
+        data: "acadgrade.grade",
+        render(data) {
+            if (data) {
+                return "<p id='grade-" + stid + "'>" + data + "</p>";
+            } else {
+                return "<p id='grade-" + stid + "'>" + 0 + "</p>";
+            }
+        },
+    },
+    {
+        data: "acadgrade.grade",
+        render(data) {
+            let a = 5.0;
+            if (data >= 98) {
+                a = 1.0;
+            } else if (data >= 95 && data <= 97) {
+                a = 1.25;
+            } else if (data >= 92 && data <= 94) {
+                a = 1.5;
+            } else if (data >= 89 && data <= 91) {
+                a = 1.75;
+            } else if (data >= 86 && data <= 88) {
+                a = 2.0;
+            } else if (data >= 83 && data <= 85) {
+                a = 2.25;
+            } else if (data >= 80 && data <= 82) {
+                a = 2.5;
+            } else if (data >= 77 && data <= 79) {
+                a = 2.75;
+            } else if (data >= 75 && data <= 76) {
+                a = 3;
+            } else if (data <= 74) {
+                a = 5;
+            }
+            return "<p id='eq-" + stid + "'>" + a + "</p>";
+        },
+    },
+    {
+        data: "Remarks",
+        render(data) {
+            let a = "";
+            if (data == "0") {
+                a += '<label>PASSED</label>';
+            } else if (data == "1") {
+                a += '<label>FAILED</label>';
+            } else if (data == "3") {
+                a += '<label>DROPPED</label>';
+            } else {
+                a += '<label>INCOMPLETE</label>';
+            }
+            return a;
+        },
+    },
+    ];
 
     c_index(
         $(".student_dt"),
@@ -1690,7 +2372,6 @@ function filterStudentByYear(year) {
         1,
         true
     );
-
     c_index(
         $(".attendance_dt"),
         route("admin.attendance-records.index", {
@@ -1699,6 +2380,39 @@ function filterStudentByYear(year) {
             year: year.value,
         }),
         list_columns,
+        1,
+        true
+    );
+    c_index(
+        $(".aptitude_dt"),
+        route("admin.aptitude.index", { 
+            platoon: jq_platoon,
+            semester: jq_sem,
+            year: year.value,
+        }),
+        aptitude_columns,
+        1,
+        true
+    );
+    c_index(
+        $(".grade_dt"),
+        route("admin.studentgrade.index", { 
+            platoon: jq_platoon,
+            semester: jq_sem,
+            year: year.value,
+        }),
+        grade_columns,
+        1,
+        true
+    );
+    c_index(
+        $(".final_grade_dt"),
+        route("admin.finalstudentgrade.index", { 
+            platoon: jq_platoon,
+            semester: jq_sem,
+            year: year.value,
+        }),
+        final_grade_columns,
         1,
         true
     );

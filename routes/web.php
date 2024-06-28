@@ -106,7 +106,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin', 'as' => 'a
     // Route::get('records',[AdminAttendanceRecordsController::class, 'index'])->name('records');
     Route::get('records', [AdminAttendanceRecordsController::class, 'records'])->name('records');
     Route::get('merits-demerits/get', [AdminMeritanddemeritController::class, 'get']);
-    Route::resource('merits-demerits', AdminMeritanddemeritController::class);
+    Route::resource('aptitude', AdminMeritanddemeritController::class);
     Route::resource('studentgrade', AdminStudentGradeController::class);
     Route::resource('finalstudentgrade', FinalStudentGrade::class);
     Route::get('finalstudentgrade/get', [FinalStudentGrade::class, "get"]);
