@@ -13,6 +13,7 @@ use App\Models\semesteryear;
 use App\Models\Student;
 use App\Http\Resources\Student\StudentResource;
 use App\Models\Role;
+use App\Http\Requests\Performance\PerformanceRequest;
 
 
 
@@ -20,6 +21,7 @@ class MeritanddemeritController extends Controller
 {
     public function index(Request $request)
     {
+
         $sdata = Otp::where('userid', auth()->id())->first();
         $request_data = $sdata["status"] ?? null;
         if($request_data==null){
@@ -65,7 +67,7 @@ class MeritanddemeritController extends Controller
         
             }
             else {
-                $attendances = $this->getData();
+                $attendances = $this->getData($request);
             }
 
             return DataTables::of($attendances)->addIndexColumn()->make(true);
@@ -94,49 +96,71 @@ class MeritanddemeritController extends Controller
         // return view('platoon_leader.meritandemerit.index');  
     }
 
-    private function getData()
+    private function getData($request)
     {
+        $student_id = [];
+        $data_all =StudentResource::collection(Student::with("acadgrade")
+            ->with('course', 'platoon', 'user.avatar')
+            ->whereBelongsTo(auth()->user()->student->platoon)
+            ->whereRelation('user', 'role_id', Role::STUDENT)->get());
+        foreach($data_all as $key => $value) {
+            $student_id[$key] = $value->id;
+        }
+
         $data = Performance::with("students")->orderBy('student_id')->get();
         $stud = [];
         $arr = [];
         $c = 0;
-        foreach ($data as $key => $value) {
-            if(!in_array($value->student_id,$stud)){
-                // $arr[$key]['id'] = $key + 1;
-                $arr[$key]["student_id"] = $value->student_id - 1;
-                $arr[$key]["student"] = $value->students->first_name." ".$value->students->last_name;
-                $stud[$c] = $value->student_id;
-                $c+=1;
-                $data_merit = Performance::where([
-                    ["student_id","=",$value->student_id],
-                    ["type","=","merit"]
-                    ])->sum('points');
-                $data_demerit = Performance::where([
-                    ["student_id","=",$value->student_id],
-                    ["type","=","demerit"]
-                    ])->sum('points');
-                if ($data_demerit < $data_merit || $data_demerit >= $data_merit) {
-                    $data_demerit = $data_demerit - $data_merit;
-                }
-                elseif ($data_demerit > $data_merit || $data_demerit <= $data_merit) {
-                    $data_merit = $data_merit + $data_demerit;
-                }
+        $tottal_meritandpoints = 100;
+        $total_demerits = 0;
+        $lastItem = end($stud);
 
-                if ($data_merit >= 100 ) {
-                    $data_merit = 100;
-                }elseif ($data_merit <= 0){
-                    $data_merit = 0;
+        foreach ($data as $key => $value) {
+            if ($value->student_id == $student_id[$c]) { 
+                if(!in_array($value->student_id,$stud)){
+                    $stud[$c] = $value->student_id;
+                    $c+=1;
+                    $arr[$key]["student_id"] = $value->student_id;
+                    $arr[$key]["student"] = $value->students->first_name." ".$value->students->last_name;
+                    $data_merit = Performance::where([
+                        ["student_id","=",$value->student_id],
+                        ["type","=","merit"]
+                        ])->sum('points');
+                    $data_demerit = Performance::where([
+                        ["student_id","=",$value->student_id],
+                        ["type","=","demerit"]
+                        ])->sum('points');
+
+                    if ($data_demerit <= 0 ){
+                        $data_demerit = 0;
+                    }
+                    if ($data_merit <= 0 ) {
+                        $data_merit = 100;
+                    }
+                
+
+                    if ($data_demerit > 0) {
+                        $data_merit -= $data_demerit;             
+                    }    
+
+
+                    if ($data_merit >= 100) {
+                        $data_merit = 100;
+                    }
+                 
+                    if ($data_demerit >= 100) {
+                        $data_demerit = 100;
+                    }
+
+                
+                    $arr[$key]["demerits"] = $data_demerit;
+                    $arr[$key]["merits"] = $data_merit;
+                    $arr[$key]["total_points"] = $data_merit;
+                    $percentage = $data_merit * 0.3;
+                    $arr[$key]["percentage"] = $percentage;
+
+                  
                 }
-                if ($data_demerit >= 100) {
-                    $data_demerit = 100;
-                }elseif ($data_demerit <= 0){
-                    $data_demerit = 0;
-                }
-                $arr[$key]["demerits"] = $data_demerit;
-                $arr[$key]["merits"] = $data_merit;
-                $arr[$key]["total_points"] = $data_merit;
-                $percentage = $data_merit * 0.3;
-                $arr[$key]["percentage"] = $percentage;
             }
         
         }
@@ -253,4 +277,12 @@ class MeritanddemeritController extends Controller
         }
         return $arr;
     }
+
+    // public function store(PerformanceRequest $request)
+    // {
+    //     Performance::create($request->validated());
+
+    //     return to_route('platoon_leader.meritandemerit.index')->with(['success' => 'Student Performance Record Added Successfully']);
+    // }
+
 }

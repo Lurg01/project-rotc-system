@@ -12,7 +12,7 @@ class Performance extends Model
     use 
     BelongsToStudent,
     HasFactory;
-
+    protected $table = 'performances';
     protected $fillable = [
         'student_id',
         'type',

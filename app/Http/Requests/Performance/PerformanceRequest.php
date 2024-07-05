@@ -23,23 +23,26 @@ class PerformanceRequest extends FormRequest
      */
     public function rules()
     {
-        return match ($this->method()) {
-            
-            'POST' => [
-                'student_id' => ['required'],
-                'type' => ['required'],
-                'points' => ['required'],
-                'remark' => ['required'],
-            ],
-            'PUT' => [
-                'student_id' => ['required'],
-                'type' => ['required'],
-                'points' => ['required'],
-                'remark' => ['required'],
-            ]
-        };
+        switch ($this->method()) {
+            case 'POST':
+                return [
+                    'student_id' => ['required'],
+                    'type' => ['required'],
+                    'points' => ['required'],
+                    'remark' => ['required'],
+                ];
+            case 'PUT':
+                return [
+                    'student_id' => ['required'],
+                    'type' => ['required'],
+                    'points' => ['required'],
+                    'remark' => ['required'],
+                ];
+            default:
+                return [];
+        }
     }
-
+    
     public function messages()
     {
         return [

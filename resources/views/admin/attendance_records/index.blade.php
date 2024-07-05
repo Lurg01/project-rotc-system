@@ -605,7 +605,7 @@
 
         }
 
-        // submit_record();
+        submit_record();
 
         function update_records(data) {
             console.log(data);
