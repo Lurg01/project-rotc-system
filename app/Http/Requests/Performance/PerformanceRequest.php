@@ -24,6 +24,7 @@ class PerformanceRequest extends FormRequest
     public function rules()
     {
         return match ($this->method()) {
+            
             'POST' => [
                 'student_id' => ['required'],
                 'type' => ['required'],

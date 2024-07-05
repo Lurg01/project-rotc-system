@@ -162,7 +162,6 @@ class StudentGradeController extends Controller
     }
     private function get()
     {
-
         $data_all = Student::with("acadgrade")->get();
         foreach ($data_all as $key => $value) {
             $arr[$key]['id'] = $value->id;

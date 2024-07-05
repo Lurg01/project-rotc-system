@@ -51,7 +51,7 @@
                                         <div class="form-group mb-2">
                                             <label class="form-label">Student ID </label>
                                             <input type="text" class="form-control" name="student_id"
-                                                placeholder="Ex. LRN" required>
+                                                placeholder="ID #" required>
                                         </div>
 
                                         <div class="form-group mb-2">

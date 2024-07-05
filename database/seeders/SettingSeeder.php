@@ -17,7 +17,8 @@ class SettingSeeder extends Seeder
     {
         Setting::create([
             'color_theme' => '#4AB19D',
-            'time_in' => '08:00:00' // 8AM
+            'time_in' => '08:00:00', // 8AM
+            'time_out' => '17:00:00' // 5AM
         ]);
     }
 }

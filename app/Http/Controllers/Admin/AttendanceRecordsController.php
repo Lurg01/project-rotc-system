@@ -91,8 +91,9 @@ class AttendanceRecordsController extends Controller
             else {
 
                 $student_attendance = AttendanceRecordsResource::collection(AttendanceRecordsModel::query()
-                ->with('students')
-                ->get());
+                    ->with('students')
+                    ->get());
+               
             }
 
             return DataTables::of($student_attendance)->addIndexColumn()->make(true);

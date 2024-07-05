@@ -15,7 +15,7 @@
             <div id="atn_record_alert" class="alert alert-success hide" role="alert">
                 {{ __('Successfully Added to Attendance Record') }}
             </div>
-            <!-- <div>
+            {{-- <div>
                     <div class="card">
                         <div class="card-header">
                             Add Attendance Record
@@ -56,11 +56,30 @@
                         </button>
                         </div>
                     </div>
-                </div> -->
+                </div>   --}}
             <br>
-            <div>
-
-            </div>
+            <form>
+                <div class="form-group">
+                    <select id="filter_sem" class="form-control form-control-sm mb-4" onchange="filterStudentBySemester(this)">
+                        <option value="0">--- All Semester ---
+                        </option>
+                        @foreach ($semesters as $id => $semester)
+                        @if($semester == 1)
+                        <option value="{{ $semester }}">{{ $semester }}st Semester</option>
+                        @else
+                        <option value="{{ $semester }}">{{ $semester }}nd Semester</option>
+                        @endif
+                        @endforeach
+                    </select>
+                    <select id="filter_year" class="form-control form-control-sm" onchange="filterStudentByYear(this)">
+                        <option value="0">--- All Years---
+                        </option>
+                        @foreach ($years as $id => $year)
+                        <option value="{{ $year }}">{{ $year }} - {{ $year+1 }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </form>
             <div class="card">
                 <div class="card-header">
                     List Attendance Record
@@ -70,6 +89,7 @@
                         <table class="table table-hover attendance_dt">
                             <thead>
                                 <tr>
+                                    <th>ID#</th>
                                     <th>Student ID</th>
                                     <th>Student</th>
                                     <th>1st</th>
@@ -109,143 +129,144 @@
 
 @section('script')
 <script>
-    let obj = [{
-        student_id: ""
-    }];
+    // let obj = [{
+    //     student_id: ""
+    // }];
 
-    const list_columns = [{
-            data: "student_id",
-            render(data) {
-                return data;
-            },
-        },
-        {
-            data: "student",
-            render(data) {
-                return data;
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "attendance_records",
-            render(data) {
-                return data[0]['day_two'];
-            },
-        },
-        {
-            data: "total_points",
-            render(data) {
-                if (data) {
-                    return data;
-                } else {
-                    return 0;
-                }
-            },
-        },
-        {
-            data: "average",
-            render(data) {
-                if (data) {
-                    return data;
-                } else {
-                    return 0;
-                }
-            },
-        },
-        {
-            data: "percentage_record",
-            render(data) {
-                if (data == "" || data == null) {
-                    return "0%";
-                } else {
-                    return data + "%";
-                }
-            },
-        },
-    ];
+    // const list_columns = [{
+    //         data: "student_id",
+    //         render(data) {
+    //             return data;
+    //         },
+    //     },
+    //     {
+    //         data: "student",
+    //         render(data) {
+    //             return data;
+    //         },
+    //     },
+    //     {
+    //         data: "attendance_records",
+    //         render(data) {
+    //             return data[0]['day_two'];
+    //         },
+    //     },
+    //     {
+    //         data: "attendance_records",
+    //         render(data) {
+    //             return data[0]['day_two'];
+    //         },
+    //     },
+    //     {
+    //         data: "attendance_records",
+    //         render(data) {
+    //             return data[0]['day_two'];
+    //         },
+    //     },
+    //     {
+    //         data: "attendance_records",
+    //         render(data) {
+    //             return data[0]['day_two'];
+    //         },
+    //     },
+    //     {
+    //         data: "attendance_records",
+    //         render(data) {
+    //             return data[0]['day_two'];
+    //         },
+    //     },
+    //     {
+    //         data: "attendance_records",
+    //         render(data) {
+    //             return data[0]['day_two'];
+    //         },
+    //     },
+    //     {
+    //         data: "attendance_records",
+    //         render(data) {
+    //             return data[0]['day_two'];
+    //         },
+    //     },
+    //     {
+    //         data: "attendance_records",
+    //         render(data) {
+    //             return data[0]['day_two'];
+    //         },
+    //     },
+    //     {
+    //         data: "attendance_records",
+    //         render(data) {
+    //             return data[0]['day_two'];
+    //         },
+    //     },
+    //     {
+    //         data: "attendance_records",
+    //         render(data) {
+    //             return data[0]['day_two'];
+    //         },
+    //     },
+    //     {
+    //         data: "attendance_records",
+    //         render(data) {
+    //             return data[0]['day_two'];
+    //         },
+    //     },
+    //     {
+    //         data: "attendance_records",
+    //         render(data) {
+    //             return data[0]['day_two'];
+    //         },
+    //     },
+    //     {
+    //         data: "attendance_records",
+    //         render(data) {
+    //             return data[0]['day_two'];
+    //         },
+    //     },
+    //     {
+    //         data: "attendance_records",
+    //         render(data) {
+    //             return data[0]['day_two'];
+    //         },
+    //     },
+    //     {
+    //         data: "attendance_records",
+    //         render(data) {
+    //             return data[0]['day_two'];
+    //         },
+    //     },
+    //     {
+    //         data: "total_points",
+    //         render(data) {
+    //             if (data) {
+    //                 return data;
+    //             } else {
+    //                 return 0;
+    //             }
+    //         },
+    //     },
+    //     {
+    //         data: "average",
+    //         render(data) {
+    //             if (data) {
+    //                 return data;
+    //             } else {
+    //                 return 0;
+    //             }
+    //         },
+    //     },
+    //     {
+    //         data: "percentage_record",
+    //         render(data) {
+    //             if (data == "" || data == null) {
+    //                 return "0%";
+    //             } else {
+    //                 return data + "%";
+    //             }
+    //         },
+    //     },
+    // ];
+
     // var table = $('.student_dt').DataTable({
     //     processing: true,
     //     serverSide: true,
@@ -289,17 +310,19 @@
     //     ]
     // });
 
-    // $('.attendance_dt').DataTable({
+    
+    // c_index(
+    //     $(".attendance_dt"),
+    //     "{{ route('platoon_leader.show') }}",
+    //     list_columns,
+    //     1,
+    //     true
+    // );
+
+       // $('.attendance_dt').DataTable({
     //     ajax: "{{ route('platoon_leader.show') }}",
     //     columns: list_columns,
     // });
-    c_index(
-        $(".attendance_dt"),
-        "{{ route('platoon_leader.show') }}",
-        list_columns,
-        1,
-        true
-    );
 
     function filterAttendanceRecords() {
         const record_columns = [{

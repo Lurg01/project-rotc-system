@@ -45,7 +45,7 @@ use App\Http\Controllers\Main\{
     PagesController
 };
 
-use App\Http\Controllers\FilterController;
+// use App\Http\Controllers\FilterController;
 
 // Platoon Leader Restful Controller
 use App\Http\Controllers\PlatoonLeader\{
@@ -173,7 +173,7 @@ Route::resource('semesteryear', SemesteryearController::class);
 
 
 
-Route::post('/filter', [FilterController::class, 'store'])->name('filter.store');
+// Route::post('/filter', [FilterController::class, 'store'])->name('filter.store');
 
 // Route::get('linkstorage', function () {
 //     Artisan::call('storage:link');

@@ -97,6 +97,7 @@
                     }));
                     console.log(res);
                     const student = res.data.student
+                    // if (student.std)
                     let output = `
                        <center>
                             ${handleNullAvatar(student.avatar, '', 150)} <br> <br>
@@ -110,7 +111,9 @@
                     `
                     $('#display_student').html(output)
                     $('.attendance_dt').DataTable().draw(); // update dt
+
                     success(res.data.success);
+                    
                 } catch (e) {
                     const responses = e.response.data.errors;
                     if (responses) {

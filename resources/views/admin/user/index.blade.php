@@ -16,12 +16,12 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Avatar</th>
+                                        <th>Image</th>
                                         <th>Name</th>
                                         <th>Verified</th>
                                         <th>Role</th>
                                         <th>Status</th>
-                                        <th>Registered At</th>
+                                        <th>Date Registered</th>
                                         <th></th>
                                     </tr>
                                 </thead>

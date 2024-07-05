@@ -166,7 +166,7 @@ class StudentController extends Controller
         return $students;
     }
 
-    private function platoonAndyear($request) {
+    private function platoonAndyear($request) { 
         $students = StudentResource::collection(
             Student::query()
                 ->when($request->filled('platoon'), fn ($query) => $query->where('platoon_id', $request->platoon))  

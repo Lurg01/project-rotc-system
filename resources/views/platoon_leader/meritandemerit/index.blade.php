@@ -16,8 +16,28 @@
                 <div id="atn_record_alert" class="alert alert-success hide" role="alert">
                     {{ __('Successfully Updated Record') }}
                 </div>
-            <div>
-        </div>
+                <form>
+                    <div class="form-group">
+                        <select id="filter_sem" class="form-control form-control-sm mb-4" onchange="filterStudentBySemester(this)">
+                            <option value="0">--- All Semester ---
+                            </option>
+                            @foreach ($semesters as $id => $semester)
+                            @if($semester == 1)
+                            <option value="{{ $semester }}">{{ $semester }}st Semester</option>
+                            @else
+                            <option value="{{ $semester }}">{{ $semester }}nd Semester</option>
+                            @endif
+                            @endforeach
+                        </select>
+                        <select id="filter_year" class="form-control form-control-sm" onchange="filterStudentByYear(this)">
+                            <option value="0">--- All Years---
+                            </option>
+                            @foreach ($years as $id => $year)
+                            <option value="{{ $year }}">{{ $year }} - {{ $year+1 }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </form>
                 <div>
                     <div class="card shadow">
                         <div class="card-body">
@@ -31,10 +51,11 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="table-responsive">
-                                                <table class="table table-hover attendance_dt">
+                                                <table class="table table-hover merit_n_dmerit_dt">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
+                                                            <th>ID#</th>
+                                                            <th>Student ID</th>
                                                             <th>Students</th>
                                                             <th>Merit</th>
                                                             <th>Demerits</th>
@@ -63,66 +84,66 @@
 
 @section('script')
 <script>
-    let day_d = 1;
-    let obj =[{student_id:""}];
-    let numc = 0;
-    let sy = 0;
-    const list_columns = [
-            {
-                data: "student_id",
-                render(data) {
-                    numc=data;
-                    return data;
-                },
-            },
-            {
-                data: "student",
-                render(data) {
-                    return data;
-                },
-            },
-            {
-                data: "merits",
-                render(data) {
-                    return '<input disabled type="number" value="'+data+'"  maxlength="3" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" >';
-                },
-            },
-            {
-                data: "demerits",
-                render(data) {
-                    return '<input disabled type="number" value="'+data+'" maxlength="3" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">';
-                },
-            },
-            {
-                data: "total_points",
-                render(data) {
-                    return data;
-                },
-            },
-            {
-                data: "percentage",
-                render(data) {
-                    return data+"%";
-                },
-            },
-            // {
-            //     data: "student_id",
-            //     render(data) {
-            //         return "<button class='btn btn-sm btn-primary' onclick=update_records("+data+")>UPDATE </button>";
-            //     },
-            // },
-    ];
+    // let day_d = 1;
+    // let obj =[{student_id:""}];
+    // let numc = 0;
+    // let sy = 0;
+    // const list_columns = [
+    //         {
+    //             data: "student_id",
+    //             render(data) {
+    //                 numc=data;
+    //                 return data;
+    //             },
+    //         },
+    //         {
+    //             data: "student",
+    //             render(data) {
+    //                 return data;
+    //             },
+    //         },
+    //         {
+    //             data: "merits",
+    //             render(data) {
+    //                 return '<input disabled type="number" value="'+data+'"  maxlength="3" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" >';
+    //             },
+    //         },
+    //         {
+    //             data: "demerits",
+    //             render(data) {
+    //                 return '<input disabled type="number" value="'+data+'" maxlength="3" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">';
+    //             },
+    //         },
+    //         {
+    //             data: "total_points",
+    //             render(data) {
+    //                 return data;
+    //             },
+    //         },
+    //         {
+    //             data: "percentage",
+    //             render(data) {
+    //                 return data+"%";
+    //             },
+    //         },
+    //         // {
+    //         //     data: "student_id",
+    //         //     render(data) {
+    //         //         return "<button class='btn btn-sm btn-primary' onclick=update_records("+data+")>UPDATE </button>";
+    //         //     },
+    //         // },
+    // ];
     
-    var table = $('.attendance_dt').DataTable({
-            ajax: {
-                url: '{{URL::to("platoon_leader/merits-demerits/get")}}',
-                type: 'GET',
-            },
-            stateSave: true,
-            processing: true,
-            serverSide: true,
-            columns: list_columns
-    });
+    // var table = $('.attendance_dt').DataTable({
+    //         ajax: {
+    //             url: '{{URL::to("platoon_leader/merits-demerits/get")}}',
+    //             type: 'GET',
+    //         },
+    //         stateSave: true,
+    //         processing: true,
+    //         serverSide: true,
+    //         columns: list_columns
+    // });
 
     // c_index(
     //     $(".attendance_dt"),

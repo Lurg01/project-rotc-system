@@ -14,6 +14,7 @@ use Yajra\DataTables\Facades\DataTables;
 use App\Http\Resources\Student\StudentResource;
 use App\Http\Resources\Attendance\AttendanceResource;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Models\semesteryear;
 
 class StudentController extends Controller
 {
@@ -43,25 +44,73 @@ class StudentController extends Controller
         }
         if(request()->ajax())
         {
-            if ($request->course) {
+            // if ($request->platoon) {
+        
+            //     $students = StudentResource::collection(
+            //         Student::query()
+            //             ->when($request->filled('platoon'), fn ($query) => $query->where('platoon_id', $request->platoon))       
+            //             ->with('course', 'platoon', 'user.avatar', 'semesteryears')
+            //             ->get());
+                
+            //     if ($request->platoon && $request->semester) { 
+            //         $students = $this->platoonAndSemester($request);
+            //     }
+            //     if ($request->platoon && $request->year) {
+            //         $students = $this->platoonAndyear($request);
+            //         }
+            //     if ($request->platoon && $request->semester && $request->year) { 
+            //         $students = $this->filterByAll($request);
+            //     }
 
-                $students = StudentResource::collection(Student::query()
-                ->when($request->course, fn($query) => $query->where('course_id', $request->course))
-                ->with('course', 'platoon', 'user.avatar')
-                ->whereBelongsTo(auth()->user()->student->platoon)
-                ->whereRelation('user', 'role_id', Role::STUDENT)
-                ->get());
-            } else {
-                $data = DB::table('filter')->select('semester')->get();
-                foreach ($data as $row) {
-                    $value = $row->semester; // Replace with your actual column name
-                    $students = StudentResource::collection(Student::query()
-                        ->whereHas(('semesteryears'), fn ($query) => $query->where('semester', $value))
-                        ->with('course', 'platoon', 'user.avatar', 'semesteryears')
-                        ->get());
+            // }
+        
+            // else 
+
+            if ($request->semester) {
+                $students = $this->filterBy($request);
+                if ($request->semester && $request->platoon ) { 
+                    $students = $this->platoonAndSemester($request);
+                }
+                if ($request->semester && $request->year) { 
+                    $students = $this->semesterAndyear($request);
+                }
+                if ($request->platoon && $request->semester && $request->year) { 
+                    $students = $this->filterByAll($request);
                 }
             }
+            elseif ($request->year) {
+         
+                    $students = $this->filterBy($request);
+                
+                if ($request->year && $request->semester) { 
+                    $students = $this->semesterAndyear($request);
+                }
+                if ($request->year && $request->platoon) { 
+                    $students = $this->platoonAndyear($request);
+                }
+                if ($request->platoon && $request->semester && $request->year) { 
+                    $students = $this->filterByAll($request);
+                }
+            } 
+            elseif ($request->course) {
+                
+                $students = StudentResource::collection(Student::query()
+                    ->when($request->course, fn($query) => $query->where('course_id', $request->course))
+                    ->with('course', 'platoon', 'user.avatar')
+                    ->whereBelongsTo(auth()->user()->student->platoon)
+                    ->whereRelation('user', 'role_id', Role::STUDENT)
+                    ->get());    
 
+            }
+            else {
+                $students = StudentResource::collection(Student::query()
+                    ->with('course', 'platoon', 'user.avatar', 'semesteryears')
+                    ->whereBelongsTo(auth()->user()->student->platoon)
+                    ->whereRelation('user', 'role_id', Role::STUDENT)
+                    ->get());    
+            }
+    
+        
             return DataTables::of($students) // get all teacher from the current active academic year
                    ->addIndexColumn()
                    ->addColumn('actions', function($row) {
@@ -83,11 +132,107 @@ class StudentController extends Controller
                    ->rawColumns(['actions'])
                    ->make(true);
         }
-
+        $q = semesteryear::distinct('year')->pluck('year', 'id');
+        $sem = semesteryear::distinct('semester')->pluck('semester', 'id');
+        $arr = [];
+        $arr_sem = [];
+        foreach ($q as $key) {
+            if (!in_array($key, $arr)) {
+                array_push($arr, $key);
+            }
+        }
+        foreach ($sem as $key) {
+            if (!in_array($key, $arr_sem)) {
+                array_push($arr_sem, $key);
+            }
+        }
         return view('platoon_leader.student.index', [
             'courses' => Course::pluck('name', 'id'),
+            'years' => $arr,
+            'semesters' => $arr_sem,
         ]);
     }
+
+
+    // private function filterByAll($request) {
+    //     $students = StudentResource::collection(
+    //         Student::query()
+    //             ->when($request->filled('platoon'), fn ($query) => $query->where('platoon_id', $request->platoon))  
+    //             ->with('course', 'platoon', 'user.avatar', 'semesteryears')
+    //             ->whereHas('semesteryears', function ($query) use ($request) {
+    //                 $query->where([
+    //                     ['semester', '=', $request->semester],
+    //                     ['year', '=', $request->year],
+    //                 ]);
+    //             })
+    //             ->get());
+        
+    //     return $students;
+    // }
+
+    // private function platoonAndSemester($request) {
+    //     $students = StudentResource::collection(
+    //         Student::query()
+    //             ->when($request->filled('platoon'), fn ($query) => $query->where('platoon_id', $request->platoon))  
+    //             ->with('course', 'platoon', 'user.avatar', 'semesteryears')
+    //             ->whereHas('semesteryears', function ($query) use ($request) {
+    //                 $query->where([
+    //                     ['semester', '=', $request->semester],
+    //                 ]);
+    //         })->get());
+    //     return $students;
+    // }
+
+    // private function platoonAndyear($request) {
+    //     $students = StudentResource::collection(
+    //         Student::query()
+    //             ->when($request->filled('platoon'), fn ($query) => $query->where('platoon_id', $request->platoon))  
+    //             ->with('course', 'platoon', 'user.avatar', 'semesteryears')
+    //             ->whereHas('semesteryears', function ($query) use ($request) {
+    //                 $query->where([
+    //                     ['year', '=', $request->year],
+    //                 ]);
+    //             })->get());
+    //     return $students;
+    // }
+
+    private function semesterAndyear($request) {
+        $students = StudentResource::collection(
+            Student::query()->when($request->filled('platoon'))->with('course', 'platoon', 'user.avatar', 'semesteryears')
+                ->whereHas('semesteryears', function ($query) use ($request) {
+                    $query->where([
+                        ['semester','=', $request->semester],
+                        ['year', '=', $request->year],
+                    ]);
+                })              
+                ->whereBelongsTo(auth()->user()->student->platoon)
+                ->whereRelation('user', 'role_id', Role::STUDENT)->get());
+        return $students;
+    }
+
+    private function filterBy($request) {
+        $requestFilter = null;
+        $selected = '';
+        if ($request->semester) {
+            $requestFilter = $request->semester;
+            $selected = 'semester';
+        }elseif ($request->year) {
+            $requestFilter = $request->year;
+            $selected = 'year';
+        }
+ 
+        $students = StudentResource::collection(
+            Student::query()->when($request->filled('platoon'))->with('course', 'platoon', 'user.avatar', 'semesteryears')
+                ->whereHas('semesteryears', function ($query) use ($requestFilter, $selected) {
+                    $query->where([
+                        [$selected, '=', $requestFilter],
+                    ]); })
+                ->whereBelongsTo(auth()->user()->student->platoon)
+                ->whereRelation('user', 'role_id', Role::STUDENT)
+                ->get());    
+
+        return $students;
+    } 
 
     public function show(Request $request, Student $student)
     {
@@ -110,7 +255,7 @@ class StudentController extends Controller
             return DataTables::of($attendances)->addIndexColumn()->make(true);
         }
    
-        $string = $student->student_id;
+        $string = $student->student_id; 
         $qrcode = QrCode::eyeColor(0, 45, 206, 137, 0, 0, 0)->size(280)->generate($string);
         return view('platoon_leader.student.show', [
             'student' => $student->load('user.avatar', 'course', 'platoon', 'performances'), 'qrcode' => $qrcode

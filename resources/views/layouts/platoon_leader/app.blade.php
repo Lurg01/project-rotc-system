@@ -31,7 +31,7 @@
                 <!-- Collapse -->
                 <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                     <h5 class="font-weight-normal p-0 text-muted mt-2 mt-md-0 mb-1">
-                        {{ auth()->user()->full_name }}
+                        {{ auth()->user()->student->full_name }} 
                     </h5>
                     <!-- Nav items -->
                     <ul class="navbar-nav">
@@ -141,7 +141,7 @@
             <div class="container-fluid">
                 <h3 class="text-white d-none d-md-block font-weight-normal">
                     {{ config('app.name') }} | <span class="text-uppercase">Platoon -
-                        {{ auth()->user()->name }}</span>
+                        {{ auth()->user()->student->platoon->name }}</span>
                 </h3>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Navbar links -->

@@ -43,7 +43,7 @@
                 <!-- Collapse -->
                 <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                     <h5 class="font-weight-normal p-0 text-muted mt-2 mt-md-0 mb-1">
-                        {{ auth()->user()->name }}
+                        {{ auth()->user()->name }} 
                     </h5>
                     <!-- Nav items -->
                     <ul class="navbar-nav">

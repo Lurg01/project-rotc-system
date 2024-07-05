@@ -11,6 +11,25 @@
             <div class="col-md-12">
                 <form>
                     <div class="form-group">
+                        <select id="filter_sem" class="form-control form-control-sm mb-4" onchange="filterStudentBySemester(this)">
+                            <option value="0">--- All Semester ---
+                            </option>
+                            @foreach ($semesters as $id => $semester)
+                            @if($semester == 1)
+                            <option value="{{ $semester }}">{{ $semester }}st Semester</option>
+                            @else
+                            <option value="{{ $semester }}">{{ $semester }}nd Semester</option>
+                            @endif
+                            @endforeach
+                        </select>
+                        <select id="filter_year" class="form-control form-control-sm" onchange="filterStudentByYear(this)">
+                            <option value="0">--- All Years---
+                            </option>
+                            @foreach ($years as $id => $year)
+                            <option value="{{ $year }}">{{ $year }} - {{ $year+1 }}</option>
+                            @endforeach
+                        </select>
+                        <br>
                         <select class="form-control form-control-sm" onchange="filterStudentByCourse(this)">
                             <option value="0">--- All Courses---
                             </option>

@@ -102,25 +102,25 @@
     </section>
     <!-- End Page content -->
 @endsection
-@section('script')
+{{-- @section('script')
     <script type="text/javascript">
-        // document.getElementById('filter_sem').addEventListener('change', function() {
-        //     if (this.value) {
-        //         console.log("Heyyyyyyyyyyyyyyyyyyyyyyyyyy ",   this.value);
-        //     }
-        // });
+        document.getElementById('filter_sem').addEventListener('change', function() {
+            if (this.value) {
+                console.log("Heyyyyyyyyyyyyyyyyyyyyyyyyyy ",   this.value);
+            }
+        });
 
-        // $(document).ready(function() {
-        //     $('#myModal').modal('hide');
+        $(document).ready(function() {
+            $('#myModal').modal('hide');
 
-        // });
+        });
 
-        // $(document).ready(function() {
-        //     $('#myModal').modal({
-        //         backdrop: 'static',
-        //         keyboard: false
-        //     });
-        // });
+        $(document).ready(function() {
+            $('#myModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        });
 
     </script>
-@endsection
+@endsection --}}

@@ -10,18 +10,24 @@ use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\AttendanceRecords\AttendanceRecordsRequest;
-use App\Http\Resources\Attendance\AttendanceRecordsResource;
+// use App\Http\Resources\Attendance\AttendanceRecordsResource;
 use Illuminate\Support\Facades\DB;
 use App\Models\Role;
+use App\Http\Resources\Student\StudentResource;
 use App\Models\Student;
 use App\Models\AttendanceRecords;
+use App\Models\semesteryear;
+use App\Models\AttendanceRecordsModel; 
+use App\Http\Resources\AttendanceRecords\AttendanceRecordsResource;
+
+
+
 
 
 class AttendanceRecordsController extends Controller
 {
     public function index(Request $request)
     {
-
         $sdata = Otp::where('userid', auth()->id())->first();
         $request_data = $sdata["status"] ?? null;
         if ($request_data == null) {
@@ -37,21 +43,75 @@ class AttendanceRecordsController extends Controller
         }
 
         if (request()->ajax()) {
-            if ($request->query('course') == "") {
-                $student_data = DB::table('students')->leftJoin('courses', 'students.course_id', '=', 'courses.id')->get();
-                return  DataTables::of($student_data)->addIndexColumn()->make(true);
-            } else {
-                $student_data = DB::table('students')->leftJoin('courses', 'students.course_id', '=', 'courses.id')->where('courses.id', '=', $request->query('course'))->get();
-                return  DataTables::of($student_data)->addIndexColumn()->make(true);
+       
+            if ($request->semester) {
+                $student_attendance = $this->filterBy($request);
+                
+            }
+            elseif ($request->year) {
+                $student_attendance = $this->filterBy($request);
+            }
+            else {
+                $student_attendance = AttendanceRecordsModel::query()
+                    ->whereHas(('students.platoon'), fn ($query) => $query->where('platoon_id', auth()->user()->student->platoon_id))
+                    ->where( [['id', '!=', 1]])
+                    ->with('students')
+                    ->get();    
+                foreach ($student_attendance as $key => $value){
+                    $student_attendance[$key]['student_id'] = $value->student_id - 1;
+                }
+            }   
+          
+            return DataTables::of($student_attendance)->addIndexColumn()->make(true);
+        }
+
+        $q = semesteryear::distinct('year')->pluck('year', 'id');
+        $sem = semesteryear::distinct('semester')->pluck('semester', 'id');
+        $arr = [];
+        $arr_sem = [];
+        foreach ($q as $key) {
+            if (!in_array($key, $arr)) {
+                array_push($arr, $key);
+            }
+        }
+        foreach ($sem as $key) {
+            if (!in_array($key, $arr_sem)) {
+                array_push($arr_sem, $key);
             }
         }
 
-        $data = DB::table('attendance_records')->get();
-        $course = DB::table('courses')->get();
-        $student_data = DB::table('students')->leftJoin('courses', 'students.course_id', '=', 'courses.id')->get();
+        return view('platoon_leader.attendance_records.index' , [
+            'years' => $arr,
+            'semesters' => $arr_sem,
+        ]);
 
-        return view('platoon_leader.attendance_records.index', ['course' => $course, 'datas' => $data, 'student_data' => $student_data]);
+        // return view('platoon_leader.attendance_records.index', ['course' => $course, 'datas' => $data, 'student_data' => $student_data]);
+
     }
+
+    private function filterBy($request) {
+        
+        $requestFilter = null;
+        $selected = '';
+    
+        if ($request->semester) {
+            $requestFilter = $request->semester;
+            $selected = 'semester';
+        } elseif ($request->year) {
+            $requestFilter = $request->year;
+            $selected = 'year';
+        }
+
+        $student_attendance = AttendanceRecordsModel::query()
+            ->whereHas(('students.semesteryears'), fn ($query) => $query->where('platoon_id', auth()->user()->student->platoon_id)
+            ->where($selected,  $requestFilter))
+            ->where( [['id', '!=', 1]])
+            ->with('students')
+            ->get();  
+
+        return $student_attendance;
+    }
+    
 
     public function create(Request $data)
     {

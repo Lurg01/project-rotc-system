@@ -21,7 +21,9 @@ class AttendanceResource extends JsonResource
             'schedule' => formatDate($this->created_at),
             'date_time_in' => $this->date_time_in ? formatDate($this->date_time_in, 'dateTime') : '',
             'date_time_out' => $this->date_time_out ? formatDate($this->date_time_out, 'dateTime') : '',
-            'status' => is_null($this->date_time_in) && is_null($this->date_time_out) ? 'Absent' : 'Present',
+            'status' => !is_null($this->date_time_in) && is_null($this->date_time_out) ? 
+                        'Pending' : (!is_null($this->date_time_in) && !is_null($this->date_time_out) ? 
+                        'Present' : 'Absent'),
         ];
     }
 }

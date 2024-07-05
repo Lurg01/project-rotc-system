@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('color_theme');
             $table->time('time_in');
+            $table->time('time_out');
             $table->timestamps();
         });
     }
