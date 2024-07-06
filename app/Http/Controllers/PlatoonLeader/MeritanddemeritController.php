@@ -111,9 +111,6 @@ class MeritanddemeritController extends Controller
         $stud = [];
         $arr = [];
         $c = 0;
-        $tottal_meritandpoints = 100;
-        $total_demerits = 0;
-        $lastItem = end($stud);
 
         foreach ($data as $key => $value) {
             if ($value->student_id == $student_id[$c]) { 
@@ -133,6 +130,7 @@ class MeritanddemeritController extends Controller
 
                     if ($data_demerit <= 0 ){
                         $data_demerit = 0;
+                        $data_merit = 100;
                     }
                     if ($data_merit <= 0 ) {
                         $data_merit = 100;
@@ -150,6 +148,7 @@ class MeritanddemeritController extends Controller
                  
                     if ($data_demerit >= 100) {
                         $data_demerit = 100;
+                        $data_merit = 0;
                     }
 
                 
