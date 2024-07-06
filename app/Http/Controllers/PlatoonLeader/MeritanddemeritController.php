@@ -204,28 +204,36 @@ class MeritanddemeritController extends Controller
                             ["student_id","=",$value->student_id],
                             ["type","=","demerit"]
                             ])->sum('points');
-                        if ($data_demerit < $data_merit || $data_demerit >= $data_merit) {
-                            $data_demerit = $data_demerit - $data_merit;
-                        }
-                        elseif ($data_demerit > $data_merit || $data_demerit <= $data_merit) {
-                            $data_merit = $data_merit + $data_demerit;
-                        }
-        
-                        if ($data_merit >= 100 ) {
+
+                        if ($data_demerit <= 0 ){
+                            $data_demerit = 0;
                             $data_merit = 100;
-                        }elseif ($data_merit <= 0){
-                            $data_merit = 0;
                         }
+                        if ($data_merit <= 0 ) {
+                            $data_merit = 100;
+                        }
+                    
+    
+                        if ($data_demerit > 0) {
+                            $data_merit -= $data_demerit;             
+                        }    
+    
+    
+                        if ($data_merit >= 100) {
+                            $data_merit = 100;
+                        }
+                        
                         if ($data_demerit >= 100) {
                             $data_demerit = 100;
-                        }elseif ($data_demerit <= 0){
-                            $data_demerit = 0;
+                            $data_merit = 0;
                         }
+    
+                    
                         $arr[$key]["demerits"] = $data_demerit;
                         $arr[$key]["merits"] = $data_merit;
                         $arr[$key]["total_points"] = $data_merit;
                         $percentage = $data_merit * 0.3;
-                        $arr[$key]["percentage"] = $percentage;                                   
+                        $arr[$key]["percentage"] = $percentage;                     
                     }
                 }
             }
@@ -248,23 +256,31 @@ class MeritanddemeritController extends Controller
                             ["student_id","=",$value->student_id],
                             ["type","=","demerit"]
                             ])->sum('points');
-                        if ($data_demerit < $data_merit || $data_demerit >= $data_merit) {
-                            $data_demerit = $data_demerit - $data_merit;
-                        }
-                        elseif ($data_demerit > $data_merit || $data_demerit <= $data_merit) {
-                            $data_merit = $data_merit + $data_demerit;
-                        }
-        
-                        if ($data_merit >= 100 ) {
+                            
+                        if ($data_demerit <= 0 ){
+                            $data_demerit = 0;
                             $data_merit = 100;
-                        }elseif ($data_merit <= 0){
-                            $data_merit = 0;
                         }
+                        if ($data_merit <= 0 ) {
+                            $data_merit = 100;
+                        }
+                    
+    
+                        if ($data_demerit > 0) {
+                            $data_merit -= $data_demerit;             
+                        }    
+    
+    
+                        if ($data_merit >= 100) {
+                            $data_merit = 100;
+                        }
+                        
                         if ($data_demerit >= 100) {
                             $data_demerit = 100;
-                        }elseif ($data_demerit <= 0){
-                            $data_demerit = 0;
+                            $data_merit = 0;
                         }
+    
+                    
                         $arr[$key]["demerits"] = $data_demerit;
                         $arr[$key]["merits"] = $data_merit;
                         $arr[$key]["total_points"] = $data_merit;
