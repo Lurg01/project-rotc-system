@@ -67,7 +67,7 @@ class MeritanddemeritController extends Controller
         
             }
             else {
-                $attendances = $this->getData($request);
+                $attendances = $this->getData();
             }
 
             return DataTables::of($attendances)->addIndexColumn()->make(true);
@@ -96,24 +96,15 @@ class MeritanddemeritController extends Controller
         // return view('platoon_leader.meritandemerit.index');  
     }
 
-    private function getData($request)
+    private function getData()
     {
-        $student_id = [];
-        $data_all =StudentResource::collection(Student::with("acadgrade")
-            ->with('course', 'platoon', 'user.avatar')
-            ->whereBelongsTo(auth()->user()->student->platoon)
-            ->whereRelation('user', 'role_id', Role::STUDENT)->get());
-        foreach($data_all as $key => $value) {
-            $student_id[$key] = $value->id;
-        }
-
+   
         $data = Performance::with("students")->orderBy('student_id')->get();
         $stud = [];
         $arr = [];
         $c = 0;
 
         foreach ($data as $key => $value) {
-            if ($value->student_id == $student_id[$c]) { 
                 if(!in_array($value->student_id,$stud)){
                     $stud[$c] = $value->student_id;
                     $c+=1;
@@ -137,13 +128,14 @@ class MeritanddemeritController extends Controller
                     }
                 
 
-                    if ($data_demerit > 0) {
+                    if ($data_demerit >= 0 && $data_demerit <= 100 ) {
                         $data_merit -= $data_demerit;             
                     }    
 
 
                     if ($data_merit >= 100) {
                         $data_merit = 100;
+                        $data_demerit = 0;
                     }
                  
                     if ($data_demerit >= 100) {
@@ -157,11 +149,7 @@ class MeritanddemeritController extends Controller
                     $arr[$key]["total_points"] = $data_merit;
                     $percentage = $data_merit * 0.3;
                     $arr[$key]["percentage"] = $percentage;
-
-                  
                 }
-            }
-        
         }
         return $arr;
     }

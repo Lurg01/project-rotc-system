@@ -38,11 +38,11 @@
                                     <div class="form-group">
                                         <label class="form-label">Type *</label>
                                         <select class="form-control" name="type" required>
-                                            <option value=""></option>
+                                            {{-- <option value=""></option>
                                             <option value="merit">
                                                 Merit
-                                            </option>
-                                            <option value="demerit">
+                                            </option> --}}
+                                            <option value="demerit" @selected(true)>
                                                 Demerit
                                             </option>
                                         </select>
