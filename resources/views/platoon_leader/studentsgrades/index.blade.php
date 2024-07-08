@@ -67,78 +67,78 @@
 @section('script')
 <script>
 
-    //   let stid = 0;
-    //   let acad = 0;
-    //   let attendance = 0;
-    //   let aptitude = 0;
+      let stid = 0;
+      let acad = 0;
+      let attendance = 0;
+      let aptitude = 0;
 
-    //   const list_columns = [
-    //             {
-    //                 data: "id",
-    //                 render(data) {
-    //                     return data;
-    //                 },
-    //             },
-    //             {
-    //                 data: "student_id",
-    //                 render(data) {
-    //                     stid = data;
-    //                     return data;
-    //                 },
-    //             },
-    //             {
-    //                 data: "student",
-    //                 render(data) {
-    //                     return data;
-    //                 },
-    //             },
-    //             {
-    //                 data: "attendance",
-    //                 render(data) {
-    //                     attendance = data;
-    //                     return "<p id='attendance-"+stid+"'>"+data+"</p>";
-    //                 },
-    //             },
-    //             {
-    //                 data: "aptitude",
-    //                 render(data) {
-    //                     aptitude = data;
-    //                     return "<p id='aptitude-"+stid+"'>"+data+"</p>";
-    //                 },
-    //             },
-    //             {
-    //                 data: "acad",
-    //                 render(data) {
-    //                     acad = data;
-    //                     return '<input id="acad-'+stid+'" value="" >';
-    //                     // return '<input id="acad-'+stid+'" value="'+data+'" type="number">';
-    //                 },
-    //             },
-    //             {
-    //                 data: "grade",
-    //                 render(data) {
-    //                     let a = parseInt(attendance) + parseInt(aptitude) + parseInt(acad);
-    //                     if(a !== a) {
-    //                         a = 0;
-    //                     }
-    //                     return a;
-    //                 },
-    //             },
-    //             {
-    //                 data: "student_id",
-    //                 render(data) {
-    //                     return "<button class='btn btn-sm btn-primary' onclick=update_records("+data+")>UPDATE </button>";
-    //                 },
-    //             },
-    //     ];
+      const grade_columns = [
+                {
+                    data: "id",
+                    render(data) {
+                        return data;
+                    },
+                },
+                {
+                    data: "student_id",
+                    render(data) {
+                        stid = data;
+                        return data;
+                    },
+                },
+                {
+                    data: "student",
+                    render(data) {
+                        return data;
+                    },
+                },
+                {
+                    data: "attendance",
+                    render(data) {
+                        attendance = data;
+                        return "<p id='attendance-"+stid+"'>"+data+"</p>";
+                    },
+                },
+                {
+                    data: "aptitude",
+                    render(data) {
+                        aptitude = data;
+                        return "<p id='aptitude-"+stid+"'>"+data+"</p>";
+                    },
+                },
+                {
+                    data: "acad",
+                    render(data) {
+                        acad = data;
+                        return '<input id="acad-'+stid+'" value="" >';
+                        // return '<input id="acad-'+stid+'" value="'+data+'" type="number">';
+                    },
+                },
+                {
+                    data: "grade",
+                    render(data) {
+                        let a = parseInt(attendance) + parseInt(aptitude) + parseInt(acad);
+                        if(a !== a) {
+                            a = 0;
+                        }
+                        return a;
+                    },
+                },
+                {
+                    data: "student_id",
+                    render(data) {
+                        return "<button class='btn btn-sm btn-primary' onclick=update_records("+data+")>UPDATE </button>";
+                    },
+                },
+        ];
 
-    // var table = $('.grade_dt').DataTable({
-    //     processing: true,
-    //     serverSide: true,
-    //     "bPaginate": false,
-    //     ajax: "{{URL::to("platoon_leader/studentgrade/show")}}",
-    //     columns: list_columns
-    // });
+    var table = $('.grade_dt').DataTable({
+        processing: true,
+        serverSide: true,
+        "bPaginate": false,
+        ajax: "{{URL::to("platoon_leader/studentgrade/index")}}",
+        columns: grade_columns
+    });
 
 
     
@@ -156,8 +156,8 @@
 
         c_index(
             $(".grade_dt"),
-            route('platoon_leader.studentgrade.create',formData_dem),
-            list_columns,
+            route('platoon_leader.studentgrade.index',formData_dem),
+            grade_columns,
             null,
             true
         );

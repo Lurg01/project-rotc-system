@@ -108,7 +108,7 @@ class MeritanddemeritController extends Controller
                 if(!in_array($value->student_id,$stud)){
                     $stud[$c] = $value->student_id;
                     $c+=1;
-                    $arr[$key]["student_id"] = $value->student_id;
+                    $arr[$key]["student_id"] = $value->students->student_id;
                     $arr[$key]["student"] = $value->students->first_name." ".$value->students->last_name;
                     $data_merit = Performance::where([
                         ["student_id","=",$value->student_id],
